@@ -24,8 +24,8 @@ public class Map {
 	
 	public void move(int x, int y){ // Move method
 		if (grid[x][y] != 'E'){ // Lets the player move to any space where the enemy isn't.
-			for(int i = 0; i < x; i++) {
-				for(int j = 0; j < y; j++) {
+			for(int i = 0; i < grid.length; i++) {
+				for(int j = 0; j < grid.length; j++) {
 					if(grid[i][j] == 'P'){ // Changes the previous player position into an empty space.
 							grid[i][j] = 'O';
 							grid[x][y] = 'P';
@@ -49,7 +49,7 @@ public class Map {
 		return result;
 	}
 	
-		public static void main(String[] args) { // temporary main method to test out the map and methods.
+		public static void main(String[] args) { // temporary main method to test out the map, methods, and invalid moves.
 			Map b = new Map(5, 5);
 			b.setPlayerPosition(4, 2);
 			b.setEnemyPosition(1, 2);
