@@ -3,8 +3,8 @@ public class Map {
 	
 	private char[][] grid;
 	
-	public Map() {
-		grid = new char[5][5];
+	public Map(int x, int y) {
+		this.grid = new char[x][y];
 		for (int i = 0; i < grid.length; i++) {
 			for(int j = 0; j < grid.length; j++) {
 				grid[i][j] = 'O'; // O for empty space.
@@ -24,8 +24,8 @@ public class Map {
 	
 	public void move(int x, int y){ // Move method
 		if (grid[x][y] != 'E'){ // Lets the player move to any space where the enemy isn't.
-			for(int i = 0; i < 5; i++) {
-				for(int j = 0; j < 5; j++) {
+			for(int i = 0; i < x; i++) {
+				for(int j = 0; j < y; j++) {
 					if(grid[i][j] == 'P'){ // Changes the previous player position into an empty space.
 							grid[i][j] = 'O';
 							grid[x][y] = 'P';
@@ -40,8 +40,8 @@ public class Map {
 	
 	public String toString() { // String with map.
 		String result = "";
-		for (int i = 0; i < 5; i++) {
-			for (int j = 0; j < 5; j++) {
+		for (int i = 0; i < grid.length; i++) {
+			for (int j = 0; j < grid.length; j++) {
 				result += grid[i][j] + " ";
 			}
 			result += "\n";
@@ -49,15 +49,17 @@ public class Map {
 		return result;
 	}
 	
-	public static void main(String[] args) { // temporary main method to test out the map, methods and invalid message.
-		Map b = new Map();
-		b.setPlayerPosition(4, 2);
-		b.setEnemyPosition(1, 2);
-		b.setEnemyPosition(3, 4);
-		b.move(1, 2);
-		System.out.println(b);
-		
-		
-	}
+		public static void main(String[] args) { // temporary main method to test out the map and methods.
+			Map b = new Map(5, 5);
+			b.setPlayerPosition(4, 2);
+			b.setEnemyPosition(1, 2);
+			b.setEnemyPosition(3, 4);
+			b.move(1, 2);
+			System.out.println(b);
+			
+			
+		}
+	
+	
 	
 }
