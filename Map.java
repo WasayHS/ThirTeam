@@ -49,12 +49,12 @@ public class Map {
 		return result;
 	}
 	
-	public static void main(String[] args) { // temporary main method to test out the map and methods.
+	public static void main(String[] args) { // temporary main method to test out the map, methods and invalid message.
 		Map b = new Map();
-		b.setPlayerPosition(0, 0);
+		b.setPlayerPosition(4, 2);
 		b.setEnemyPosition(1, 2);
 		b.setEnemyPosition(3, 4);
-		b.move(4, 2);
+		b.move(1, 2);
 		System.out.println(b);
 		
 		
