@@ -36,7 +36,7 @@ public class AttackType {
 			break;
 		case DEFEND:
 			//put in the math for defend
-			//I have left this blank because I have no idea how this is going to work without a defense stat?
+			//I have left this blank for now
 			break;
 	}
 	}
