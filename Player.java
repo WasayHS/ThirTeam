@@ -2,47 +2,59 @@ import java.util.ArrayList;
 
 public class Player {
 	
-	// instance variables
+// instance variables
 	private int health = 50; // default stats, what is given at the start
 	private int str = 1;
-	private int mag = 1;
+	private int intellect = 1;
+	
 	private ArrayList <Collectible> items = new ArrayList <Collectible>();
 	private Location location;
 	
-	//Constructor
+//Constructor
 	public Player(){
-		this.health = health;
-		this.str = str;
+		this.health = 50;
+		this.str = 1;
 		this.items = items;
-		this.location = location;
-		this.mag = mag;
+		this.location = new Location (0, 0);
+		this.intellect = 1;
 	}
 	
-	// Other Methods
-	public direction getDirection(){
-		return null;// code for user controls (mostly mouse input, minimal keyboard input)
+// Other Methods
+	public Move getMove(){
+		Move m = new Move ();
+		return new Move (m);// code for user controls (mostly mouse input, minimal keyboard input)
 	}
-	public AttackType getMove (Enemy e, boolean ranged){
-		if (ranged){
-			setMag(0);
-			// do a ranged attack
-			// Enemy.fight()
-			// enemy will lose health -> goes to enemy class
-		}else{
-			setStr(0);
-			// Enemy.fight()
-			// do a melee attack
+	public AttackType getAttack (Enemy e){// which attack type is going to be used
+		/// based out of what the user decides which attack is going to be used (TextApp)
+		
+		AttackType type = new AttackType();
+		
+		
+		int numOfTimes = TextApp.getNumOfTimes();
+		boolean win = true;
+		int num = (int)(numOfTimes/3);
+		if(win = true){
+			setHP(num);
+			setStr(num);
+			setIntellect(num);
 		}
-		/* if the player wins then their magic
-		and strength will increase by (int)(numoftimes/3)*/
 			
+			/* if the player wins then their intellect
+			and strength will increase by (int)(numoftimes/3)*/
+		return new AttackType (type);		
 	}
 	
-	//Setters
+	public void gameOver(){
+		System.exit(0);// ends program
+		/// start program again 
+		// goes to main menu
+	}
+	
+//Setters
 	public void setHP(int change){ // player loses health after enemy attacks or gains health after finishing a fight
 		health = health +change;
 		if (health == 0){
-			// game over
+			gameOver();
 		}
 		
 	}
@@ -52,27 +64,32 @@ public class Player {
 		
 	}
 	
-	public void setMag(int m){ // sets the player's ability for ranged attacks (radius and strength of weapon)
-		mag = mag + m;
+	public void setIntellect(int mag){ // sets the player's ability for ranged attacks (radius and strength of weapon)
+		intellect = intellect + mag;
 	}
 	
 	public void setLocation(Location l){
 		location = l;
 	}
-
+	public void setCollectible (Collectible c){
+		items.add(c);
+	}
 	
-	
-	// Getters
+// Getters
 	public int getHP(){
 		return health;
 	}
 	public int getStr(){
 		return str;
 	}
-	public int getMag(){// mag = magic
-		return mag;
+	public int getintellect(){
+		return intellect;
 	}
 	public Location getLocation(){
 		return location;
 	}
+	public ArrayList <Collectible> getCollectibles(){
+		return new ArrayList <Collectible> (items); 
+	}
+
 }
