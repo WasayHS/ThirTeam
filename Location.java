@@ -13,9 +13,9 @@ public class Location {
 		}
 	}
 		
-	public Location(){
-		this.xCoord = xCoord;
-		this.yCoord = yCoord;
+	public Location(Location l){
+		this.xCoord = l.getX();
+		this.yCoord = l.getY();
 	}
 	
 
