@@ -1,12 +1,12 @@
-
 public class AttackType {
 	
 	AttackTypes attack;
 	int damage;
 	Player p;
 	Enemy e;
+	
 
-	AttackType(Player p, enemy e, AttackTypes attack){
+	AttackType(Player p, Enemy e, AttackTypes attack){
 		this.attack = attack;
 		this.p = p;
 		this.e = e;
@@ -38,7 +38,7 @@ public class AttackType {
 			//put in the math for defend
 			//I have left this blank for now
 			break;
-	}
+		}
 	}
 	
 	

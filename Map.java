@@ -1,5 +1,4 @@
-
-public class Map {
+public class Map{
 	
 	private char[][] grid;
 	
@@ -63,20 +62,20 @@ public class Map {
 		return result;
 	}
 	
-	public static void main(String[] args) { // temporary main method to test out the map, methods, and invalid moves.
-		Map b = new Map(5, 5);
-		b.PlayerPosition(4, 2);
-		b.EnemyPosition(1, 2);
-		b.EnemyPosition(3, 3);
-		b.EnemyPosition(0, 0);
-		b.DefeatedEnemy(3, 3);
-		b.move(3, 3);
-		b.DefeatedEnemy(1,2);
-		b.move(1, 2);
-		b.move(0, 0);
-		System.out.println(b);
-		
-	}
+//	public static void main(String[] args) { // temporary main method to test out the map, methods, and invalid moves.
+//		Map b = new Map(5, 5);
+//		b.PlayerPosition(4, 2);
+//		b.EnemyPosition(1, 2);
+//		b.EnemyPosition(3, 3);
+//		b.EnemyPosition(0, 0);
+//		b.DefeatedEnemy(3, 3);
+//		b.move(3, 3);
+//		b.DefeatedEnemy(1,2);
+//		b.move(1, 2);
+//		b.move(0, 0);
+//		System.out.println(b);
+//		
+//	}
 	
 	
 }

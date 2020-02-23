@@ -1,4 +1,3 @@
-
 public enum AttackTypes {
 	MELEE (5,0), //melee has a set damage of 5 
 	RANGED (5,0), //ranged has a set damage of 5
