@@ -3,7 +3,7 @@
 # A text-based demo for a game where the player must defeat all enemies on the battlefield to win the round.
 
 How to download the program:
-1. Navigate to the "Kyle" branch of the ThirTeam code repository.
+1. Navigate to the master branch of the ThirTeam code repository.
 2. Download the zip file and extract into chosen directory.
 
 How to run on a terminal:
