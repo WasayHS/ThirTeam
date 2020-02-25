@@ -1,4 +1,4 @@
-# ThirTeam Project 
+# Tutorial 3, Group 13 Project 
 
 # A text-based demo for a game where the player must defeat all enemies on the battlefield to win the round.
 
