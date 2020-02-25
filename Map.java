@@ -47,14 +47,14 @@ public class Map{
 							this.lastY = j;
 						}
 						else {
-							System.out.println("Invalid Move in else" + "\n");
+							System.out.println("Invalid Move." + "\n");
 						}
 					}
 				}
 			}
 		}
 		else {
-			System.out.println("Invalid Move outside" + "\n"); // Prints invalid message and map remains unchanged.
+			System.out.println("Invalid Move." + "\n"); // Prints invalid message and map remains unchanged.
 		}
 		}
 	
@@ -65,21 +65,30 @@ public class Map{
 				}
 	}
 	
-	//Kyle: Have to make a method to scan the whole grid if there are still enemies:
-	public boolean scanGrid() { //Jose: Method to scan grid. Returns false if there are still enemies and true otherwise. Test it out and let me know if there are any bugs.
-		boolean noEnemy = true;
-		for (int i = 0; i < getGrid().length; i++) {
-			for (int j = 0; j < getGrid().length; j++) {
+//		-------------- Checks the whole grid for enemies
+	public boolean enemiesPresent() {
+		int enemy = 0;
+		for(int i = 0; i < getGrid().length; i++) {
+			for(int j = 0; j < getGrid().length; j++) {
 				if (getGrid()[i][j] == 'X') {
-					noEnemy = false;
+					enemy += 1;
+					}
 				}
-				
 			}
-			
+		if (enemy == 0) {
+			return false;
 		}
-		return noEnemy;
+		else {
+			return true;
+		}
 	}
-	
+
+//		-------------- Called in textApp when player finishes the game and chooses to play again
+	public void resetPlayerLocation() {
+		if (enemiesPresent() == false) {
+			getGrid()[getLastX()][getLastY()] = 'O';
+		}
+	}
 	public String toString() { // String with map.
 		String result = "";
 		for (int i = 0; i < getGrid().length; i++) {

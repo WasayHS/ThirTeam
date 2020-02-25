@@ -7,8 +7,8 @@ public enum AttackTypes {
 	
 	
 	// initialize the damage and health 
-	private int damage;
-	private int health;
+	final int damage;
+	final int health;
 	
 	//constructor so the constant can have these fields
 	AttackTypes(int initialDamage, int initialHealth) {

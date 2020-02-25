@@ -6,6 +6,7 @@ public class Player{
 
 	private int health = 50; // default stats, what is given at the start
 	private int str = 5;
+	private int intellect = 1;
 	private int mag = 1;
 	
 	//private ArrayList <Collectible> items = new ArrayList <Collectible>();
@@ -13,8 +14,8 @@ public class Player{
 	
 //Constructor
 	public Player(){
-		this.health = 50;
-		this.str = 5;
+		this.health = 30;
+		this.str = 3;
 		//this.items = items;
 		this.location = new Location (4, 2);
 		this.intellect = 1;
@@ -67,6 +68,10 @@ public class Player{
 		
 	}
 	
+	public void setIntellect(int mag){ // sets the player's ability for ranged attacks (radius and strength of weapon)
+		intellect = intellect + mag;
+	}
+	
 	public void setLocation(Location l){
 		location = l;
 	}
@@ -84,6 +89,9 @@ public class Player{
 	}
 	public int getStr(){
 		return str;
+	}
+	public int getintellect(){
+		return intellect;
 	}
 	public Location getLocation(){
 		return location;

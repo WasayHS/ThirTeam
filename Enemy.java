@@ -11,6 +11,10 @@ public class Enemy{
 		
 	}
 	
+	public Enemy(int health) {
+		this.health = health;
+	}
+	
 //Getters
 	public int getHealth() {
 		return health;
