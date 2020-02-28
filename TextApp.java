@@ -1,3 +1,4 @@
+
 import java.util.Random;
 import java.util.Scanner;
 
@@ -6,7 +7,7 @@ public class TextApp{
 	private AttackTypes attackTypes;
 	private Map map = new Map(5, 5);
 	private Location location;
-	private Enemy enemy = new Enemy();
+	private Enemy enemy = new Enemy(0,0,0,0);
 	private AttackType attackType = new AttackType(player, enemy, attackTypes);
 	
 // --------------------------------------- Instructions for player -------------------------------------------
@@ -149,7 +150,7 @@ public class TextApp{
 		Enemy enemy = resetEnemyHealth(); // resets enemy health to 25 after every battle
 		
 		while (health == true){ // While the player/enemy is alive
-			System.out.println("Player Health: " + player.getHP());
+			System.out.println("Player Health: " + player.getHealth());
 			System.out.println("Enemy Health: " + enemy.getHealth());
 			
 			Scanner input = new Scanner(System.in);
@@ -166,7 +167,7 @@ public class TextApp{
 				if (enemy.getHealth() <= 0) { // Enemy is dead
 					map.DefeatedEnemy(enX, enY); // Removes where the enemy was
 					System.out.println("You dealt " + (initialH - afterH) + " damage to the enemy!" );
-					System.out.println("Player Health: " + player.getHP());
+					System.out.println("Player Health: " + player.getHealth());
 					System.out.println("Enemy Health: 0");
 					System.out.println("\nYou have defeated the enemy!");
 					System.out.println(map); // Updated map without the defeated enemy
@@ -181,16 +182,16 @@ public class TextApp{
 			
 			else if (choice == 2) {
 				if (healCount >=0) { // Restricts player to only 3 heals.
-					int playerH = player.getHP();
+					int playerH = player.getHealth();
 					if (playerH >= 50) { // Player has full health
 						System.out.println("You have not taken damage yet.");
 					}
 					else {
-						int beforeH = player.getHP(); //Same thing as Melee but adds health to the player instead
+						int beforeH = player.getHealth(); //Same thing as Melee but adds health to the player instead
 						AttackTypes attack = AttackTypes.HEAL;
 						AttackType temp = new AttackType(player, enemy, attack);
 						temp.attackedThem(attack);
-						int afterH = player.getHP();
+						int afterH = player.getHealth();
 						
 						System.out.println("You regained " + (afterH - beforeH) + " HP.");
 						System.out.println(healCount + " heals remaining.\n");
@@ -212,72 +213,79 @@ public class TextApp{
 	
 // ------------------------------------- Checks for enemies around player -------------------------------------------
 	public void checkLocation(int x, int y) {
-		if (x <= (map.getGrid().length - 1) && x!=0) {
-			if (y >=0 && y!=(map.getGrid().length - 1)) {
-				if (map.getGrid()[x-1][y] == 'X'||map.getGrid()[x][y-1] == 'X') { // Checks up & right
-					Scanner input = new Scanner (System.in);
-					System.out.println("1. Attack \n2. Move");
-					int option = input.nextInt();
-					options(option);
-				}
-			}
-			else if (y !=0 && y <= (map.getGrid().length - 1)) {
-				if (map.getGrid()[x-1][y] == 'X'||map.getGrid()[x][y-1] == 'X') { // Checks up & left
-					Scanner input = new Scanner (System.in);
-					System.out.println("1. Attack \n2. Move");
-					int option = input.nextInt();
-					options(option);
-				}
-			else {
-				if (map.getGrid()[x-1][y] == 'X'||map.getGrid()[x][y + 1] == 'X'||map.getGrid()[x][y-1] == 'X') {
-					Scanner input = new Scanner (System.in);
-					System.out.println("1. Attack \n2. Move");
-					int option = input.nextInt();
-					options(option);
-				}
+		if (x < map.getGrid().length - 1 && y < map.getGrid().length - 1 && x != 0 && y != 0) { // when x and y are below max range but not zero.
+			if (map.getGrid()[x-1][y] == 'X' || map.getGrid()[x][y-1] == 'X' || map.getGrid()[x][y+1] == 'X' || map.getGrid()[x+1][y] == 'X' || map.getGrid()[x-1][y-1] == 'X'|| map.getGrid()[x-1][y+1] == 'X' || map.getGrid()[x+1][y-1] == 'X' || map.getGrid()[x-1][y+1] == 'X') { // Checks diagonal
+				Scanner input = new Scanner (System.in);
+				System.out.println("1. Attack \n2. Move");
+				int option = input.nextInt();
+				options(option);
+		}
+		}
+		else if (x == map.getGrid().length - 1 && y < map.getGrid().length - 1 && y !=0) { // when x is at max range and y is below max range but not zero.
+			if (map.getGrid()[x][y-1] == 'X' || map.getGrid()[x][y+1] == 'X' || map.getGrid()[x-1][y-1] == 'X'|| map.getGrid()[x-1][y] == 'X' ||  map.getGrid()[x-1][y+1] == 'X') {
+				Scanner input = new Scanner (System.in);
+				System.out.println("1. Attack \n2. Move");
+				int option = input.nextInt();
+				options(option);
 			}
 		}
-			else {
-				Scanner input = new Scanner(System.in);
-			    System.out.println("Move(x,y)@CLElse: ");
-	
-			    String mapCoor = input.nextLine();
-			    String[] parts = mapCoor.split(",");
-			    
-			    int x2 = Integer.parseInt(parts[0]);
-			    int y2 = Integer.parseInt(parts[1]);
-				map.move(x2, y2);
-				System.out.println("map@CLElse");
-				System.out.println(map);
-			}
-
+		else if (x < map.getGrid().length - 1 && x != 0 && y == map.getGrid().length - 1) { // when x is below max range but not zero and y is at max range.
+			if (map.getGrid()[x+1][y] == 'X' || map.getGrid()[x-1][y-1 ] == 'X' || map.getGrid()[x-2][y-1] == 'X' || map.getGrid()[x-1][y] == 'X' || map.getGrid()[x+1][y-1] == 'X' ) {
+				Scanner input = new Scanner (System.in);
+				System.out.println("1. Attack \n2. Move");
+				int option = input.nextInt();
+				options(option);
 		}
-		if (x >=0 && x!=(map.getGrid().length - 1)) {
-			if (y >=0 && y != (map.getGrid().length - 1) ) { //x == 0, y == 0
-				if (map.getGrid()[x+1][y] == 'X' || map.getGrid()[x][y + 1] == 'X') { //down & left
-					Scanner input = new Scanner (System.in);
-					System.out.println("1. Attack \n2. Move");
-					int option = input.nextInt();
-					options(option);
+			}
+		else if (x == map.getGrid().length - 1 && y == map.getGrid().length - 1) { // when x and y are at max range.
+			if (map.getGrid()[x][y-1] == 'X' || map.getGrid()[x-1][y-1] == 'X' || map.getGrid()[x-1][y] == 'X') {
+				Scanner input = new Scanner (System.in);
+				System.out.println("1. Attack \n2. Move");
+				int option = input.nextInt();
+				options(option);
 				}
 			}
-			else if (y > 0 || y == (map.getGrid().length - 1)) { //x == 0 y == 4
-				if (map.getGrid()[x+1][y] == 'X' || map.getGrid()[x][y - 1] == 'X') { // down & right
-					Scanner input = new Scanner (System.in);
-					System.out.println("1. Attack \n2. Move");
-					int option = input.nextInt();
-					options(option);
-					}
-			else {
-				if (map.getGrid()[x+1][y] == 'X' || map.getGrid()[x][y + 1] == 'X' || map.getGrid()[x][y-1] == 'X') {
-					Scanner input = new Scanner (System.in);
-					System.out.println("1. Attack \n2. Move");
-					int option = input.nextInt();
-					options(option);
+		else if (x == 0 && y == 0) { // when x and y are zeroes.
+			if (map.getGrid()[x+1][y] == 'X' || map.getGrid()[x+1][y+1] == 'X' || map.getGrid()[x][y+1] == 'X') {
+				Scanner input = new Scanner (System.in);
+				System.out.println("1. Attack \n2. Move");
+				int option = input.nextInt();
+				options(option);
 				}
-			}
 		}
-
+		else if (x == 0 && y == map.getGrid().length - 1) {// when x is zero and y is at max.
+			if (map.getGrid()[x][y-1] == 'X' || map.getGrid()[x+1][y-1] == 'X' || map.getGrid()[x+1][y] == 'X') {
+				Scanner input = new Scanner (System.in);
+				System.out.println("1. Attack \n2. Move");
+				int option = input.nextInt();
+				options(option);
+				}
+		}
+		else if (x == map.getGrid().length - 1 && y == 0) {// when x is at max and y is zero.
+			if (map.getGrid()[x-1][y] == 'X' || map.getGrid()[x-1][y+1] == 'X' || map.getGrid()[x][y+1] == 'X') {
+				Scanner input = new Scanner (System.in);
+				System.out.println("1. Attack \n2. Move");
+				int option = input.nextInt();
+				options(option);
+				}
+		}
+		else if (x == 0 && y < map.getGrid().length - 1 && y != 0) {// when x is at zero and y is below max range but not zero.
+			if (map.getGrid()[x][y-1] == 'X' || map.getGrid()[x+1][y-1] == 'X' || map.getGrid()[x+1][y] == 'X' || map.getGrid()[x][y+1] == 'X' || map.getGrid()[x+1][y+1] == 'X') {
+				Scanner input = new Scanner (System.in);
+				System.out.println("1. Attack \n2. Move");
+				int option = input.nextInt();
+				options(option);
+				}
+		}
+		else if (x < map.getGrid().length - 1 && x != 0 && y == 0) {// when x is below max range but not zero and y is zero.
+			if (map.getGrid()[x-1][y] == 'X' || map.getGrid()[x+1][y] == 'X' || map.getGrid()[x-1][y+1] == 'X' || map.getGrid()[x][y+1] == 'X' || map.getGrid()[x+1][y+1] == 'X') {
+				Scanner input = new Scanner (System.in);
+				System.out.println("1. Attack \n2. Move");
+				int option = input.nextInt();
+				options(option);
+				}
+		}
+// move
 		else {
 				Scanner input = new Scanner(System.in);
 			    System.out.println("Move(x,y)@CLElse: ");
@@ -292,11 +300,10 @@ public class TextApp{
 				System.out.println(map);
 			}
 		}
-	}
 	
 //  ----------------------------------- Resets enemy health after every battle -----------------------------------
 	public Enemy resetEnemyHealth() {
-		Enemy enemy = new Enemy(25); // Initial health for enemies
+		Enemy enemy = new Enemy(25, 4, 3, 2); // Initial health for enemies
 		return enemy;
 	}
 	
