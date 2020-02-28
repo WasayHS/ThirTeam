@@ -214,7 +214,7 @@ public class TextApp{
 // ------------------------------------- Checks for enemies around player -------------------------------------------
 	public void checkLocation(int x, int y) {
 		if (x < map.getGrid().length - 1 && y < map.getGrid().length - 1 && x != 0 && y != 0) { // when x and y are below max range but not zero.
-			if (map.getGrid()[x-1][y] == 'X' || map.getGrid()[x][y-1] == 'X' || map.getGrid()[x][y+1] == 'X' || map.getGrid()[x+1][y] == 'X' || map.getGrid()[x-1][y-1] == 'X'|| map.getGrid()[x-1][y+1] == 'X' || map.getGrid()[x+1][y-1] == 'X' || map.getGrid()[x-1][y+1] == 'X') { // Checks diagonal
+			while (map.getGrid()[x-1][y] == 'X' || map.getGrid()[x][y-1] == 'X' || map.getGrid()[x][y+1] == 'X' || map.getGrid()[x+1][y] == 'X' || map.getGrid()[x-1][y-1] == 'X'|| map.getGrid()[x-1][y+1] == 'X' || map.getGrid()[x+1][y-1] == 'X' || map.getGrid()[x-1][y+1] == 'X') { // Checks diagonal
 				Scanner input = new Scanner (System.in);
 				System.out.println("1. Attack \n2. Move");
 				int option = input.nextInt();
@@ -222,7 +222,7 @@ public class TextApp{
 		}
 		}
 		else if (x == map.getGrid().length - 1 && y < map.getGrid().length - 1 && y !=0) { // when x is at max range and y is below max range but not zero.
-			if (map.getGrid()[x][y-1] == 'X' || map.getGrid()[x][y+1] == 'X' || map.getGrid()[x-1][y-1] == 'X'|| map.getGrid()[x-1][y] == 'X' ||  map.getGrid()[x-1][y+1] == 'X') {
+			while (map.getGrid()[x][y-1] == 'X' || map.getGrid()[x][y+1] == 'X' || map.getGrid()[x-1][y-1] == 'X'|| map.getGrid()[x-1][y] == 'X' ||  map.getGrid()[x-1][y+1] == 'X') {
 				Scanner input = new Scanner (System.in);
 				System.out.println("1. Attack \n2. Move");
 				int option = input.nextInt();
@@ -230,7 +230,7 @@ public class TextApp{
 			}
 		}
 		else if (x < map.getGrid().length - 1 && x != 0 && y == map.getGrid().length - 1) { // when x is below max range but not zero and y is at max range.
-			if (map.getGrid()[x+1][y] == 'X' || map.getGrid()[x-1][y-1 ] == 'X' || map.getGrid()[x-2][y-1] == 'X' || map.getGrid()[x-1][y] == 'X' || map.getGrid()[x+1][y-1] == 'X' ) {
+			while (map.getGrid()[x+1][y] == 'X' || map.getGrid()[x-1][y-1 ] == 'X' || map.getGrid()[x-2][y-1] == 'X' || map.getGrid()[x-1][y] == 'X' || map.getGrid()[x+1][y-1] == 'X' ) {
 				Scanner input = new Scanner (System.in);
 				System.out.println("1. Attack \n2. Move");
 				int option = input.nextInt();
@@ -238,7 +238,7 @@ public class TextApp{
 		}
 			}
 		else if (x == map.getGrid().length - 1 && y == map.getGrid().length - 1) { // when x and y are at max range.
-			if (map.getGrid()[x][y-1] == 'X' || map.getGrid()[x-1][y-1] == 'X' || map.getGrid()[x-1][y] == 'X') {
+			while (map.getGrid()[x][y-1] == 'X' || map.getGrid()[x-1][y-1] == 'X' || map.getGrid()[x-1][y] == 'X') {
 				Scanner input = new Scanner (System.in);
 				System.out.println("1. Attack \n2. Move");
 				int option = input.nextInt();
@@ -246,7 +246,7 @@ public class TextApp{
 				}
 			}
 		else if (x == 0 && y == 0) { // when x and y are zeroes.
-			if (map.getGrid()[x+1][y] == 'X' || map.getGrid()[x+1][y+1] == 'X' || map.getGrid()[x][y+1] == 'X') {
+			while (map.getGrid()[x+1][y] == 'X' || map.getGrid()[x+1][y+1] == 'X' || map.getGrid()[x][y+1] == 'X') {
 				Scanner input = new Scanner (System.in);
 				System.out.println("1. Attack \n2. Move");
 				int option = input.nextInt();
@@ -254,7 +254,7 @@ public class TextApp{
 				}
 		}
 		else if (x == 0 && y == map.getGrid().length - 1) {// when x is zero and y is at max.
-			if (map.getGrid()[x][y-1] == 'X' || map.getGrid()[x+1][y-1] == 'X' || map.getGrid()[x+1][y] == 'X') {
+			while (map.getGrid()[x][y-1] == 'X' || map.getGrid()[x+1][y-1] == 'X' || map.getGrid()[x+1][y] == 'X') {
 				Scanner input = new Scanner (System.in);
 				System.out.println("1. Attack \n2. Move");
 				int option = input.nextInt();
@@ -262,7 +262,7 @@ public class TextApp{
 				}
 		}
 		else if (x == map.getGrid().length - 1 && y == 0) {// when x is at max and y is zero.
-			if (map.getGrid()[x-1][y] == 'X' || map.getGrid()[x-1][y+1] == 'X' || map.getGrid()[x][y+1] == 'X') {
+			while (map.getGrid()[x-1][y] == 'X' || map.getGrid()[x-1][y+1] == 'X' || map.getGrid()[x][y+1] == 'X') {
 				Scanner input = new Scanner (System.in);
 				System.out.println("1. Attack \n2. Move");
 				int option = input.nextInt();
@@ -270,7 +270,7 @@ public class TextApp{
 				}
 		}
 		else if (x == 0 && y < map.getGrid().length - 1 && y != 0) {// when x is at zero and y is below max range but not zero.
-			if (map.getGrid()[x][y-1] == 'X' || map.getGrid()[x+1][y-1] == 'X' || map.getGrid()[x+1][y] == 'X' || map.getGrid()[x][y+1] == 'X' || map.getGrid()[x+1][y+1] == 'X') {
+			while (map.getGrid()[x][y-1] == 'X' || map.getGrid()[x+1][y-1] == 'X' || map.getGrid()[x+1][y] == 'X' || map.getGrid()[x][y+1] == 'X' || map.getGrid()[x+1][y+1] == 'X') {
 				Scanner input = new Scanner (System.in);
 				System.out.println("1. Attack \n2. Move");
 				int option = input.nextInt();
@@ -278,7 +278,7 @@ public class TextApp{
 				}
 		}
 		else if (x < map.getGrid().length - 1 && x != 0 && y == 0) {// when x is below max range but not zero and y is zero.
-			if (map.getGrid()[x-1][y] == 'X' || map.getGrid()[x+1][y] == 'X' || map.getGrid()[x-1][y+1] == 'X' || map.getGrid()[x][y+1] == 'X' || map.getGrid()[x+1][y+1] == 'X') {
+			while (map.getGrid()[x-1][y] == 'X' || map.getGrid()[x+1][y] == 'X' || map.getGrid()[x-1][y+1] == 'X' || map.getGrid()[x][y+1] == 'X' || map.getGrid()[x+1][y+1] == 'X') {
 				Scanner input = new Scanner (System.in);
 				System.out.println("1. Attack \n2. Move");
 				int option = input.nextInt();
@@ -370,3 +370,4 @@ public class TextApp{
 	}
 
 }
+
