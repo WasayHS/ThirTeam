@@ -2,10 +2,6 @@ import java.util.ArrayList;
 
 public class Collectibles {
 
-	
-//	public ArrayList <Collectible> getCollectibles(){
-//	return new ArrayList <Collectible> (items);
-//}
 
 	public ArrayList<String> battlePowerups()    { // We can change the name of the collectibles later. For now it's just a description on what it does.
 	    ArrayList<String> collectibles = new ArrayList<String>();
