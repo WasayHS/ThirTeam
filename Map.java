@@ -36,23 +36,22 @@ public class Map{
 			for(int i = 0; i < getGrid().length; i++) {
 				for(int j = 0; j < getGrid().length; j++) {
 					if(getGrid()[i][j] == 'P'){ // Changes the previous player position into an empty space.
-						if (((i - 1) == x && (y == j)) || ((i+1) == x && (y==j)) || ((x == i) && (1 + j) == y) || ((x == i) && (j - 1) == y)) {
+						//if (((i - 1) == x && (y == j)) || ((i+1) == x && (y==j)) || ((x == i) && (1 + j) == y) || ((x == i) && (j - 1) == y)) {
 							getGrid()[i][j] = 'O';
 							getGrid()[x][y] = 'P';
 							this.lastX = x;
 							this.lastY = y;
 						}//Kyle: Need this since when player turns a valid left and fulfills first if (line 39), console still prints "Invalid move" but stores right x and y coors. Don't know why.
-						else if (((i - 1) != x && (y == j)) || ((i+1) != x && (y==j)) || ((x == i) && (j + 1) != y) || ((x == i) && (j - 1) != y)) { 
+						/*else if (((i - 1) != x && (y == j)) || ((i+1) != x && (y==j)) || ((x == i) && (j + 1) != y) || ((x == i) && (j - 1) != y)) { 
 							this.lastX = i;
 							this.lastY = j;
 						}
 						else {
 							System.out.println("Invalid Move." + "\n");
-						}
+						}*/
 					}
 				}
 			}
-		}
 		else {
 			System.out.println("Invalid Move." + "\n"); // Prints invalid message and map remains unchanged.
 		}
