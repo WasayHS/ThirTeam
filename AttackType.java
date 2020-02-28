@@ -21,14 +21,14 @@ public class AttackType {
 			int randDmg = random.nextInt(4);
 			int melDamage = attack.getDamage();
 			melDamage = ((melDamage + p.getStr())*-1) -(-randDmg); //strength level is just added to their base damage
-			e.setHP(melDamage);
+			e.setHealth(melDamage);
 			break;
 			
 		case RANGED:
 			//ranged attacks dependent on magic
 			int magDamage = attack.getDamage();
 			magDamage = ((magDamage + p.getMag())*-1); //their magic level is just added to their base damage
-			e.setHP(magDamage);
+			e.setHealth(magDamage);
 			break;
 			
 		case HEAL:
@@ -36,7 +36,7 @@ public class AttackType {
 			//extra heal is from the mag stat of the player
 			int heal = attack.getHealth();
 			heal = (heal + p.getMag());
-			p.setHP(heal);
+			p.setHealth(heal);
 			break;
 			
 		case DEFEND:
