@@ -1,5 +1,3 @@
-//		Doesn't automatically updates player position to the location of the enemy defeated, since I'm not sure if we're doing random aggro enemy.
-
 package map;
 
 import java.awt.Point;
@@ -57,17 +55,20 @@ public class MapSetup {
 		return null;
 	}
 	
-//		- - - - - Updates map per valid move
+//		- - - - - Updates map per valid move/ enemy death
 	public static void updateGrid(GridPane grid, int x, int y, UnitLocation unit) {
-		if (checkMove(grid, x, y, unit)){
-			TextField tf = getNode(grid, x, y);
-			tf.setText(PLAYER);
-			tf.setStyle("-fx-text-inner-color: lightgreen;-fx-font-weight: bold;"); 
-			
+		if (checkMove(grid, x, y, unit) /*|| UnitType.getHP() <= 0*/){ //UnitType would be instanced to enemy in this case.
+			if (checkMove(grid, x, y, unit)){
+				TextField tf = getNode(grid, x, y);
+				tf.setText(PLAYER);
+				tf.setStyle("-fx-text-inner-color: lightgreen;-fx-font-weight: bold;"); 
+			}	
 			TextField oldTf = getNode(grid, unit.getX(), unit.getY());
 			oldTf.setText(EMPTY);
 			unit.setX(x);
 			unit.setY(y);
+			
 		}
+		
 	}
 }
