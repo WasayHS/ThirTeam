@@ -6,6 +6,7 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.Random;
 
+import application.Main;
 import javafx.scene.Node;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.GridPane;
@@ -57,18 +58,30 @@ public class MapSetup {
 	
 //		- - - - - Updates map per valid move/ enemy death
 	public static void updateGrid(GridPane grid, int x, int y, UnitLocation unit) {
-		if (checkMove(grid, x, y, unit) /*|| UnitType.getHP() <= 0*/){ //UnitType would be instanced to enemy in this case.
-			if (checkMove(grid, x, y, unit)){
+		
+		if (checkMove(grid, x, y, unit) && Main.enemyHP != 0){ 
+		
 				TextField tf = getNode(grid, x, y);
 				tf.setText(PLAYER);
 				tf.setStyle("-fx-text-inner-color: lightgreen;-fx-font-weight: bold;"); 
-			}	
+		
 			TextField oldTf = getNode(grid, unit.getX(), unit.getY());
 			oldTf.setText(EMPTY);
 			unit.setX(x);
 			unit.setY(y);
 			
 		}
+		if(Main.enemyHP == 0) { // changes E to P.
+			TextField nf = getNode(grid, x, y);
+			nf.setText(PLAYER);
+			nf.setStyle("-fx-text-inner-color: lightgreen;-fx-font-weight: bold;");
+			TextField oldTf = getNode(grid, unit.getX(), unit.getY());
+			oldTf.setText(EMPTY);
+			unit.setX(x);
+			unit.setY(y);
+		}
+		
 		
 	}
 }
+
