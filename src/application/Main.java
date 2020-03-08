@@ -4,21 +4,50 @@ import java.util.List;
 import java.util.Random;
 
 import javafx.application.Application;
+import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.geometry.Pos;
 import javafx.stage.Stage;
 import map.MapSetup;
 import map.UnitLocation;
 import javafx.scene.Scene;
 import javafx.scene.control.TextField;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.BorderPane;
+import javafx.scene.control.Button;
+
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.RowConstraints;
+import javafx.scene.layout.StackPane;
 
 
-public class Main extends Application {
+public class Main extends Application implements EventHandler<ActionEvent> {
 	@Override
-	public void start(Stage primaryStage) {
+	public void start(Stage titleScreen){ 
+		titleScreen.setTitle("Game start");
+		Button start = new Button();
+		start.setText("Begin");
+		start.setOnAction(e -> startGame(titleScreen)); // goes to the actual game
+		StackPane layout = new StackPane();
+		layout.getChildren().add(start);
+		
+		try{ /// might be taken out
+			Image gamestart  = new Image("StartGame.png");
+			layout.getChildren().add(new ImageView(gamestart));
+		}catch (IllegalArgumentException i){
+			System.err.println("Error: \"StartGame.png\" not found");
+		}
+		
+		Scene begin = new Scene(layout, 600,400);
+		titleScreen.setScene(begin);
+		titleScreen.show();
+	
+	}
+	
+	
+	public void startGame(Stage primaryStage) {
 		
 			int size = 11; // Size of grid (9x9)
 			int enemyCount = (int)(size*0.9); // Occurrence of enemy spawning in a map
@@ -90,5 +119,12 @@ public class Main extends Application {
 	
 	public static void main(String[] args) {
 		launch(args);
+	}
+
+
+	@Override
+	public void handle(ActionEvent event) {
+		//  no relevence
+		
 	}
 }
