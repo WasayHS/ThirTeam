@@ -8,6 +8,7 @@ import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.geometry.Pos;
 import javafx.stage.Stage;
+import map.LocateEnemies;
 import map.MapSetup;
 import map.UnitLocation;
 import javafx.scene.Scene;
@@ -17,14 +18,19 @@ import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.control.Button;
-
+import javafx.scene.control.Label;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.RowConstraints;
 import javafx.scene.layout.StackPane;
+import javafx.scene.layout.VBox;
 
 
 public class Main extends Application implements EventHandler<ActionEvent> {
-	@Override
+	//@Override
+	
+	public static int enemyHP = 1; // temporary variable to replace E with P.
+
+	
 	public void start(Stage titleScreen){ 
 		titleScreen.setTitle("Game start");
 		Button start = new Button();
@@ -46,8 +52,52 @@ public class Main extends Application implements EventHandler<ActionEvent> {
 	
 	}
 	
+	public void startBattle() {
+		
+		Stage battleStage = new Stage();
+		 VBox root = new VBox();
+	        Button Attack;
+	        Button Defend;
+	        Label Message;
+		  Attack = new Button("Attack");
+		  Defend = new Button("Defend");
+		  Message = new Label("Choose your move.");
+
+		  // Create an anonymous inner class to handle Attack
+		  Attack.setOnAction(new EventHandler<ActionEvent>()
+		   {
+		   	@Override
+		   	public void handle(ActionEvent event)
+		   	{
+		   		Message.setText("You dealt damage to the Enemy!");
+		   		enemyHP = 0; // still need to add damage and health calculations and stuff....
+		   		battleStage.close();// closes battle interface when enemy health goes to zero. Have yet to add this condition.
+		   	}
+		   }
+		  );
+		  // Create an anonymous inner class to handle Defend
+		  Defend.setOnAction(new EventHandler<ActionEvent>()
+		   {
+		   	@Override
+		   	public void handle(ActionEvent event)
+		   	{
+		   		Message.setText("You defended against damage.");
+		   	}
+		   }
+		  );
+
+		  root.getChildren().add(Attack);
+		  root.getChildren().add(Defend);
+		  root.getChildren().add(Message);
+		  Scene scene = new Scene(root, 300, 100);
+		  
+		  battleStage.setScene(scene);
+		  battleStage.showAndWait();
+		  
+	}
 	
-	public void startGame(Stage primaryStage) {
+	
+	public void startGame(Stage primaryStage){
 		
 			int size = 11; // Size of grid (9x9)
 			int enemyCount = (int)(size*0.9); // Occurrence of enemy spawning in a map
@@ -73,6 +123,8 @@ public class Main extends Application implements EventHandler<ActionEvent> {
 						if (i == p.x && j == p.y) {
 							field.setText(MapSetup.ENEMY);
 							field.setStyle("-fx-text-inner-color: red;-fx-font-weight: bold;");
+							
+							
 						}
 					}
 					
@@ -99,21 +151,49 @@ public class Main extends Application implements EventHandler<ActionEvent> {
 						int selectedX = GridPane.getRowIndex(field); // x of selected location
 						int selectedY = GridPane.getColumnIndex(field); // y of selected location
 						
+						
+						
 						MapSetup.updateGrid(grid, selectedX, selectedY, unit);
 
+						if(LocateEnemies.checkRanged(grid, selectedX, selectedY, unit)|| LocateEnemies.checkMelee(grid, selectedX, selectedY, unit)) { // Click on Enemy to enter 
+							if (Math.abs(unit.getX()-selectedX) > 1 || Math.abs(unit.getY()-selectedY) > 1 /*|| (Math.abs(unit.getX()-selectedX) == 1 && Math.abs(unit.getY()-selectedY) == 1)*/) {
+								MapSetup.updateGrid(grid, selectedX, selectedY, unit);
+								}
+								else 
+							try {
+								startBattle();
+								MapSetup.updateGrid(grid, selectedX, selectedY, unit);
+								enemyHP = 1;
+
+																
+							} catch (Exception e) {
+								// TODO Auto-generated catch block
+								e.printStackTrace();
+							}
+								}
+						
+						
+
+					
 						System.out.println(GridPane.getRowIndex(field) + "/" + GridPane.getColumnIndex(field)); 
 					});
+					
 
 					grid.setRowIndex(field, i);
 					grid.setColumnIndex(field, j);
 					grid.getChildren().add(field);
+					
+					
 				}
+				
 			}
 			
 			Scene scene = new Scene(grid, 500,500);
 			primaryStage.setTitle("Default Game");
 			primaryStage.setScene(scene);
 			primaryStage.show();
+			
+
 	
 	}
 	
