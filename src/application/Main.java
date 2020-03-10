@@ -1,5 +1,6 @@
 package application;
 import java.awt.Point;
+import java.io.FileInputStream;
 import java.util.List;
 import java.util.Random;
 
@@ -20,8 +21,8 @@ import javafx.scene.layout.BorderPane;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.layout.GridPane;
+import javafx.scene.layout.Pane;
 import javafx.scene.layout.RowConstraints;
-import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
 
 
@@ -31,22 +32,23 @@ public class Main extends Application implements EventHandler<ActionEvent> {
 	public static int enemyHP = 1; // temporary variable to replace E with P.
 
 	
-	public void start(Stage titleScreen){ 
-		titleScreen.setTitle("Game start");
+	public void start(Stage titleScreen) throws Exception{ 
+		titleScreen.setTitle("A Beast's Weapon");
 		Button start = new Button();
 		start.setText("Begin");
 		start.setOnAction(e -> startGame(titleScreen)); // goes to the actual game
-		StackPane layout = new StackPane();
-		layout.getChildren().add(start);
+		Pane layout = new Pane();
+		start.setTranslateX(225);
+		start.setTranslateY(0);
 		
-		try{ /// might be taken out
-			Image gamestart  = new Image("StartGame.png");
+		try{
+			Image gamestart  = new Image(new FileInputStream("src/application/StartGame.png"));
 			layout.getChildren().add(new ImageView(gamestart));
 		}catch (IllegalArgumentException i){
 			System.err.println("Error: \"StartGame.png\" not found");
 		}
-		
-		Scene begin = new Scene(layout, 600,400);
+		layout.getChildren().add(start);
+		Scene begin = new Scene(layout, 500,500);
 		titleScreen.setScene(begin);
 		titleScreen.show();
 	
@@ -89,7 +91,7 @@ public class Main extends Application implements EventHandler<ActionEvent> {
 		  root.getChildren().add(Attack);
 		  root.getChildren().add(Defend);
 		  root.getChildren().add(Message);
-		  Scene scene = new Scene(root, 300, 100);
+		  Scene scene = new Scene(root, 500, 500);
 		  
 		  battleStage.setScene(scene);
 		  battleStage.showAndWait();
@@ -189,7 +191,7 @@ public class Main extends Application implements EventHandler<ActionEvent> {
 			}
 			
 			Scene scene = new Scene(grid, 500,500);
-			primaryStage.setTitle("Default Game");
+			primaryStage.setTitle("Location 1");
 			primaryStage.setScene(scene);
 			primaryStage.show();
 			
@@ -204,7 +206,7 @@ public class Main extends Application implements EventHandler<ActionEvent> {
 
 	@Override
 	public void handle(ActionEvent event) {
-		//  no relevence
+		return;
 		
 	}
 }
