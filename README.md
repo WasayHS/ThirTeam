@@ -21,10 +21,10 @@ How to run TextApp on Eclipse:
 
 How to download the GUI program:
 1.Nagivate to the master branch of the ThirTeam code repository
-2.Download the 
+2.Download the zip file and extract to desktop
 
 How to run on Eclipse:
 1.Open Eclipse and start a new Java project, make sure Javafx is included as a modulepath library
-2.Import the downloaded files into the new Java project
+2.Import the extracted files into the new Java project
 3.Go to Run configurations and make sure the VM arguments have a path to the specified fx module folder
 4.Run the project and follow instructions on the console to play the game
