@@ -1,7 +1,7 @@
 package map;
 
 public class Position { //Stores player location or enemy location
-	private int x;
+	private int x;	// Can also be set to parent if you guys want
 	private int y;
 	
 	public Position(int x, int y) {

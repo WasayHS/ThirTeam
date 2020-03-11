@@ -1,13 +1,13 @@
 package unit;
+
 import java.util.Random;
 public class Stats {
 	
-	protected int health; // default stats, what is given at the start
-	protected int str;
-	protected int mag;
-	protected int def;
-	protected int defaultHP;
-//	protected Location location;
+	private int health; // default stats, what is given at the start
+	private int str;
+	private int mag;
+	private int def;
+	private int defaultHP;
 	
 	public Stats(int hp, int str, int mag, int def){
 		this.health = hp;
@@ -38,7 +38,7 @@ public class Stats {
 		else if (health > getDefaultHP()){
 			this.health = getDefaultHP(); // Max player/enemy health
 		}
-		else {
+		else if (health <= 0) {
 			this.health = 0;
 		}
 	}
@@ -67,4 +67,26 @@ public class Stats {
 		this.def = def;
 	}
 
+//	public Location getLocation() {
+//		return location;
+//	}
+//
+//	public void setLocation(Location loc) {
+//		this.location = loc;
+//	}
+	
+//	public ArrayList <Collectible> getCollectibles(){
+//	return new ArrayList <Collectible> (items);
+//}
+
+//	public boolean isAlive() {
+//		if(health > 0) {
+//			return true;
+//		}
+//		else {
+//			return false;
+//		}
+//
+//	}
+	
 }

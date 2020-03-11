@@ -12,9 +12,9 @@ public class Unit {
 		this.position = new Position(x, y);
 	}
 
-	public Unit (int hp, int str, int mag, int def, Position location) {
+	public Unit (int hp, int str, int mag, int def, Position p) {
 		this.stats = new Stats(hp, str, mag, def);
-		this.position = location;
+		this.position = p;
 	}
 	
 	public Stats getStats() {
@@ -29,8 +29,8 @@ public class Unit {
 		return position;
 	}
 
-	public void setPosition(Position location) {
-		this.position = location;
+	public void setPosition(Position position) {
+		this.position = position;
 	}
 	
 }
