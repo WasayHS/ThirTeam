@@ -10,7 +10,6 @@ import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.geometry.Pos;
 import javafx.stage.Stage;
-import map.LocateEnemies;
 import map.MapSetup;
 import map.Position;
 import unit.Enemy;
@@ -59,6 +58,7 @@ public class Main extends Application implements EventHandler<ActionEvent> {
 		VBox root = new VBox();
         Button attackBtn = null;
         Button defendBtn;
+        Button potionBtn;
         Label message;
 	    AttackType type = new AttackType(player);
 	    
@@ -70,7 +70,8 @@ public class Main extends Application implements EventHandler<ActionEvent> {
 	    	  attackBtn = new Button("Ranged");
 	      	}
 	      defendBtn = new Button("Defend");
-	      
+	      potionBtn = new Button ("Use potion.");
+	    		  
 		  attackBtn.setOnAction(new EventHandler<ActionEvent>() // - - - - Attack event
 				   {
 			   	@Override
@@ -90,7 +91,6 @@ public class Main extends Application implements EventHandler<ActionEvent> {
 			   		}
 			   	}
 		});
-	    
 		 
 		  // Create an anonymous inner class to handle Defend
 		  defendBtn.setOnAction(new EventHandler<ActionEvent>()
@@ -99,14 +99,21 @@ public class Main extends Application implements EventHandler<ActionEvent> {
 		   	public void handle(ActionEvent event)
 		   	{
 		   		message.setText("You defended against damage.");
-		   	}
-		   }
-		  );
-		  	
+		   	}});
+		  
+		  potionBtn.setOnAction(new EventHandler<ActionEvent>()
+		   {
+		   	@Override
+		   	public void handle(ActionEvent event)
+		   	{
+		   		message.setText("You used a potion.");
+		   	}});
+		  
 		  if (attackBtn != null) {
 			  root.getChildren().add(attackBtn);
 		  }
 		  root.getChildren().add(defendBtn);
+		  root.getChildren().add(potionBtn);
 		  root.getChildren().add(message);
 		  Scene scene = new Scene(root, 300, 100);
 		  
@@ -135,7 +142,6 @@ public class Main extends Application implements EventHandler<ActionEvent> {
 					field.setAlignment(Pos.CENTER);
 					field.setEditable(false);
 					
-					
 					for (Position p: enemies) { //Iterate through list of enemy coords and sets those as "E"
 						if (i == p.getX() && j == p.getY()) {
 							field.setText(MapSetup.ENEMY);
@@ -148,7 +154,6 @@ public class Main extends Application implements EventHandler<ActionEvent> {
 							field.setText(MapSetup.PORTAL);
 							field.setStyle("-fx-text-inner-color: purple;-fx-font-weight: bold;");
 						}
-						
 						else if (i == 0 || j == 0 || i == size-1 || j == size-1) { // Set edge of grid as wall
 							field.setText(MapSetup.WALL);
 						}
@@ -156,7 +161,6 @@ public class Main extends Application implements EventHandler<ActionEvent> {
 							field.setText(MapSetup.PLAYER);
 							field.setStyle("-fx-text-inner-color: lightgreen;-fx-font-weight: bold;");
 						}
-						
 						else {
 							field.setText(MapSetup.EMPTY);
 						}
@@ -165,7 +169,6 @@ public class Main extends Application implements EventHandler<ActionEvent> {
 					field.addEventFilter(MouseEvent.MOUSE_PRESSED, event -> {
 						Position p = new Position(GridPane.getRowIndex(field), GridPane.getColumnIndex(field));
 						MapSetup.updateGrid(grid, p, player);
-						
 					});
 					grid.setRowIndex(field, i);
 					grid.setColumnIndex(field, j);
@@ -187,7 +190,7 @@ public class Main extends Application implements EventHandler<ActionEvent> {
 
 	@Override
 	public void handle(ActionEvent event) {
-		//  no relevence
+		//  no relevance
 		
 	}
 }

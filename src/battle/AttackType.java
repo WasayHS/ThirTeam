@@ -37,10 +37,6 @@ public class AttackType {
 				attacker.getStats().setHealth(heal);
 				break;
 				
-			case DEFEND:
-				//put in the math for defend
-				//I have left this blank for now
-				break;
 			}
 	}
 

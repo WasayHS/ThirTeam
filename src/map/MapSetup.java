@@ -61,7 +61,7 @@ public class MapSetup {
 		}
 		
 		TextField newPosition = getNode(grid, p);
-		return newPosition.getText().equals(EMPTY) || (LocateEnemies.numberOfEnemies(grid) == 0 && newPosition.getText().equals(PORTAL)); //If location empty, moves, if no more enemies, portal to next level opens
+		return newPosition.getText().equals(EMPTY) || (numberOfEnemies(grid) == 0 && newPosition.getText().equals(PORTAL)); //If location empty, moves, if no more enemies, portal to next level opens
 	}
 
 //		- - - - - Get the 'char' in each cell; Returns "P", "E" etc..
@@ -76,16 +76,14 @@ public class MapSetup {
 	
 //		- - - - - Updates map per valid move
 	public static void updateGrid(GridPane grid, Position newPosition, Player player) {
-		
 		if (checkMove(grid, newPosition, player)){ 
 				TextField tf = getNode(grid, newPosition);
 				tf.setText(PLAYER);
 				tf.setStyle("-fx-text-inner-color: lightgreen;-fx-font-weight: bold;"); 
 				moveUnit(grid, player, newPosition);
 		}
-		
-		boolean melee = LocateEnemies.checkMelee(grid, newPosition, player);
-		boolean ranged = LocateEnemies.checkRanged(grid, newPosition, player);
+		boolean melee = checkMelee(grid, newPosition, player);
+		boolean ranged = checkRanged(grid, newPosition, player);
 		
 		if (melee || ranged) {
 			TextField node = getNode(grid, newPosition);
@@ -98,6 +96,36 @@ public class MapSetup {
 		oldTf.setText(EMPTY);
 		unit.getPosition().setX(newPosition.getX());
 		unit.getPosition().setY(newPosition.getY());
+	}
+
+//	- - - - - - - - Checking enemies around player
+	public static boolean checkRanged(GridPane grid, Position p, Player player) { // Returns true if there is enemy diagonal
+		if (Math.abs(player.getPosition().getX()-p.getX()) > 1 || Math.abs(player.getPosition().getY()-p.getY()) > 1 || (Math.abs(player.getPosition().getX()-p.getX()) != 1) && !(Math.abs(player.getPosition().getY()-p.getY()) != 1)) {
+			return false;
+		}
+		TextField newPosition = MapSetup.getNode(grid, p);
+		return newPosition.getText().equals(MapSetup.ENEMY);
+	}
+	
+	public static boolean checkMelee(GridPane grid, Position p, Player player) { // Returns true if there is enemy adjacent
+		if (Math.abs(player.getPosition().getX()-p.getX()) > 1 || Math.abs(player.getPosition().getY()-p.getY()) > 1 ||(Math.abs(player.getPosition().getX()-p.getX()) == 1) && (Math.abs(player.getPosition().getY()-p.getY()) == 1)){
+			return false;
+		}
+		
+		TextField newPosition = MapSetup.getNode(grid, p);
+		return newPosition.getText().equals(MapSetup.ENEMY);
+	}
+	
+	public static int numberOfEnemies(GridPane grid) { // Iterates through each cell
+		int enemies = 0;
+		for (Node node : grid.getChildren()) {
+			TextField tf = (TextField)node;
+			System.out.println(tf.toString());
+			if (tf.getText().equals(MapSetup.ENEMY)) {
+				enemies++;
+			}
+		}
+		return enemies;
 	}
 }
 

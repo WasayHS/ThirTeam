@@ -67,26 +67,4 @@ public class Stats {
 		this.def = def;
 	}
 
-//	public Location getLocation() {
-//		return location;
-//	}
-//
-//	public void setLocation(Location loc) {
-//		this.location = loc;
-//	}
-	
-//	public ArrayList <Collectible> getCollectibles(){
-//	return new ArrayList <Collectible> (items);
-//}
-
-//	public boolean isAlive() {
-//		if(health > 0) {
-//			return true;
-//		}
-//		else {
-//			return false;
-//		}
-//
-//	}
-	
 }
