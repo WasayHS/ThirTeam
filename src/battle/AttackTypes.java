@@ -1,3 +1,4 @@
+package battle;
 
 public enum AttackTypes {
 	MELEE (5,0), //melee has a set damage of 5 
