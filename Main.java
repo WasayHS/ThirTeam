@@ -36,7 +36,7 @@ public class Main extends Application implements EventHandler<ActionEvent> {
 	
 	static Stage window;
 	
-	public void start(Stage primaryStage){
+	public void start(Stage primaryStage)throws Exception{
 		window = primaryStage;
 		Scene start;
 		//goes to the titlescreen

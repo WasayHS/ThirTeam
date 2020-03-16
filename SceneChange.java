@@ -1,5 +1,10 @@
 package application;
 
+import java.awt.Desktop;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileWriter;
+import java.io.IOException;
 import java.util.List;
 import java.util.Random;
 
@@ -14,6 +19,7 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.GridPane;
+import javafx.scene.layout.Pane;
 import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
 import javafx.scene.shape.Rectangle;
@@ -29,41 +35,91 @@ import unit.Unit;
 public class SceneChange {
 	
 	private static int level = 0;
-	static int roundOneSize = 6;
-	static int roundTwoSize = 7;
-	static int roundThreeSize = 8;
+	static int roundOneSize = 9;
+	static int roundTwoSize = 11;
+	static int roundThreeSize = 13;
 	
-	public static Scene differentLevel(int size) {
+	public static void newLevel(Stage window, int size,boolean morality) {
 		Scene nextScene;
-		nextScene = SceneChange.startGame(size);
-		return nextScene;
+		nextScene = startGame(size,morality);
+		window.setScene(nextScene);
+		window.show();
 	}
 	
-	public static Scene getTitleScene(Stage window){
+	public static Scene getTitleScene(Stage window)throws Exception{
+		window.setTitle("A Beast's Weapon");
 		Button start = new Button();
 		start.setText("Begin");
+		start.setOnAction(e -> setMorality(window));
+		start.setTranslateX(180);
+		start.setTranslateY(0);
 		
-		Scene nextScene = differentLevel(6);
-		start.setOnAction(e -> window.setScene(nextScene)); // goes to the actual game
-		StackPane layout = new StackPane();
-		try{ /// might be taken out
-			Image gamestart  = new Image("/application/StartGame.png");
+		Button instructions = new Button();
+		instructions.setText("Instructions");
+		instructions.setTranslateX(240);
+		instructions.setTranslateY(0);
+		instructions.setOnAction(new EventHandler<ActionEvent>(){
+			//https://howtodoinjava.com/java/io/how-to-create-a-new-file-in-java/
+			@Override
+			public void handle(ActionEvent event) {
+				File instructions = new File("src/Instructions.txt");
+				Desktop d = Desktop.getDesktop();
+				try {
+					instructions.createNewFile();
+					FileWriter w = new FileWriter(instructions);
+					w.write("To move: Bring your mouse cursor one block above or beside the player (P)");
+					w.close();
+					d.open(instructions);
+					
+				} catch (IOException e) {
+					
+					System.err.println("unknown error");
+				}
+			}
+					
+		});
+		
+		Pane layout = new Pane();
+		try{
+			Image gamestart  = new Image(new FileInputStream("src/application/StartGame.png"));
 			layout.getChildren().add(new ImageView(gamestart));
 		}catch (IllegalArgumentException i){
 			System.err.println("Error: \"StartGame.png\" not found");
 		}
+		
+		
 		layout.getChildren().add(start);
+		layout.getChildren().add(instructions);
 		Scene begin = new Scene(layout, 500,500);
 		return begin;
 	}
 	
-//	public static void changing() {
-//		Scene changing = startGame(roundOneSize);
-//		
-//		
-//	}
+	public static void setMorality(Stage window){
+		Pane layout = new Pane ();
+		
+		Button evil = new Button();
+		evil.setText("Low (evil)");
+		evil.setOnAction(e-> newLevel(window, roundOneSize,false));
+		evil.setTranslateX(150);
+		evil.setTranslateY(225);
+		
+		Button good = new Button();
+		good.setText("High (good)");
+		good.setOnAction(g->newLevel(window, roundOneSize,true));
+		good.setTranslateX(300);
+		good.setTranslateY(225);
+		
+		layout.getChildren().add(evil);
+		layout.getChildren().add(good);
+		Scene begin = new Scene(layout, 500,500);
+		
+		window.setScene(begin);
+		window.show();
+	}
 	
-	public static Scene startGame(int size){
+	
+	public static Scene startGame(int size,boolean amorality){
+		boolean morality = amorality;
 		int screen = 500;
 		int enemyCount = (int)(size*0.9); // Occurrence of enemy spawning in a map
 		Player player = new Player(size-2, (int)(size/2)); // Initial player spawn; always last row, mid col
