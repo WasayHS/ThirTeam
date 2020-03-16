@@ -34,12 +34,15 @@ import unit.Unit;
 
 public class SceneChange {
 	
+	static boolean morality;
 	private static int level = 0;
-	static int roundOneSize = 9;
-	static int roundTwoSize = 11;
-	static int roundThreeSize = 13;
+	public static int roundOneSize = 9;
+	public static int roundTwoSize = 11;
+	public static int roundThreeSize = 13;
 	
-	public static void newLevel(Stage window, int size,boolean morality) {
+	//newLevel generates a new level based on startGame and shows it to the window
+	public static void newLevel(Stage window, int size,boolean amorality) {
+		morality = amorality;
 		Scene nextScene;
 		nextScene = startGame(size,morality);
 		window.setScene(nextScene);
