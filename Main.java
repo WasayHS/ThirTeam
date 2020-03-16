@@ -41,6 +41,7 @@ public class Main extends Application implements EventHandler<ActionEvent> {
 		Scene start;
 		//goes to the titlescreen
 		//titlescreen has a button that will start the game
+		//sceneChanges will be handled in SceneChange
 		start = SceneChange.getTitleScene(primaryStage);
 		window.setScene(start);
 		window.show();

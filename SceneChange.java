@@ -7,7 +7,6 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.util.List;
 import java.util.Random;
-
 import battle.AttackType;
 import battle.AttackTypes;
 import javafx.event.ActionEvent;
@@ -40,13 +39,37 @@ public class SceneChange {
 	public static int roundTwoSize = 11;
 	public static int roundThreeSize = 13;
 	
-	//newLevel generates a new level based on startGame and shows it to the window
-	public static void newLevel(Stage window, int size,boolean amorality) {
-		morality = amorality;
+	
+	public static void setMorality(boolean morality) {
+		SceneChange.morality = morality;
+	}
+
+	//method action created to set the morality and also start a new level
+	public static void action(Stage window, boolean amorality) {
+		setMorality(amorality);
+		newLevel(window);
+	}
+	
+	/*newLevel generates a new level based on startGame and shows it to the window
+	level should be updated every time after a newLevel
+	size should be switched out after and size of the level should be determined by level number
+	e.g		if level = 0
+	 		get cutscene
+	 		else if level = 1
+	 			if morality = true
+	 				cutscene for good
+	 			else
+	 				cutscene for bad
+	 		else if level = 2
+	 			nextScene = startGame(roundOneSize)
+	*/
+	public static void newLevel(Stage window) {
 		Scene nextScene;
-		nextScene = startGame(size,morality);
+		nextScene = startGame(window, roundOneSize);
+		level++;
 		window.setScene(nextScene);
 		window.show();
+		
 	}
 	
 	public static Scene getTitleScene(Stage window)throws Exception{
@@ -102,13 +125,13 @@ public class SceneChange {
 		
 		Button evil = new Button();
 		evil.setText("Low (evil)");
-		evil.setOnAction(e-> newLevel(window, roundOneSize,false));
+		evil.setOnAction(e->action(window,false));
 		evil.setTranslateX(150);
 		evil.setTranslateY(225);
 		
 		Button good = new Button();
 		good.setText("High (good)");
-		good.setOnAction(g->newLevel(window, roundOneSize,true));
+		good.setOnAction(g->action(window,true));
 		good.setTranslateX(300);
 		good.setTranslateY(225);
 		
@@ -121,8 +144,8 @@ public class SceneChange {
 	}
 	
 	
-	public static Scene startGame(int size,boolean amorality){
-		boolean morality = amorality;
+	public static Scene startGame(Stage window,int size){
+		Position portal = new Position(0,(int)size/2);
 		int screen = 500;
 		int enemyCount = (int)(size*0.9); // Occurrence of enemy spawning in a map
 		Player player = new Player(size-2, (int)(size/2)); // Initial player spawn; always last row, mid col
@@ -132,6 +155,7 @@ public class SceneChange {
 		
 		List<Position> enemies = MapSetup.createEnemyPositions(enemyCount, size, false);
 		List<Position> terrain = MapSetup.createEnemyPositions(enemyCount, size, true);
+		
 		// - - - - - - - - - - - Initializes map with enemies, unit, wall, empty spaces
 		for (int i = 0; i < size; i++) {
 			for (int j = 0; j < size; j++) {
@@ -151,6 +175,8 @@ public class SceneChange {
 				
 				if (!cell.getFill().equals(MapSetup.enemyImg) && !cell.getFill().equals(MapSetup.terrainImg)) { //Spaces with no enemies
 					if (i == 0 && j == (int)size/2) { // Portal to next level
+						portal.setX(i);
+						portal.setY(j);
 						cell.setFill(MapSetup.portalImg);
 					}
 					else if (i == 0 || j == 0 || i == size-1 || j == size-1) { // Set edge of grid as wall
@@ -166,19 +192,26 @@ public class SceneChange {
 				cell.addEventFilter(MouseEvent.MOUSE_PRESSED, event -> {
 					Position p = new Position(GridPane.getRowIndex(cell), GridPane.getColumnIndex(cell));
 					MapSetup.updateGrid(grid, p, player);
+					if(player.getPosition().getX() == portal.getX()){
+						if(player.getPosition().getY() == portal.getY()){
+							newLevel(window);
+						}
+					}
 				});
+				
 				grid.setRowIndex(cell, i);
 				grid.setColumnIndex(cell, j);
 				grid.getChildren().add(cell);
 			}	
 		}
+		
 		Scene scene = new Scene(grid, 500,500);
 		return scene;
 	}
 	
 	//this is how the cutScenes will be accessed depending on the level they are on
 	//there will be a button that the player can press after to end the cutscene
-	public Scene getCutScene(int level, boolean morality) {
+	public Scene getCutScene(boolean morality) {
 		Scene cutScene = null;
 		switch(level) {
 		//case 0 is the exposition of the story
@@ -187,20 +220,17 @@ public class SceneChange {
 			StackPane stack = new StackPane();
 			stack.getChildren().addAll(exposition);
 			cutScene = new Scene(stack, 500,500);
-			level = level++;
 		case 1:
 			Label goodMessageOne = new Label("Exposition of the story");
 			StackPane goodOne = new StackPane();
 			goodOne.getChildren().addAll(goodMessageOne);
 			cutScene = new Scene(goodOne, 500,500);
-			level = level++;
 		case 2:
 			if(morality == true) { //just taking in the morality since good and bad have different text routes
 			Label goodMessageTwo = new Label("Exposition of the story");
 			StackPane goodTwo = new StackPane();
 			goodTwo.getChildren().addAll(goodMessageTwo);
 			cutScene = new Scene(goodTwo, 500,500);
-			level = level++;
 			}
 			else {
 				return null;
