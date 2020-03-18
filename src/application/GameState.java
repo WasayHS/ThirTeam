@@ -64,14 +64,4 @@ public class GameState {
 		endGame.setScene(scene);
 		endGame.show();
 	}
-	
-	public void openPortal(Stage stage, GridPane grid, Position p, Player player) { // Open portal to next round; event handling: send player to new map.
-		if (MapSetup.checkMove(grid, p, player)) {
-			Rectangle cell = MapSetup.getNode(grid, p);
-			cell.setFill(MapSetup.playerImg);
-			
-			Rectangle oldC = MapSetup.getNode(grid, p);
-			oldC.setFill(MapSetup.emptyImg);
-		}
-	}
 }
