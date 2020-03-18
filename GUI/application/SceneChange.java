@@ -89,7 +89,10 @@ public class SceneChange {
 				try {
 					instructions.createNewFile();
 					FileWriter w = new FileWriter(instructions);
-					w.write("To move: Bring your mouse cursor one block above or beside the player (P)");
+					w.write("To move: Bring your mouse cursor one block above or beside the player (the player cannot move diagonally) \n");
+					w.write("The player can attack if they're beside, infront, behind the enemy. The player can also attack diagonally \n");
+					w.write("To attack, click on an enemy that is close to the player (behind, infront, beside, diag)\n");
+					w.write("Go to the next level by going to the door/portal on the top of the grid, this door can only be opened after killing all the enemies\n");
 					w.close();
 					d.open(instructions);
 					
