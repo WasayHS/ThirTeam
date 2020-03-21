@@ -23,7 +23,12 @@ public class Stats {
 		this.defaultHP = hp;
 	}
 	public int getHealth() {
-		return health;
+		if (this.health <= 0) {
+			return 0;
+		}
+		else {
+			return health;
+		}
 	}
 
 	public void setHealth(int hpChange) {

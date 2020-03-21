@@ -11,8 +11,10 @@ import java.util.Random;
 
 import application.Main;
 import application.SceneChange;
+import battle.BattleThread;
 import loot.Inventory;
 import javafx.scene.Node;
+import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.layout.GridPane;
@@ -28,9 +30,19 @@ public class MapSetup {
 	public static final ImagePattern enemyImg = new ImagePattern(new Image("/entities/enemy.png"));
 	public static final ImagePattern wallImg = new ImagePattern(new Image("/entities/wall.png"));
 	public static final ImagePattern emptyImg = new ImagePattern(new Image("/entities/floor.png"));
-	public static final ImagePattern portalImg = new ImagePattern(new Image("/entities/door.png"));
+	public static final ImagePattern portalImg = new ImagePattern(new Image("/entities/lockedDoor.png"));
 	public static final ImagePattern terrainImg = new ImagePattern(new Image("/entities/spikes.png"));
-	public static final ImagePattern floor1 = new ImagePattern(new Image("/entities/floor1.png"));
+	public static final ImagePattern floor_hover = new ImagePattern(new Image("/entities/floor_hover.png"));
+	public static final ImagePattern enemy_hover = new ImagePattern(new Image("/entities/enemyHover.png"));
+	public static final ImagePattern player_hover = new ImagePattern(new Image("/entities/playerHover.png"));
+	public static final ImagePattern spikes_hover = new ImagePattern(new Image("/entities/spikesHover.png"));
+	public static final ImagePattern locked_hover = new ImagePattern(new Image("/entities/lockedHover.png"));
+	public static final ImagePattern unlocked = new ImagePattern(new Image("/entities/unlockedDoor.png"));
+	public static final ImagePattern opened = new ImagePattern(new Image("/entities/openDoor.png"));
+	public static final ImagePattern def_hover = new ImagePattern(new Image("/entities/defPotHover.png"));
+	public static final ImagePattern str_hover = new ImagePattern(new Image("/entities/strPotHover.png"));
+	public static final ImagePattern mag_hover = new ImagePattern(new Image("/entities/magPotHover.png"));
+	
 	public static Map<Position, Enemy> ENEMY_POS = new HashMap<Position, Enemy>();
 	public static int num;
 	
@@ -67,12 +79,11 @@ public class MapSetup {
 	
 //	- - - - - Checks for valid move; if move is valid, grid is updated
 	public static boolean checkMove(GridPane grid, Position p, Player player) {
-		if (Math.abs(player.getPosition().getX()-p.getX()) > 1 || Math.abs(player.getPosition().getY()-p.getY()) > 1 || (Math.abs(player.getPosition().getX()-p.getX()) == 1 && Math.abs(player.getPosition().getY()-p.getY()) == 1)) {
+		Rectangle newPosition = getNode(grid, p);
+		if (Math.abs(player.getPosition().getX()-p.getX()) > 1 || Math.abs(player.getPosition().getY()-p.getY()) > 1 || (Math.abs(player.getPosition().getX()-p.getX()) == 1 && Math.abs(player.getPosition().getY()-p.getY()) == 1) || newPosition.getFill().equals(spikes_hover)) {
 			return false;
 		}
-		
-		Rectangle newPosition = getNode(grid, p);
-		return newPosition.getFill().equals(emptyImg) || (numberOfEnemies(grid) == 0 && newPosition.getFill().equals(portalImg)); //If location empty, moves, if no more enemies, portal to next level opens
+		return newPosition.getFill().equals(floor_hover) || (numberOfEnemies(grid) == 0 && newPosition.getFill().equals(portalImg)); //If location empty, moves, if no more enemies, portal to next level opens
 	}
 
 //		- - - - - Get the 'char' in each cell; Returns "P", "E" etc..
@@ -94,23 +105,37 @@ public class MapSetup {
 		boolean melee = checkMelee(grid, newPosition, player);
 		boolean ranged = checkRanged(grid, newPosition, player);
 		
-		if (cell.getFill().equals(portalImg)) {
+		if (cell.getFill().equals(opened)) {
+			Label message = new Label ("The door will lead you to the next level.");
+			Main.continueBtn(message);
 			SceneChange.newLevel(window);
 		}
+		
+		if (numberOfEnemies(grid) == 0) {
+			Position p = new Position(0, SceneChange.mapSize/2-1);
+			Rectangle door = getNode(grid, p);
+			door.setFill(unlocked);
+		}
+		
 		if (checkMove(grid, newPosition, player)){ 
-				moveUnit(grid, player, newPosition);
+			moveUnit(grid, player, newPosition);
 		}
+		
 		if (melee || ranged) {
-			Main.startBattle(grid, player, melee, ranged, newPosition, cell);
+			Enemy enemy = MapSetup.getEnemy(newPosition.getX(), newPosition.getY());
+			while(player.getStats().getHealth() > 0 && enemy.getStats().getHealth() > 0) {
+				BattleThread battle = new BattleThread(grid, player, melee, ranged, newPosition, cell);
+				}
 		}
-		if (enemyDrop) {
+		
+		if (cell.getFill().equals(def_hover) || cell.getFill().equals(str_hover) || cell.getFill().equals(mag_hover)) {
 			Main.pickUpItemWindow(grid, pot, newPosition, cell, player);
 		}
 	}
 	
 	public static void moveUnit(GridPane grid, Unit unit, Position newPosition) {
 		Rectangle newC = getNode(grid, newPosition);
-		newC.setFill(playerImg);
+		newC.setFill(player_hover);
 		
 		Rectangle oldC = getNode(grid, unit.getPosition());
 		oldC.setFill(emptyImg);
@@ -132,7 +157,7 @@ public class MapSetup {
 			return false;
 		}
 		Rectangle newPosition = MapSetup.getNode(grid, p);
-		return newPosition.getFill().equals(enemyImg);
+		return newPosition.getFill().equals(enemy_hover);
 	}
 	
 	public static boolean checkMelee(GridPane grid, Position p, Player player) { // Returns true if there is enemy adjacent
@@ -141,17 +166,43 @@ public class MapSetup {
 		}
 		
 		Rectangle newPosition = MapSetup.getNode(grid, p);
-		return newPosition.getFill().equals(enemyImg);
+		return newPosition.getFill().equals(enemy_hover);
 	}
 	
 	public static int numberOfEnemies(GridPane grid) { // Iterates through each cell
 		int enemies = 0;
 		for (Node node : grid.getChildren()) {
 			Rectangle cell = (Rectangle)node;
-			if (cell.getFill().equals(enemyImg)) {
+			if (cell.getFill().equals(enemyImg) || cell.getFill().equals(enemy_hover)) {
 				enemies++;
 			}
 		}
 		return enemies;
+	}
+	
+	public static ImagePattern enterHover(GridPane grid, Position p, Rectangle cell) {
+		if (cell.getFill().equals(emptyImg)) {return floor_hover;}
+		if (cell.getFill().equals(playerImg)) {return player_hover;}
+		if (cell.getFill().equals(enemyImg)) {return enemy_hover;}
+		if (cell.getFill().equals(terrainImg)) {return spikes_hover;}
+		if (cell.getFill().equals(unlocked)) {return opened;}
+		if (cell.getFill().equals(portalImg)) {return locked_hover;}
+		if (cell.getFill().equals(Inventory.DEF_POT)) {return def_hover;}
+		if (cell.getFill().equals(Inventory.STR_POT)) {return str_hover;}
+		if (cell.getFill().equals(Inventory.MAG_POT)) {return mag_hover;}
+		return wallImg;
+	}
+	
+	public static ImagePattern exitHover(GridPane grid, Position p, Rectangle cell) {
+		if (cell.getFill().equals(floor_hover)) {return emptyImg;}
+		if (cell.getFill().equals(player_hover)) {return playerImg;}
+		if (cell.getFill().equals(enemy_hover)) {return enemyImg;}
+		if (cell.getFill().equals(spikes_hover)) {return terrainImg;}
+		if (cell.getFill().equals(opened)) {return unlocked;}
+		if (cell.getFill().equals(locked_hover)) {return portalImg;}
+		if (cell.getFill().equals(def_hover)) {return Inventory.DEF_POT;}
+		if (cell.getFill().equals(str_hover)) {return Inventory.STR_POT;}
+		if (cell.getFill().equals(mag_hover)) {return Inventory.MAG_POT;}
+		return wallImg;
 	}
 }

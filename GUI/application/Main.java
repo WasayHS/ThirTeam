@@ -46,81 +46,6 @@ public class Main extends Application implements EventHandler<ActionEvent> {
 		window.show();
 	}
 	
-	public static void startBattle(GridPane grid, Unit player, boolean melee, boolean ranged, Position p, Rectangle node) {
-		Stage battleStage = new Stage();
-		window = battleStage;
-		VBox root = new VBox();
-        Button attackBtn = null;
-        Button defendBtn;
-        Button potionBtn;
-        Label message;
-	    AttackType type = new AttackType(player);
-	    
-	      message = new Label("Choose your move.");
-	      defendBtn = new Button("Defend");
-	      potionBtn = new Button ("Use potion.");
-	      
-	      if (melee) {
-	    	  attackBtn = new Button("Melee");
-	      	}
-	      else if (ranged) {
-	    	  attackBtn = new Button("Ranged");
-	      	}
-  
-		  attackBtn.setOnAction(new EventHandler<ActionEvent>() // - - - - Attack event
-				   {
-			   	@Override
-			   	public void handle(ActionEvent event)
-			   	{
-			   		Button sourceBtn = (Button)event.getSource();
-			   		message.setText("You dealt damage to the Enemy!");
-			   		Enemy enemy = MapSetup.getEnemy(p.getX(), p.getY());
-			   		type.attackedThem(enemy, AttackTypes.valueOf(sourceBtn.getText().toUpperCase()));
-			   		Rectangle node = MapSetup.getNode(grid, p);
-			   		// Have a bar showing enemy health 
-			   		
-			   		if (enemy.getStats().getHealth() <= 0) {
-			   			boolean prob = new Random().nextInt(3)==0;
-			   			if (prob) {
-			   				MapSetup.enemyDrop(grid, enemy, p);
-			   				battleStage.close();
-			   			}
-			   			else {
-				   			MapSetup.moveUnit(grid, enemy, p);
-				   			battleStage.close();
-			   			}
-			   		}
-			   	}});
-		 
-		  // Create an anonymous inner class to handle Defend
-		  defendBtn.setOnAction(new EventHandler<ActionEvent>()
-		   {
-		   	@Override
-		   	public void handle(ActionEvent event)
-		   	{
-		   		message.setText("You defended against damage.");
-		   	}});
-		  
-		  potionBtn.setOnAction(new EventHandler<ActionEvent>()
-		   {
-		   	@Override
-		   	public void handle(ActionEvent event)
-		   	{
-		   		message.setText("You used a potion.");
-		   	}});
-		  
-		  if (attackBtn != null) {
-			  root.getChildren().add(attackBtn);
-		  }
-		  root.getChildren().add(defendBtn);
-		  root.getChildren().add(potionBtn);
-		  root.getChildren().add(message);
-		  Scene scene = new Scene(root, 300, 100);
-		  		  
-		  battleStage.setScene(scene);
-		  battleStage.showAndWait();
-	}
-	
 	public static void pickUpItemWindow(GridPane grid, Inventory pot, Position p, Rectangle cell, Player player) {
 		Stage pickup = new Stage();
 		window = pickup;
@@ -138,7 +63,7 @@ public class Main extends Application implements EventHandler<ActionEvent> {
 		   		message.setText("The item will be added to your inventory.");
 			   	pot.inventory.put(pot.getImage(), pot.getLootStats());
 			   	continueBtn(message);
-			   	MapSetup.moveUnit(grid, player, p);
+			   	cell.setFill(MapSetup.emptyImg);
 			   	pickup.close();
 		   	}});
 

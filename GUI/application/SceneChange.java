@@ -21,8 +21,10 @@ import javafx.scene.layout.GridPane;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
+import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
 import javafx.stage.Stage;
+import loot.Inventory;
 import map.MapSetup;
 import map.Position;
 import unit.Enemy;
@@ -65,9 +67,8 @@ public class SceneChange {
 		level++;
 		window.setScene(nextScene);
 		window.show();
-		
 	}
-	
+
 	public static Scene getTitleScene(Stage window)throws Exception{
 		window.setTitle("A Beast's Weapon");
 		Button start = new Button();
@@ -146,7 +147,7 @@ public class SceneChange {
 	public static Scene startGame(Stage window, int size){
 		Position portal = new Position(0,(int)size/2);
 		int screen = 500;
-		int enemyCount = (int)(size*0.9); // Occurrence of enemy spawning in a map
+		int enemyCount = (int)(size*0.85); // Occurrence of enemy spawning in a map
 		Player player = new Player(size-2, (int)(size/2)); // Initial player spawn; always last row, mid col
 		
 		Random random = new Random ();
@@ -186,17 +187,25 @@ public class SceneChange {
 						cell.setFill(MapSetup.emptyImg);
 					}
 				}
-				cell.addEventFilter(MouseEvent.MOUSE_PRESSED, event -> {
+				
+				// - - - - - - - - Mouse hover and click event handling
+				cell.setOnMouseEntered(enter -> {
 					Position p = new Position(GridPane.getRowIndex(cell), GridPane.getColumnIndex(cell));
-					MapSetup.updateGrid(grid, p, player, window);
+					cell.setFill(MapSetup.enterHover(grid, p, cell));
+				
+					cell.addEventFilter(MouseEvent.MOUSE_PRESSED, event -> {
+						MapSetup.updateGrid(grid, p, player, window);
+					});
+					
+					cell.setOnMouseExited(exit -> cell.setFill(MapSetup.exitHover(grid, p, cell)));
 				});
+				
 				grid.setRowIndex(cell, i);
 				grid.setColumnIndex(cell, j);
 				grid.getChildren().add(cell);
 			}	
 		}
-		
-		Scene scene = new Scene(grid, 500,500);
+		Scene scene = new Scene(grid, 500, 500);
 		return scene;
 	}
 	
