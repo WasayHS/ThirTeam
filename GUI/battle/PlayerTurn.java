@@ -60,7 +60,7 @@ public class PlayerTurn extends Thread{
 			   			message.setText("You have defeated the enemy!");
 				   		Main.continueBtn(message);
 
-			   			boolean prob = new Random().nextInt(1)==0; // Enemy item drop probability
+			   			boolean prob = new Random().nextInt(3)==0; // Enemy item drop probability
 			   			if (prob) {
 			   				message.setText("The enemy dropped an item.");
 					   		Main.continueBtn(message);
