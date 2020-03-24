@@ -63,12 +63,42 @@ public class SceneChange {
 	public static void newLevel(Stage window) {
 		Scene nextScene;
 		nextScene = startGame(window, mapSize);
-		mapSize+=2;
 		level++;
 		window.setScene(nextScene);
 		window.show();
 	}
 
+	public static void playAgain(Stage window) {
+		Stage restart = new Stage();
+		VBox root = new VBox();
+		Label message = new Label("Play again?");
+		
+		Button yes = new Button("Yes.");
+		yes.setOnAction(new EventHandler<ActionEvent>()
+		   {@Override
+		   	public void handle(ActionEvent event)
+		   	{
+			   Scene newGame = startGame(window, mapSize);
+			   window.setScene(newGame);
+		   	}});
+		
+		Button no = new Button("No.");
+		no.setOnAction(new EventHandler<ActionEvent>()
+		   {@Override
+		   	public void handle(ActionEvent event)
+		   	{
+			   System.exit(1);
+		   	}});
+		
+		root.getChildren().add(message);
+		root.getChildren().add(yes);
+		root.getChildren().add(no);
+		Scene scene = new Scene(root, 300, 100);
+  	  
+		restart.setScene(scene);
+		restart.showAndWait();
+	}
+	
 	public static Scene getTitleScene(Stage window)throws Exception{
 		window.setTitle("A Beast's Weapon");
 		Button start = new Button();
