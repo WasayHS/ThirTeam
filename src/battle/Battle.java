@@ -2,8 +2,8 @@ package battle;
 
 import java.util.Scanner;
 
-import game.TextApp;
 import map.Map;
+import textApp.TextApp;
 import unit.Enemy;
 import unit.Player;
 import unit.Unit;

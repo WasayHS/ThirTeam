@@ -21,10 +21,10 @@ import javafx.scene.layout.GridPane;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
+import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
 import javafx.stage.Stage;
-import loot.Collectible;
-import loot.StrPotion;
+import loot.Inventory;
 import map.MapSetup;
 import map.Position;
 import unit.Enemy;
@@ -35,10 +35,7 @@ public class SceneChange {
 	
 	static boolean morality;
 	private static int level = 0;
-	public static int roundOneSize = 9;
-	public static int roundTwoSize = 11;
-	public static int roundThreeSize = 13;
-	
+	public static int mapSize = 9; // From 7, map goes up by 2 each level
 	
 	public static void setMorality(boolean morality) {
 		SceneChange.morality = morality;
@@ -65,11 +62,41 @@ public class SceneChange {
 	*/
 	public static void newLevel(Stage window) {
 		Scene nextScene;
-		nextScene = startGame(window, roundOneSize);
+		nextScene = startGame(window, mapSize);
 		level++;
 		window.setScene(nextScene);
 		window.show();
+	}
+
+	public static void playAgain(Stage window) {
+		Stage restart = new Stage();
+		VBox root = new VBox();
+		Label message = new Label("Play again?");
 		
+		Button yes = new Button("Yes.");
+		yes.setOnAction(new EventHandler<ActionEvent>()
+		   {@Override
+		   	public void handle(ActionEvent event)
+		   	{
+			   Scene newGame = startGame(window, mapSize);
+			   window.setScene(newGame);
+		   	}});
+		
+		Button no = new Button("No.");
+		no.setOnAction(new EventHandler<ActionEvent>()
+		   {@Override
+		   	public void handle(ActionEvent event)
+		   	{
+			   System.exit(1);
+		   	}});
+		
+		root.getChildren().add(message);
+		root.getChildren().add(yes);
+		root.getChildren().add(no);
+		Scene scene = new Scene(root, 300, 100);
+  	  
+		restart.setScene(scene);
+		restart.showAndWait();
 	}
 	
 	public static Scene getTitleScene(Stage window)throws Exception{
@@ -93,7 +120,10 @@ public class SceneChange {
 				try {
 					instructions.createNewFile();
 					FileWriter w = new FileWriter(instructions);
-					w.write("To move: Bring your mouse cursor one block above or beside the player (P)");
+					w.write("To move: Bring your mouse cursor one block above or beside the player (the player cannot move diagonally) \n");
+					w.write("The player can attack if they're beside, infront, behind the enemy. The player can also attack diagonally \n");
+					w.write("To attack, click on an enemy that is close to the player (behind, infront, beside, diag)\n");
+					w.write("Go to the next level by going to the door/portal on the top of the grid, this door can only be opened after killing all the enemies\n");
 					w.close();
 					d.open(instructions);
 					
@@ -144,10 +174,10 @@ public class SceneChange {
 	}
 	
 	
-	public static Scene startGame(Stage window,int size){
+	public static Scene startGame(Stage window, int size){
 		Position portal = new Position(0,(int)size/2);
 		int screen = 500;
-		int enemyCount = (int)(size*0.9); // Occurrence of enemy spawning in a map
+		int enemyCount = (int)(size*0.85); // Occurrence of enemy spawning in a map
 		Player player = new Player(size-2, (int)(size/2)); // Initial player spawn; always last row, mid col
 		
 		Random random = new Random ();
@@ -175,8 +205,6 @@ public class SceneChange {
 				
 				if (!cell.getFill().equals(MapSetup.enemyImg) && !cell.getFill().equals(MapSetup.terrainImg)) { //Spaces with no enemies
 					if (i == 0 && j == (int)size/2) { // Portal to next level
-						portal.setX(i);
-						portal.setY(j);
 						cell.setFill(MapSetup.portalImg);
 					}
 					else if (i == 0 || j == 0 || i == size-1 || j == size-1) { // Set edge of grid as wall
@@ -189,14 +217,17 @@ public class SceneChange {
 						cell.setFill(MapSetup.emptyImg);
 					}
 				}
-				cell.addEventFilter(MouseEvent.MOUSE_PRESSED, event -> {
+				
+				// - - - - - - - - Mouse hover and click event handling
+				cell.setOnMouseEntered(enter -> {
 					Position p = new Position(GridPane.getRowIndex(cell), GridPane.getColumnIndex(cell));
-					MapSetup.updateGrid(grid, p, player);
-					if(player.getPosition().getX() == portal.getX()){
-						if(player.getPosition().getY() == portal.getY()){
-							newLevel(window);
-						}
-					}
+					cell.setFill(MapSetup.enterHover(grid, p, cell));
+				
+					cell.addEventFilter(MouseEvent.MOUSE_PRESSED, event -> {
+						MapSetup.updateGrid(grid, p, player, window);
+					});
+					
+					cell.setOnMouseExited(exit -> cell.setFill(MapSetup.exitHover(grid, p, cell)));
 				});
 				
 				grid.setRowIndex(cell, i);
@@ -204,8 +235,7 @@ public class SceneChange {
 				grid.getChildren().add(cell);
 			}	
 		}
-		
-		Scene scene = new Scene(grid, 500,500);
+		Scene scene = new Scene(grid, 500, 500);
 		return scene;
 	}
 	
