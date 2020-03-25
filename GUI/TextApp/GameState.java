@@ -1,4 +1,5 @@
-package GUI.application;
+package application;
+package TextApp;
 
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
@@ -9,10 +10,7 @@ import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.StackPane;
 import javafx.scene.shape.Rectangle;
-import javafx.stage.Stage;
-import map.MapSetup;
-import map.Position;
-import unit.Player;
+import javafx.stage.Stage;;
 
 public class GameState {
 
