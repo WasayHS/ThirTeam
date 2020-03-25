@@ -1,18 +1,22 @@
-# Tutorial 3, Group 13 Project 
+Thirteam - Tut 3, Group 13
 
-# A text-based demo for a game where the player must defeat all enemies on the battlefield to win the round.
+The game is a Top Down RPG where you can play as evil or good and this will change a lot of the dialogue that takes place in 
+the cutscenes and different endings, The user is able to move, battle enemies, recieve potions.
 
-How to download the program:
-1. Navigate to the master branch of the ThirTeam code repository.
-2. Download the zip file and extract into chosen directory.
+___________________________________________GUI Version________________________________________________________________________
 
-How to run on a terminal:
-1. Open a terminal and navigate to the folder where the java files are located.
-2. Compile using the command: javac TextApp.java.
-3. Run the game using the command: java TextApp.
-4. Follow instructions shown on console to play the game.
 
-How to run on Eclipse:
-1. Open Eclipse and start a new Java Project.
-2. Import the downloaded files into the new Java Project.
-3. Run the project and follow instructions on console to play the game.
+1) Download the source code by going to "clone or download" and click "Download ZIP"
+2) Extract Files
+3) Click on GUI folder and copy the files to the src folder in a new Java Project
+4) On Eclipse, click on application, and then open "Main.java"
+5) Launch Main
+
+__________________________________________Text App Version____________________________________________________________________
+
+
+1) Download the source code by going to "clone or download" and click "Download ZIP"
+2) Extract Files
+3) Click on TextAppOO folder and copy the files to the src folder in a new Java Project
+4) On Eclipse, click on game, and then open "TextApp.java"
+5) Launch Main
