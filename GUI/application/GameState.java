@@ -14,6 +14,7 @@ import map.MapSetup;
 import map.Position;
 import unit.Player;
 
+
 public class GameState {
 
 	public void victory(Stage finished) throws Exception{
