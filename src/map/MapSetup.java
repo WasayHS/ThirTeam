@@ -12,6 +12,7 @@ import java.util.Random;
 import application.Main;
 import application.SceneChange;
 import battle.BattleThread;
+import battle.EnemyMove;
 import loot.Inventory;
 import javafx.scene.Node;
 import javafx.scene.control.Label;
@@ -120,6 +121,8 @@ public class MapSetup {
 		
 		if (checkMove(grid, newPosition, player)){ 
 			moveUnit(grid, player, newPosition);
+			EnemyMove enemyMove = new EnemyMove (grid);
+			enemyMove.move(newPosition);
 		}
 		
 		if (melee || ranged) {
@@ -136,7 +139,11 @@ public class MapSetup {
 	
 	public static void moveUnit(GridPane grid, Unit unit, Position newPosition) {
 		Rectangle newC = getNode(grid, newPosition);
-		newC.setFill(player_hover);
+		if (unit instanceof Player){
+			newC.setFill(player_hover);
+		}else if (unit instanceof Enemy){ 
+			newC.setFill(enemyImg);
+		}
 		
 		Rectangle oldC = getNode(grid, unit.getPosition());
 		oldC.setFill(emptyImg);
