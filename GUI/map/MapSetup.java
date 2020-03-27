@@ -81,12 +81,21 @@ public class MapSetup {
 //	- - - - - Checks for valid move; if move is valid, grid is updated
 	public static boolean checkMove(GridPane grid, Position p, Player player) {
 		Rectangle newPosition = getNode(grid, p);
-		if (Math.abs(player.getPosition().getX()-p.getX()) > 1 || Math.abs(player.getPosition().getY()-p.getY()) > 1 || (Math.abs(player.getPosition().getX()-p.getX()) == 1 && Math.abs(player.getPosition().getY()-p.getY()) == 1) || newPosition.getFill().equals(spikes_hover)) {
+		if (Math.abs(player.getPosition().getX()-p.getX()) > 1 || Math.abs(player.getPosition().getY()-p.getY()) > 1 ||
+				(Math.abs(player.getPosition().getX()-p.getX()) == 1 && Math.abs(player.getPosition().getY()-p.getY()) == 1) || newPosition.getFill().equals(spikes_hover)) {
 			return false;
 		}
 		return newPosition.getFill().equals(floor_hover) || (numberOfEnemies(grid) == 0 && newPosition.getFill().equals(portalImg)); //If location empty, moves, if no more enemies, portal to next level opens
 	}
-
+//  - - - - - Check for valid enemy move; if move is valid, grid is updated
+	public static boolean checkEnemyMove(GridPane grid, Position newPos, Enemy e){
+		Rectangle newPosition = getNode(grid,newPos);
+		boolean Move = !(newPosition.getFill().equals(terrainImg) || newPosition.getFill().equals(playerImg) || newPosition.getFill().equals(wallImg) 
+				         ||newPosition.getFill().equals(spikes_hover)|| newPosition.getFill().equals(player_hover)|| newPosition.getFill().equals(enemy_hover)
+				         || newPosition.getFill().equals(enemyImg));
+		
+		return Move;
+	}
 //		- - - - - Get the 'char' in each cell; Returns "P", "E" etc..
 	public static Rectangle getNode(GridPane grid, Position p) {
 		for (Node node : grid.getChildren()) {
@@ -144,7 +153,6 @@ public class MapSetup {
 		}else if (unit instanceof Enemy){ 
 			newC.setFill(enemyImg);
 		}
-		
 		Rectangle oldC = getNode(grid, unit.getPosition());
 		oldC.setFill(emptyImg);
 		
