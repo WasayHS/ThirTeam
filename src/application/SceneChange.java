@@ -61,16 +61,17 @@ public class SceneChange {
 	 			nextScene = startGame(roundOneSize)
 	*/
 	public static void newLevel(Stage window) {
+		System.out.println(level);
 		Scene nextScene;
-		level++;
-		if (level == 1 || level ==0) {
-			getCutScene();
+		if (level == 0) {
+			getCutScene(window);
 		}
 		else {
 			nextScene = startGame(window, mapSize);
 			window.setScene(nextScene);
 			window.show();	
 		}
+		level++;
 	}
 
 	public static void playAgain(Stage window) {
@@ -107,7 +108,6 @@ public class SceneChange {
 	public static Scene getTitleScene(Stage window)throws Exception{
 		window.setTitle("A Beast's Weapon");
 		Button start = new Button();
-		System.out.println(level);
 		start.setText("Begin");
 		start.setOnAction(e -> setMorality(window));
 		start.setTranslateX(180);
@@ -247,26 +247,37 @@ public class SceneChange {
 	
 	//this is how the cutScenes will be accessed depending on the level they are on
 	//there will be a button that the player can press after to end the cutscene
-	public static Scene getCutScene() {
-		Stage window = new Stage();
+	public static Scene getCutScene(Stage window) {
 		Scene cutScene = null;
 		switch(level) {
-		//case 0 is the exposition of the story
+		//case 0 is the exposition of the story, base storyline
 		case 0:
-			Label exposition = new Label("Exposition of the story");
-			StackPane stack = new StackPane();
+			Label exposition = new Label();
+			//exposition if you're good
+
 			
+			VBox root = new VBox();
+
 			//create a button that goes to battle
 			Button btn = new Button();
+		
 			btn.setText("Continue");
 			btn.setOnAction(e-> newLevel(window));
-			stack.getChildren().add(exposition);
-			stack.getChildren().add(btn);
-			cutScene = new Scene(stack, 500,500);
+			root.getChildren().addAll(exposition,btn);
 
-
+			cutScene = new Scene(root, 500,500);
+			window.setScene(cutScene);
 		case 1:
 			Label goodMessageOne = new Label("Exposition of the story");
+			
+			if (morality == true) {
+				exposition.setText("Exposition if you're good");
+			}
+			//exposition if you're bad
+			else {
+				exposition.setText("Exposition if you're bad");
+			}
+			
 			StackPane goodOne = new StackPane();
 			goodOne.getChildren().addAll(goodMessageOne);
 			cutScene = new Scene(goodOne, 500,500);
