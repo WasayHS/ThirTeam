@@ -1,12 +1,16 @@
 package application;
 
 import java.awt.Desktop;
+import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileInputStream;
+import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.util.List;
 import java.util.Random;
+import java.util.Scanner;
+
 import battle.AttackType;
 import battle.AttackTypes;
 import javafx.event.ActionEvent;
@@ -252,10 +256,17 @@ public class SceneChange {
 		switch(level) {
 		//case 0 is the exposition of the story, base storyline
 		case 0:
-			Label exposition = new Label();
-			//exposition if you're good
+			Label exposition = new Label("Huh? Where am I? I began to open my eyes to the wreckage of the castle.\r\n" + 
+					"I can't seem to remember anything.\r\n" + 
+					"\r\n" + 
+					"I stumbled up onto my feet. \r\n" + 
+					"I seemed to be at the bottom of the mountain, yet I remember being at the top...\r\n" + 
+					"I dust off my battered armour and begin walking towards the castle when suddenly...\r\n" + 
+					"\r\n" + 
+					"\"LET'S GET HIM. I HEARD HE'S WORTH GOOD MONEY IF WE DEFEAT HIM!\"\r\n" + 
+					"\r\n" + 
+					"Ugh, bad guys, let's hope I remember how to fight.");
 
-			
 			VBox root = new VBox();
 
 			//create a button that goes to battle
@@ -270,13 +281,13 @@ public class SceneChange {
 		case 1:
 			Label goodMessageOne = new Label("Exposition of the story");
 			
-			if (morality == true) {
-				exposition.setText("Exposition if you're good");
-			}
-			//exposition if you're bad
-			else {
-				exposition.setText("Exposition if you're bad");
-			}
+//			if (morality == true) {
+//				exposition.setText("Exposition if you're good");
+//			}
+//			//exposition if you're bad
+//			else {
+//				exposition.setText("Exposition if you're bad");
+//			}
 			
 			StackPane goodOne = new StackPane();
 			goodOne.getChildren().addAll(goodMessageOne);
