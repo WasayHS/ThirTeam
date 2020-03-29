@@ -62,10 +62,15 @@ public class SceneChange {
 	*/
 	public static void newLevel(Stage window) {
 		Scene nextScene;
-		nextScene = startGame(window, mapSize);
 		level++;
-		window.setScene(nextScene);
-		window.show();
+		if (level == 1 || level ==0) {
+			getCutScene();
+		}
+		else {
+			nextScene = startGame(window, mapSize);
+			window.setScene(nextScene);
+			window.show();	
+		}
 	}
 
 	public static void playAgain(Stage window) {
@@ -102,6 +107,7 @@ public class SceneChange {
 	public static Scene getTitleScene(Stage window)throws Exception{
 		window.setTitle("A Beast's Weapon");
 		Button start = new Button();
+		System.out.println(level);
 		start.setText("Begin");
 		start.setOnAction(e -> setMorality(window));
 		start.setTranslateX(180);
@@ -241,15 +247,24 @@ public class SceneChange {
 	
 	//this is how the cutScenes will be accessed depending on the level they are on
 	//there will be a button that the player can press after to end the cutscene
-	public Scene getCutScene(boolean morality) {
+	public static Scene getCutScene() {
+		Stage window = new Stage();
 		Scene cutScene = null;
 		switch(level) {
 		//case 0 is the exposition of the story
 		case 0:
 			Label exposition = new Label("Exposition of the story");
 			StackPane stack = new StackPane();
-			stack.getChildren().addAll(exposition);
+			
+			//create a button that goes to battle
+			Button btn = new Button();
+			btn.setText("Continue");
+			btn.setOnAction(e-> newLevel(window));
+			stack.getChildren().add(exposition);
+			stack.getChildren().add(btn);
 			cutScene = new Scene(stack, 500,500);
+
+
 		case 1:
 			Label goodMessageOne = new Label("Exposition of the story");
 			StackPane goodOne = new StackPane();
