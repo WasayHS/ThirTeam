@@ -1,4 +1,3 @@
-<<<<<<< HEAD:src/battle/EnemyMove.java
 package battle;
 
 import java.util.Random;
