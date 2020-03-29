@@ -1,5 +1,6 @@
 package application;
 
+import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
@@ -41,6 +42,7 @@ public class GameState {
 	public void gameOver(Stage endGame) throws Exception{
 		endGame.setTitle("Game over");
 		StackPane GOLayout = new StackPane();
+		GOLayout.setAlignment(Pos.CENTER);
 		Scene scene = new Scene (GOLayout, 800, 450);
 		try{
 			Image gameOver = new Image("gameover.png");

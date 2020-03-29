@@ -50,6 +50,7 @@ public class Main extends Application implements EventHandler<ActionEvent> {
 		Stage pickup = new Stage();
 		window = pickup;
 		VBox root = new VBox();
+		root.setAlignment(Pos.CENTER);
         Button yesBtn = new Button("Yes");
         Button noBtn = new Button("No");
         Label message;
@@ -90,6 +91,7 @@ public class Main extends Application implements EventHandler<ActionEvent> {
 		Stage contWindow = new Stage();
 		window = contWindow;
 		VBox root = new VBox();
+		root.setAlignment(Pos.CENTER);
 		Button continueBtn = new Button("Continue");
 		continueBtn.setOnAction(new EventHandler<ActionEvent>()
 		   {@Override
