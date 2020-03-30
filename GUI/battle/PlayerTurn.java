@@ -5,6 +5,7 @@ import java.util.Random;
 import application.Main;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
+import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
@@ -59,7 +60,8 @@ public class PlayerTurn extends Thread{
 			   		if (enemy.getStats().getHealth() <= 0) { // Enemy health <= 0
 			   			message.setText("You have defeated the enemy!");
 				   		Main.continueBtn(message);
-
+				   		MapSetup.ENEMY_POS.remove(enemy.getPosition());
+				   		
 			   			boolean prob = new Random().nextInt(3)==0; // Enemy item drop probability
 			   			if (prob) {
 			   				message.setText("The enemy dropped an item.");
@@ -111,6 +113,7 @@ public class PlayerTurn extends Thread{
 			  root.getChildren().add(attackBtn);
 		  }
 		  
+		  root.setAlignment(Pos.CENTER);
 		  root.getChildren().add(defendBtn);
 		  root.getChildren().add(potionBtn);
 		  root.getChildren().add(message);

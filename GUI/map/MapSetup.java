@@ -62,7 +62,7 @@ public class MapSetup {
 				
 			} while(enemies.contains(p) || p.getX() == size-2 || terrain.contains(p) || p.getX() == 1);
 				if (bool) {terrain.add(p);}
-				else {enemies.add(p); ENEMY_POS.put(p, new Enemy(25, 2, 0, 0, p));}
+				else {enemies.add(p); ENEMY_POS.put(p, new Enemy(10, 2, 0, 0, p));}
 		}
 			if (bool) {return terrain;}
 			else {return enemies;}
@@ -87,9 +87,10 @@ public class MapSetup {
 		}
 		return newPosition.getFill().equals(floor_hover) || (numberOfEnemies(grid) == 0 && newPosition.getFill().equals(portalImg)); //If location empty, moves, if no more enemies, portal to next level opens
 	}
+
 //  - - - - - Check for valid enemy move; if move is valid, grid is updated
 	public static boolean checkEnemyMove(GridPane grid, Position newPos, Enemy e){
-		Rectangle newPosition = getNode(grid,newPos);
+		Rectangle newPosition = getNode(grid, newPos);
 		boolean Move = !(newPosition.getFill().equals(terrainImg) || newPosition.getFill().equals(playerImg) || newPosition.getFill().equals(wallImg) 
 				         ||newPosition.getFill().equals(spikes_hover)|| newPosition.getFill().equals(player_hover)|| newPosition.getFill().equals(enemy_hover)
 				         || newPosition.getFill().equals(enemyImg));
@@ -130,8 +131,7 @@ public class MapSetup {
 		
 		if (checkMove(grid, newPosition, player)){ 
 			moveUnit(grid, player, newPosition);
-			EnemyMove enemyMove = new EnemyMove (grid);
-			enemyMove.move(newPosition);
+			EnemyMove.move(newPosition, grid);
 		}
 		
 		if (melee || ranged) {
@@ -139,8 +139,8 @@ public class MapSetup {
 			while(player.getStats().getHealth() > 0 && enemy.getStats().getHealth() > 0) {
 				BattleThread battle = new BattleThread(grid, player, melee, ranged, newPosition, cell, window);
 				}
+
 		}
-		
 		if (cell.getFill().equals(def_hover) || cell.getFill().equals(str_hover) || cell.getFill().equals(mag_hover)) {
 			Main.pickUpItemWindow(grid, pot, newPosition, cell, player);
 		}
@@ -155,11 +155,10 @@ public class MapSetup {
 		}
 		Rectangle oldC = getNode(grid, unit.getPosition());
 		oldC.setFill(emptyImg);
-		
 		unit.getPosition().setX(newPosition.getX());
 		unit.getPosition().setY(newPosition.getY());
 	}
-
+	
 //	- - - - - - - - Enemy drops/ looting items
 	public static void enemyDrop(GridPane grid, Unit unit, Position newPosition) {
 		Rectangle oldC = getNode(grid, unit.getPosition());

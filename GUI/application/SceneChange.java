@@ -11,6 +11,7 @@ import battle.AttackType;
 import battle.AttackTypes;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
+import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
@@ -67,7 +68,8 @@ public class SceneChange {
 		window.setScene(nextScene);
 		window.show();
 	}
-
+	
+	/* -----Duplicate method, go to Gamestate.gaveOver()
 	public static void playAgain(Stage window) {
 		Stage restart = new Stage();
 		VBox root = new VBox();
@@ -89,7 +91,8 @@ public class SceneChange {
 		   	{
 			   System.exit(1);
 		   	}});
-		
+		   	
+		root.setAlignment(Pos.CENTER);  
 		root.getChildren().add(message);
 		root.getChildren().add(yes);
 		root.getChildren().add(no);
@@ -98,7 +101,7 @@ public class SceneChange {
 		restart.setScene(scene);
 		restart.showAndWait();
 	}
-	
+	*/
 	public static Scene getTitleScene(Stage window)throws Exception{
 		window.setTitle("A Beast's Weapon");
 		Button start = new Button();
