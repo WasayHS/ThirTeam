@@ -56,6 +56,10 @@ public class SceneChange {
 		newLevel(window);
 	}
 	
+	public static void resetLevel() {
+		level = 0;
+	}
+	
 	/*newLevel generates a new level based on startGame and shows it to the window
 	level should be updated every time after a newLevel
 	size should be switched out after and size of the level should be determined by level number

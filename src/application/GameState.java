@@ -1,6 +1,5 @@
 package application;
 
-import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.layout.Pane;
@@ -32,15 +31,9 @@ public class GameState {
 	
 	public static void gameOver(Stage endGame) throws Exception{
 		endGame.setTitle("Game over");
-<<<<<<< HEAD:src/application/GameState.java
-		StackPane GOLayout = new StackPane();
-		GOLayout.setAlignment(Pos.CENTER);
-		Scene scene = new Scene (GOLayout, 800, 450);
-=======
 		Pane GOLayout = new Pane();
 		
 		/*
->>>>>>> master:GUI/application/GameState.java
 		try{
 			Image gameOver = new Image("gameover.png");
 			GOLayout.getChildren().add(new ImageView(gameOver));
@@ -57,6 +50,7 @@ public class GameState {
 		
 		Button play = new Button();
 		play.setText("Play Again");
+		SceneChange.resetLevel();
 		play.setOnAction(e ->SceneChange.setMorality(endGame)); // is supposed to restart game
 		play.setTranslateX(265);
 		play.setTranslateY(230);
