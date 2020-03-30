@@ -1,6 +1,7 @@
 package battle;
 
 
+import application.GameState;
 import javafx.scene.layout.GridPane;
 import map.MapSetup;
 import map.Position;
@@ -16,11 +17,11 @@ public class EnemyMove {
 			chY = 0;
 		}else if(playerPos.getY() == 1 && playerPos.getX() == 1){
 			chX = 0; chY = 0;
-		}else if(playerPos.getX() == 7){
+		}else if(playerPos.getX() == GameState.mapSize){
 			endX = 0;
-		}else if(playerPos.getY() == 7){
+		}else if(playerPos.getY() == GameState.mapSize){
 			endY = 0;
-		}else if(playerPos.getY() == 7 && playerPos.getX() == 7){
+		}else if(playerPos.getY() == GameState.mapSize && playerPos.getX() == GameState.mapSize){
 			endX = 0; endY = 0;
 		}
 		boolean goUpDown;
@@ -33,7 +34,6 @@ public class EnemyMove {
 				if (enemy != null){
 					goRL = MapSetup.checkEnemyMove(grid, new Position(playerPos.getX()+x,playerPos.getY()),enemy);
 					goUpDown= MapSetup.checkEnemyMove(grid, new Position(playerPos.getX(),playerPos.getY()+y),enemy);
-					
 					if(goRL){
 						initiateMove(playerPos.getX()+x, playerPos.getY(), grid, enemy);
 					}
@@ -44,7 +44,6 @@ public class EnemyMove {
 				}
 			}
 		}
-		System.out.println();
 	}
 	public static void initiateMove(int moveX, int moveY, GridPane grid, Enemy e){
 

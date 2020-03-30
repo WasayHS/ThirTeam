@@ -5,11 +5,11 @@ import map.Position;
 public class Player extends Unit {
 
 	public Player (int x, int y) {
-		super (10, 3, 2, 0, x, y);
+		super (90, 3, 2, 0, x, y);
 	}
 
 	public Player(Position p) {
-		super (10, 3, 2, 0, p);
+		super (90, 3, 2, 0, p);
 	}
 
 }
