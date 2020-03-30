@@ -59,7 +59,7 @@ public class Main extends Application implements EventHandler<ActionEvent> {
 		   		message.setText("The item will be added to your inventory.");
 			   	pot.inventory.put(pot.getImage(), pot.getLootStats());
 			   	continueBtn(message);
-			   	cell.setFill(MapSetup.EMPTY_IMG);
+			   	cell.setFill(MapSetup.emptyImg);
 			   	pickup.close();
 		   	}});
 
@@ -69,7 +69,7 @@ public class Main extends Application implements EventHandler<ActionEvent> {
 		   	{
 			   message.setText("The item will disappear.");
 			   continueBtn(message);
-			   cell.setFill(MapSetup.EMPTY_IMG);
+			   cell.setFill(MapSetup.emptyImg);
 			   pickup.close();
 		   	}});
         
