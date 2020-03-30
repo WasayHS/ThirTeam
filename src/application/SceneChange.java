@@ -1,12 +1,18 @@
 package application;
 
 import java.awt.Desktop;
+import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
+import java.util.Scanner;
+
 import battle.AttackType;
 import battle.AttackTypes;
 import javafx.event.ActionEvent;
@@ -24,6 +30,8 @@ import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
+import javafx.scene.text.Font;
+import javafx.scene.text.Text;
 import javafx.stage.Stage;
 import loot.Inventory;
 import map.MapSetup;
@@ -43,36 +51,35 @@ public class SceneChange {
 	}
 
 	//method action created to set the morality and also start a new level
-	public static void action(Stage window, boolean amorality) {
+	public static void action(Stage window, boolean amorality) throws FileNotFoundException {
 		setMorality(amorality);
 		newLevel(window);
 	}
 	
-	/*newLevel generates a new level based on startGame and shows it to the window
-	level should be updated every time after a newLevel
-	size should be switched out after and size of the level should be determined by level number
-	e.g		if level = 0
-	 		get cutscene
-	 		else if level = 1
-	 			if morality = true
-	 				cutscene for good
-	 			else
-	 				cutscene for bad
-	 		else if level = 2
-	 			nextScene = startGame(roundOneSize)
-	*/
-	public static void newLevel(Stage window) {
+	public static void resetLevel() {
+		level = 0;
+	}
+	
+	//generates a new level depending on what stage it is
+	public static void newLevel(Stage window) throws FileNotFoundException {
+		System.out.println(level);
 		Scene nextScene;
-		nextScene = startGame(window, mapSize);
+		if (level == 0 || level == 2 ) {
+			getCutScene(window);
+		}
+		else {
+			nextScene = startGame(window, mapSize);
+			window.setScene(nextScene);
+			window.show();	
+		}
 		level++;
-		window.setScene(nextScene);
-		window.show();
 	}
 	
 	/* -----Duplicate method, go to Gamestate.gaveOver()
 	public static void playAgain(Stage window) {
 		Stage restart = new Stage();
 		VBox root = new VBox();
+		root.setAlignment(Pos.CENTER);
 		Label message = new Label("Play again?");
 		
 		Button yes = new Button("Yes.");
@@ -102,6 +109,7 @@ public class SceneChange {
 		restart.showAndWait();
 	}
 	*/
+	
 	public static Scene getTitleScene(Stage window)throws Exception{
 		window.setTitle("A Beast's Weapon");
 		Button start = new Button();
@@ -158,13 +166,27 @@ public class SceneChange {
 		
 		Button evil = new Button();
 		evil.setText("Low (evil)");
-		evil.setOnAction(e->action(window,false));
+		evil.setOnAction(e->{
+			try {
+				action(window,false);
+			} catch (FileNotFoundException e1) {
+				// TODO Auto-generated catch block
+				e1.printStackTrace();
+			}
+		});
 		evil.setTranslateX(150);
 		evil.setTranslateY(225);
 		
 		Button good = new Button();
 		good.setText("High (good)");
-		good.setOnAction(g->action(window,true));
+		good.setOnAction(g->{
+			try {
+				action(window,true);
+			} catch (FileNotFoundException e1) {
+				// TODO Auto-generated catch block
+				e1.printStackTrace();
+			}
+		});
 		good.setTranslateX(300);
 		good.setTranslateY(225);
 		
@@ -244,33 +266,63 @@ public class SceneChange {
 	
 	//this is how the cutScenes will be accessed depending on the level they are on
 	//there will be a button that the player can press after to end the cutscene
-	public Scene getCutScene(boolean morality) {
+	public static Scene getCutScene(Stage window) throws FileNotFoundException{
 		Scene cutScene = null;
+		//create a button that goes to battle
+		Button btn = new Button();
+		btn.setText("Continue");
+		btn.setOnAction(e-> {
+			try {
+				newLevel(window);
+			} catch (FileNotFoundException e1) {
+				// TODO Auto-generated catch block
+				e1.printStackTrace();
+			}
+		});
 		switch(level) {
-		//case 0 is the exposition of the story
+		//case 0 is the exposition of the story, base storyline 
 		case 0:
-			Label exposition = new Label("Exposition of the story");
-			StackPane stack = new StackPane();
-			stack.getChildren().addAll(exposition);
-			cutScene = new Scene(stack, 500,500);
-		case 1:
-			Label goodMessageOne = new Label("Exposition of the story");
-			StackPane goodOne = new StackPane();
-			goodOne.getChildren().addAll(goodMessageOne);
-			cutScene = new Scene(goodOne, 500,500);
+			Text expo = new Text();
+			VBox neutral = new VBox();
+			neutral.setAlignment(Pos.CENTER);
+			expo.setText(readText("src/cutsceneRes/Exposition.txt"));
+			neutral.getChildren().addAll(expo,btn);
+			cutScene = new Scene(neutral, 500,500);
+			window.setScene(cutScene);
+			break;
 		case 2:
-			if(morality == true) { //just taking in the morality since good and bad have different text routes
-			Label goodMessageTwo = new Label("Exposition of the story");
-			StackPane goodTwo = new StackPane();
-			goodTwo.getChildren().addAll(goodMessageTwo);
-			cutScene = new Scene(goodTwo, 500,500);
+			if (morality == true) {
+			Text goodOne = new Text();
+			VBox good1 = new VBox();
+			good1.setAlignment(Pos.CENTER);
+			goodOne.setText(readText("src/cutsceneRes/goodOne.txt"));
+			good1.getChildren().addAll(goodOne,btn);
+			cutScene = new Scene(good1, 500,500);
 			}
+			//exposition if you're bad
 			else {
-				return null;
+			Text badOne = new Text();
+			VBox bad1 = new VBox();
+			bad1.setAlignment(Pos.CENTER);
+			badOne.setText(readText("src/cutsceneRes/badOne.txt"));
+			bad1.getChildren().addAll(badOne,btn);
+			cutScene = new Scene(bad1, 500,500);
 			}
+			window.setScene(cutScene);
+			break;
 		}
 		return cutScene;
 		
 	}
 	
+	//reads the text files for the cutscenes
+	public static String readText(String fileLocation) throws FileNotFoundException{
+		Scanner reader = new Scanner(new FileReader(fileLocation));
+		String text = "";
+		while (reader.hasNextLine()) {
+			text = text.concat(reader.nextLine() + "\r\n");
+		}
+		reader.close();
+		return text;
+	}
 }

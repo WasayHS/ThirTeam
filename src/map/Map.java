@@ -5,9 +5,9 @@ import java.util.Scanner;
 
 import battle.AttackTypes;
 import battle.Battle;
-import game.TextApp;
 import unit.Player;
 import map.Position;
+import textApp.TextApp;
 
 public class Map{
 	

@@ -1,4 +1,4 @@
-package game;
+package textApp;
 import unit.Enemy;
 import unit.Player;
 import unit.Stats;

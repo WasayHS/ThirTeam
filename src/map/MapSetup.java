@@ -1,6 +1,7 @@
 package map;
 
 import java.awt.Point;
+import java.io.FileNotFoundException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
@@ -120,7 +121,12 @@ public class MapSetup {
 			Label message = new Label ("The door will lead you to the next level.");
 			Main.continueBtn(message);
 			SceneChange.mapSize+=2;
-			SceneChange.newLevel(window);
+			try {
+				SceneChange.newLevel(window);
+			} catch (FileNotFoundException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
 		}
 		
 		if (numberOfEnemies(grid) == 0) {

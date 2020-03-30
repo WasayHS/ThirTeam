@@ -50,6 +50,7 @@ public class GameState {
 		
 		Button play = new Button();
 		play.setText("Play Again");
+		SceneChange.resetLevel();
 		play.setOnAction(e ->SceneChange.setMorality(endGame)); // is supposed to restart game
 		play.setTranslateX(265);
 		play.setTranslateY(230);
