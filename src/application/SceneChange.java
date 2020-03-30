@@ -60,23 +60,11 @@ public class SceneChange {
 		level = 0;
 	}
 	
-	/*newLevel generates a new level based on startGame and shows it to the window
-	level should be updated every time after a newLevel
-	size should be switched out after and size of the level should be determined by level number
-	e.g		if level = 0
-	 		get cutscene
-	 		else if level = 1
-	 			if morality = true
-	 				cutscene for good
-	 			else
-	 				cutscene for bad
-	 		else if level = 2
-	 			nextScene = startGame(roundOneSize)
-	*/
+	//generates a new level depending on what stage it is
 	public static void newLevel(Stage window) throws FileNotFoundException {
 		System.out.println(level);
 		Scene nextScene;
-		if (level == 0 || level == 2 || level == 4 || level == 10) {
+		if (level == 0 || level == 2 ) {
 			getCutScene(window);
 		}
 		else {
@@ -121,6 +109,7 @@ public class SceneChange {
 		restart.showAndWait();
 	}
 	*/
+	
 	public static Scene getTitleScene(Stage window)throws Exception{
 		window.setTitle("A Beast's Weapon");
 		Button start = new Button();
@@ -321,30 +310,6 @@ public class SceneChange {
 			}
 			window.setScene(cutScene);
 			break;
-		case 4:
-			Label goodMessageOne = new Label("Exposition of the story");
-			
-//			if (morality == true) {
-//				exposition.setText("Exposition if you're good");
-//			}
-//			//exposition if you're bad
-//			else {
-//				exposition.setText("Exposition if you're bad");
-//			}
-			
-			StackPane goodOne = new StackPane();
-			goodOne.getChildren().addAll(goodMessageOne);
-			cutScene = new Scene(goodOne, 500,500);
-		case 10:
-			if(morality == true) { //just taking in the morality since good and bad have different text routes
-			Label goodMessageTwo = new Label("Exposition of the story");
-			StackPane goodTwo = new StackPane();
-			goodTwo.getChildren().addAll(goodMessageTwo);
-			cutScene = new Scene(goodTwo, 500,500);
-			}
-			else {
-				return null;
-			}
 		}
 		return cutScene;
 		
