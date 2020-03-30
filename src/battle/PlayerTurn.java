@@ -60,16 +60,17 @@ public class PlayerTurn extends Thread{
 			   		if (enemy.getStats().getHealth() <= 0) { // Enemy health <= 0
 			   			message.setText("You have defeated the enemy!");
 				   		Main.continueBtn(message);
-				   		MapSetup.ENEMY_POS.remove(enemy.getPosition());
 				   		
 			   			boolean prob = new Random().nextInt(3)==0; // Enemy item drop probability
 			   			if (prob) {
+			   				MapSetup.ENEMY_POS.remove(enemy.getPosition());
 			   				message.setText("The enemy dropped an item.");
 					   		Main.continueBtn(message);
 			   				MapSetup.enemyDrop(grid, enemy, p);
 			   				playerAtk.close();
 			   			}
 			   			else {
+			   				MapSetup.ENEMY_POS.remove(enemy.getPosition());
 				   			MapSetup.moveUnit(grid, enemy, p);
 				   			playerAtk.close();
 			   			}

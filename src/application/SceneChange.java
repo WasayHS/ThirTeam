@@ -218,28 +218,28 @@ public class SceneChange {
 				// Screen/size is the size per cell
 				for (Position p: enemies) {
 					if (i == p.getX() && j == p.getY()) {
-						cell.setFill(MapSetup.ENEMY_IMG);
+						cell.setFill(MapSetup.enemyImg);
 					}
 				}
 				
 				for (Position p: terrain) { // ------------- Not sure how to make a maze like pattern, feel free to do so.
-					if (i == p.getX() && j == p.getY() && !cell.getFill().equals(MapSetup.ENEMY_IMG)) {
-						cell.setFill(MapSetup.TERRAIN_IMG);
+					if (i == p.getX() && j == p.getY() && !cell.getFill().equals(MapSetup.enemyImg)) {
+						cell.setFill(MapSetup.terrainImg);
 					}
 				}
 				
-				if (!cell.getFill().equals(MapSetup.ENEMY_IMG) && !cell.getFill().equals(MapSetup.TERRAIN_IMG)) { //Spaces with no enemies
+				if (!cell.getFill().equals(MapSetup.enemyImg) && !cell.getFill().equals(MapSetup.terrainImg)) { //Spaces with no enemies
 					if (i == 0 && j == (int)size/2) { // Portal to next level
-						cell.setFill(MapSetup.PORTAL_IMG);
+						cell.setFill(MapSetup.portalImg);
 					}
 					else if (i == 0 || j == 0 || i == size-1 || j == size-1) { // Set edge of grid as wall
-						cell.setFill(MapSetup.WALL_IMG);
+						cell.setFill(MapSetup.wallImg);
 					}
 					else if (i == size-2 && j == (int)size/2) { // Initial player spawn
-						cell.setFill(MapSetup.PLAYER_IMG);
+						cell.setFill(MapSetup.playerImg);
 					}
 					else {
-						cell.setFill(MapSetup.EMPTY_IMG);
+						cell.setFill(MapSetup.emptyImg);
 					}
 				}
 				
