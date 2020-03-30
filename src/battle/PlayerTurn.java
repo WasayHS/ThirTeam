@@ -36,6 +36,7 @@ public class PlayerTurn extends Thread{
 	    message = new Label("Choose your move.");
 	    defendBtn = new Button("Defend");
 	    potionBtn = new Button ("Use potion.");
+	    Button healBtn = new Button ("Heal");
 	      
 	      if (melee) {
 	    	  attackBtn = new Button("Melee");
@@ -110,17 +111,28 @@ public class PlayerTurn extends Thread{
 		   		message.setText("You used a potion.");
 		   	}});
 		  
+		  healBtn.setOnAction(new EventHandler<ActionEvent>()
+		  {
+			  @Override
+			  public void handle(ActionEvent event)
+			  {
+				  Button sourceBtn = (Button)event.getSource();
+				  message.setText("You healed");
+				  Main.continueBtn(message);
+				  type.attackedThem(enemy, AttackTypes.valueOf(sourceBtn.getText().toUpperCase()));
+			  }
+		  });
+		  
 		  if (attackBtn != null) {
 			  root.getChildren().add(attackBtn);
 		  }
 		  
 		  root.setAlignment(Pos.CENTER);
-		  root.getChildren().add(defendBtn);
-		  root.getChildren().add(potionBtn);
-		  root.getChildren().add(message);
-		  Scene scene = new Scene(root, 300, 100);
+		  root.getChildren().addAll(defendBtn, potionBtn, healBtn, message);
+		  Scene scene = new Scene(root, 300, 150);
 		  		  
 		  playerAtk.setScene(scene);
 		  playerAtk.showAndWait();
 	}
+	
 }
