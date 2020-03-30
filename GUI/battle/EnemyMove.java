@@ -1,6 +1,5 @@
 package battle;
 
-
 import javafx.scene.layout.GridPane;
 import map.MapSetup;
 import map.Position;
