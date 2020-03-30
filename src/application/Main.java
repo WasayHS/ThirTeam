@@ -1,5 +1,4 @@
 package application;
-import java.awt.Point;
 import java.util.List;
 import java.util.Random;
 import battle.AttackType;
@@ -17,15 +16,12 @@ import unit.Player;
 import unit.Unit;
 import javafx.scene.Scene;
 import javafx.scene.control.TextField;
-import javafx.scene.image.Image;
-import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.RowConstraints;
-import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
 import javafx.scene.shape.Rectangle;
 
@@ -78,6 +74,7 @@ public class Main extends Application implements EventHandler<ActionEvent> {
 			   pickup.close();
 		   	}});
         
+      root.setAlignment(Pos.CENTER);  
       root.getChildren().add(message);
       root.getChildren().add(yesBtn);
       root.getChildren().add(noBtn);
@@ -100,6 +97,7 @@ public class Main extends Application implements EventHandler<ActionEvent> {
 			   	contWindow.close();
 		   	}});
 		
+		root.setAlignment(Pos.CENTER);  
 		root.getChildren().add(message);
 		root.getChildren().add(continueBtn);
 		Scene scene = new Scene(root, 300, 100);
@@ -115,6 +113,6 @@ public class Main extends Application implements EventHandler<ActionEvent> {
 	@Override
 	public void handle(ActionEvent event) {
 		//  no relevance
-		
+		return;
 	}
 }

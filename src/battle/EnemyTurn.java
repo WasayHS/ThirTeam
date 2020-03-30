@@ -1,5 +1,6 @@
 package battle;
 
+import application.GameState;
 import application.Main;
 import application.SceneChange;
 import javafx.scene.Scene;
@@ -36,8 +37,12 @@ public class EnemyTurn extends Thread{
 		
 		if (player.getStats().getHealth() <= 0) {
 			message = new Label("You were slain by the enemy.");
-			Main.continueBtn(message);
-			SceneChange.playAgain(window);
+			try {
+				GameState.gameOver(window);
+			} catch (Exception e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
 		}
 		else {
 			BattleThread.playerTurn = true;

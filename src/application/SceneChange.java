@@ -82,7 +82,8 @@ public class SceneChange {
 		}
 		level++;
 	}
-
+	
+	/* -----Duplicate method, go to Gamestate.gaveOver()
 	public static void playAgain(Stage window) {
 		Stage restart = new Stage();
 		VBox root = new VBox();
@@ -105,7 +106,8 @@ public class SceneChange {
 		   	{
 			   System.exit(1);
 		   	}});
-		
+		   	
+		root.setAlignment(Pos.CENTER);  
 		root.getChildren().add(message);
 		root.getChildren().add(yes);
 		root.getChildren().add(no);
@@ -114,7 +116,7 @@ public class SceneChange {
 		restart.setScene(scene);
 		restart.showAndWait();
 	}
-	
+	*/
 	public static Scene getTitleScene(Stage window)throws Exception{
 		window.setTitle("A Beast's Weapon");
 		Button start = new Button();
