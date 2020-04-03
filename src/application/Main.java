@@ -1,5 +1,10 @@
 package application;
+import java.awt.Desktop;
 import java.awt.Point;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileWriter;
+import java.io.IOException;
 import java.util.List;
 import java.util.Random;
 
@@ -24,6 +29,7 @@ import javafx.scene.layout.BorderPane;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.layout.GridPane;
+import javafx.scene.layout.Pane;
 import javafx.scene.layout.RowConstraints;
 import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
@@ -32,25 +38,77 @@ import javafx.scene.layout.VBox;
 public class Main extends Application implements EventHandler<ActionEvent> {
 	//@Override
 
-	public void start(Stage titleScreen){ 
-		titleScreen.setTitle("Game start");
+	public void start(Stage titleScreen) throws Exception{ 
+		titleScreen.setTitle("A Beast's Weapon");
 		Button start = new Button();
 		start.setText("Begin");
-		start.setOnAction(e -> startGame(titleScreen)); // goes to the actual game
-		StackPane layout = new StackPane();
-		layout.getChildren().add(start);
+		start.setOnAction(e -> setMorality(titleScreen));
+		start.setTranslateX(180);
+		start.setTranslateY(0);
 		
-		try{ /// might be taken out
-			Image gamestart  = new Image("StartGame.png");
+		Button instructions = new Button();
+		instructions.setText("Instructions");
+		instructions.setTranslateX(240);
+		instructions.setTranslateY(0);
+		instructions.setOnAction(new EventHandler<ActionEvent>(){
+			//https://howtodoinjava.com/java/io/how-to-create-a-new-file-in-java/
+			@Override
+			public void handle(ActionEvent event) {
+				File instructions = new File("src/Instructions.txt");
+				Desktop d = Desktop.getDesktop();
+				try {
+					instructions.createNewFile();
+					FileWriter w = new FileWriter(instructions);
+					w.write("To move: Bring your mouse cursor one block above or beside the player (P)");
+					w.close();
+					d.open(instructions);
+					
+				} catch (IOException e) {
+					
+					System.err.println("unknown error");
+				}
+			}
+					
+		});
+		
+		Pane layout = new Pane();
+		try{
+			Image gamestart  = new Image(new FileInputStream("src/application/StartGame.png"));
 			layout.getChildren().add(new ImageView(gamestart));
 		}catch (IllegalArgumentException i){
 			System.err.println("Error: \"StartGame.png\" not found");
 		}
 		
-		Scene begin = new Scene(layout, 600,400);
+		
+		layout.getChildren().add(start);
+		layout.getChildren().add(instructions);
+		Scene begin = new Scene(layout, 500,500);
 		titleScreen.setScene(begin);
 		titleScreen.show();
 	
+	}
+	
+	public void setMorality(Stage moralityScreen){
+		Pane layout = new Pane ();
+		moralityScreen.setTitle("Choose Morality (Choose to be either evil or good)");
+		
+		Button evil = new Button();
+		evil.setText("Low (evil)");
+		evil.setOnAction(e-> startGame(moralityScreen,false));
+		evil.setTranslateX(150);
+		evil.setTranslateY(225);
+		
+		Button good = new Button();
+		good.setText("High (good)");
+		good.setOnAction(g->startGame(moralityScreen,true));
+		good.setTranslateX(300);
+		good.setTranslateY(225);
+		
+		layout.getChildren().add(evil);
+		layout.getChildren().add(good);
+		Scene begin = new Scene(layout, 500,500);
+		moralityScreen.setScene(begin);
+		moralityScreen.show();
 	}
 	
 	public static void startBattle(GridPane grid, Unit player, boolean melee, boolean ranged, Position p, TextField node) {
@@ -121,8 +179,8 @@ public class Main extends Application implements EventHandler<ActionEvent> {
 		  battleStage.showAndWait();
 	}
 
-	public void startGame(Stage primaryStage){
-			
+	public void startGame(Stage primaryStage, boolean morality){
+			int level = 1;
 			int size = 11; // Size of grid (9x9)
 			int enemyCount = (int)(size*0.9); // Occurrence of enemy spawning in a map
 			Player player = new Player(size-2, (int)(size/2)); // Initial player spawn; always last row, mid col
@@ -153,6 +211,12 @@ public class Main extends Application implements EventHandler<ActionEvent> {
 						if (i == 0 && j == (int)size/2) { // Portal to next level
 							field.setText(MapSetup.PORTAL);
 							field.setStyle("-fx-text-inner-color: purple;-fx-font-weight: bold;");
+							
+							Cutscene c1 = new Cutscene(morality, level);
+							c1.start();
+							level++;
+							
+							
 						}
 						else if (i == 0 || j == 0 || i == size-1 || j == size-1) { // Set edge of grid as wall
 							field.setText(MapSetup.WALL);
@@ -178,7 +242,7 @@ public class Main extends Application implements EventHandler<ActionEvent> {
 			}
 			
 			Scene scene = new Scene(grid, 500,500);
-			primaryStage.setTitle("Default Game");
+			primaryStage.setTitle("Level " /*level*/);
 			primaryStage.setScene(scene);
 			primaryStage.show();
 	
