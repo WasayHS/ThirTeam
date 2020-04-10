@@ -1,6 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <classpath>
 	<classpathentry kind="src" path="src"/>
+<<<<<<< Updated upstream
+=======
+	<classpathentry kind="src" path="MergedVersion"/>
+>>>>>>> Stashed changes
 	<classpathentry kind="con" path="org.eclipse.jdt.USER_LIBRARY/JAVAFX12">
 		<attributes>
 			<attribute name="module" value="true"/>
