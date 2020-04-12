@@ -60,15 +60,15 @@ public class TextMap {
         boolean melee = checkMelee(x, y, player);
         boolean ranged = checkRanged(x, y, player);
 
-        if (checkMove(x, y, player)) {
-            map[player.getPosition().getX()][player.getPosition().getY()] = '.';
-            player.getPosition().setX(x);
-            player.getPosition().setY(y);
-            printMap();
-        } else if (melee||ranged) {
+        if (melee||ranged) {
             if (enemyCoordsEntered(x, y, player, melee, ranged)) {
                 enemyPos.remove(Objects.requireNonNull(getEnemy(x, y)).getPosition());
             }
+            printMap();
+        } else if (checkMove(x, y, player)) {
+            map[player.getPosition().getX()][player.getPosition().getY()] = '.';
+            player.getPosition().setX(x);
+            player.getPosition().setY(y);
             printMap();
         }
     }
@@ -112,7 +112,6 @@ public class TextMap {
         choices.printBox("Engage in a battle?", "1. Yes", "2. No");
 
         if (UserInput.validUserChoice(2) == 1) {
-            System.out.println("Engaged");
             EngageBattle.battleEngaged(player, position, melee, ranged);
             return true;
         }

@@ -61,6 +61,7 @@ public class EngageBattle {
                     BattleThread.sleep(500);
                     System.out.print(".  ");
                 }
+                BattleThread.sleep(300);
             } catch (InterruptedException e) {
                 e.printStackTrace();
             }

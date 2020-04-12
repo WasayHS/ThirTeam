@@ -49,7 +49,7 @@ public class BattleThread extends Thread {
     public static void displayHealth(Unit player, Unit enemy) {
         String playerHealth = String.format("Player Health: %s", player.getStats().getHealth());
         String enemyHealth = String.format("Enemy Health: %s", enemy.getStats().getHealth());
-        title.printBox(playerHealth, enemyHealth);
+        title.printBox(" = Updated Health =", " ", playerHealth, enemyHealth, " ");
     }
 
     private static void displayDamageDealt(Unit attacker, Unit target, int oldHp, int newHp, String attackType) {
