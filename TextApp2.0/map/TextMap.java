@@ -23,8 +23,6 @@ public class TextMap {
     static Map<Position, Enemy> enemyPos = createEnemyMap(enemyCoords);
 
     public static void printMap() {
-        System.out.println(enemyPos.size());
-        System.out.println(spikesCoords.size());
         for (int x = 0; x < map.length; x++) {
             for (int y = 0; y < map[0].length; y++) {
                 map[x][y] = spawnEntityChar(x, y, player);
@@ -69,7 +67,7 @@ public class TextMap {
             printMap();
         } else if (melee||ranged) {
             if (enemyCoordsEntered(x, y, player, melee, ranged)) {
-                enemyPos.remove(getEnemy(x,y).getPosition());
+                enemyPos.remove(Objects.requireNonNull(getEnemy(x, y)).getPosition());
             }
             printMap();
         }
@@ -118,26 +116,32 @@ public class TextMap {
             EngageBattle.battleEngaged(player, position, melee, ranged);
             return true;
         }
-        System.out.printf("You fled from the enemy.");
+        System.out.print("You fled from the enemy.");
         return false;
     }
 
     public static boolean checkRanged(int x, int y, Player player) {
-        if (Math.abs(player.getPosition().getX()-x) > 1 || Math.abs(player.getPosition().getY()-y) > 1 || ((Math.abs(player.getPosition().getX()-x) != 1) && Math.abs(player.getPosition().getY() - y) == 1) || map[x][y] == '^') {
+        if ((Math.abs(player.getPosition().getX() - x) > 1) || (Math.abs(player.getPosition().getY() - y) > 1)
+                || ((Math.abs(player.getPosition().getX() - x) != 1) && (Math.abs(player.getPosition().getY() - y) == 1))
+                || (map[x][y] == '^')) {
             return false;
         }
-        return map[x][y] == 'X' && enemyPos.containsKey(getEnemy(x,y).getPosition());
+        return map[x][y] == 'X' && enemyPos.containsKey(Objects.requireNonNull(getEnemy(x, y)).getPosition());
     }
 
     public static boolean checkMelee(int x, int y, Player player) {
-        if (Math.abs(player.getPosition().getX()-x) > 1 || Math.abs(player.getPosition().getY()-y) > 1 || ((Math.abs(player.getPosition().getX()-x) == 1) && (Math.abs(player.getPosition().getY()-y) == 1)) || map[x][y] == '^') {
+        if (Math.abs(player.getPosition().getX()-x) > 1 || Math.abs(player.getPosition().getY()-y) > 1 ||
+           ((Math.abs(player.getPosition().getX()-x) == 1) && (Math.abs(player.getPosition().getY()-y) == 1))
+           || map[x][y] == '^') {
             return false;
         }
-        return map[x][y] == 'X' && enemyPos.containsKey(getEnemy(x,y).getPosition());
+        return map[x][y] == 'X' && enemyPos.containsKey(Objects.requireNonNull(getEnemy(x, y)).getPosition());
     }
 
     public static boolean checkMove(int x, int y, Player player) {
-        if ((Math.abs(player.getPosition().getX()-x) > 1 || Math.abs(player.getPosition().getY()-y) > 1) || (Math.abs(player.getPosition().getX()-x) == 1 && Math.abs(player.getPosition().getY()-y) == 1) || (map[x][y] == '^')) {
+        if ((Math.abs(player.getPosition().getX()-x) > 1 || Math.abs(player.getPosition().getY()-y) > 1)
+           || (Math.abs(player.getPosition().getX()-x) == 1 && Math.abs(player.getPosition().getY()-y) == 1)
+           || (map[x][y] == '^')) {
                 System.out.println("Invalid Move.");
                 return false;
         }

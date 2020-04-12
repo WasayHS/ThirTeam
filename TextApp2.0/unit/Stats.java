@@ -29,13 +29,13 @@ public class Stats {
     public void setHealth(int hpChange) {
         int newHP = health + hpChange;
 
-        if (health <= getDefaultHP()) {
+        if (newHP <= getDefaultHP()) {
             this.health = newHP;
         }
-        else if (health > getDefaultHP()){
+        else if (newHP > getDefaultHP()) {
             this.health = getDefaultHP(); // Max player/enemy health
         }
-        else if (health <= 0) {
+        else if (newHP <= 0) {
             this.health = 0;
         }
     }

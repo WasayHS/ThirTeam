@@ -11,7 +11,8 @@ import unit.Unit;
 public class EngageBattle {
     private static BorderedStrings title = new LevelTitle();
     private static BorderedStrings choices = new OptionsText();
-    static int healsLeft = 3;
+    public static int healsLeft = 3;
+    public static boolean playerTurn = true;
 
     public static void battleEngaged(Unit player, Position p, boolean melee, boolean ranged) {
         if (melee) {
@@ -23,15 +24,14 @@ public class EngageBattle {
         }
     }
 
-    private static boolean startBattle(Unit player, Position p, String attack) {
-        boolean playerTurn = true;
+    private static void startBattle(Unit player, Position p, String attack) {
         Enemy enemy = TextMap.getEnemy(p.getX(), p.getY());
 
         while (player.getStats().getHealth() > 0 && enemy.getStats().getHealth() > 0) {
             if (playerTurn) {
                 System.out.println("\n" + "Player's turn . . . . .");
-                runThread(player, enemy, p, attack);
                 playerTurn = false;
+                runThread(player, enemy, p, attack);
             } else if (!playerTurn && enemy.getStats().getHealth() > 0) {
                 runThread(enemy, player, p, attack.toUpperCase());
                 System.out.println(" ");
@@ -39,7 +39,7 @@ public class EngageBattle {
                 playerTurn = true;
             }
         }
-        return enemy.getStats().getHealth() == 0;
+        enemy.getStats().getHealth();
     }
 
     private static void runThread(Unit attacker, Unit target, Position p, String attack) {
@@ -53,6 +53,7 @@ public class EngageBattle {
 
     public static void loadEnemyTurn(Unit attacker) {
         if((attacker instanceof Enemy) && (attacker.getStats().getHealth() > 0)) {
+
             try {
                 BattleThread.sleep(500);
                 System.out.println("\n" + "Enemy's turn . . .");
@@ -79,7 +80,6 @@ public class EngageBattle {
             System.out.println(player.getStats().getHealth());
             return false;
         }
-
         return false;
     }
 }
