@@ -13,18 +13,18 @@ import unit.Player;
 import unit.Unit;
 
 public class BattleThread {
-	public static final ImagePattern enemy3 = new ImagePattern(new Image("/entities/enemy3HP.png"));
-	public static final ImagePattern enemy2 = new ImagePattern(new Image("/entities/enemy2HP.png"));
-	public static final ImagePattern enemy1 = new ImagePattern(new Image("/entities/enemy1HP.png"));
-	public static final ImagePattern enemy3Hover = new ImagePattern(new Image("/entities/enemy3HPHover.png"));
-	public static final ImagePattern enemy2Hover = new ImagePattern(new Image("/entities/enemy2HPHover.png"));
-	public static final ImagePattern enemy1Hover = new ImagePattern(new Image("/entities/enemy1HPHover.png"));
-	public static final ImagePattern boss3 = new ImagePattern(new Image("/entities/boss3HP.png"));
-	public static final ImagePattern boss2 = new ImagePattern(new Image("/entities/boss2HP.png"));
-	public static final ImagePattern boss1 = new ImagePattern(new Image("/entities/boss1HP.png"));
-	public static final ImagePattern boss3Hover = new ImagePattern(new Image("/entities/boss3HPHover.png"));
-	public static final ImagePattern boss2Hover = new ImagePattern(new Image("/entities/boss2HPHover.png"));
-	public static final ImagePattern boss1Hover = new ImagePattern(new Image("/entities/boss1HPHover.png"));
+	public static final ImagePattern ENEMY3 = new ImagePattern(new Image("/entities/enemy3HP.png"));
+	public static final ImagePattern ENEMY2 = new ImagePattern(new Image("/entities/enemy2HP.png"));
+	public static final ImagePattern ENEMY1 = new ImagePattern(new Image("/entities/enemy1HP.png"));
+	public static final ImagePattern ENEMY3_Hover = new ImagePattern(new Image("/entities/enemy3HPHover.png"));
+	public static final ImagePattern ENEMY2_Hover = new ImagePattern(new Image("/entities/enemy2HPHover.png"));
+	public static final ImagePattern ENEMY1_Hover = new ImagePattern(new Image("/entities/enemy1HPHover.png"));
+	public static final ImagePattern BOSS3 = new ImagePattern(new Image("/entities/boss3HP.png"));
+	public static final ImagePattern BOSS2 = new ImagePattern(new Image("/entities/boss2HP.png"));
+	public static final ImagePattern BOSS1 = new ImagePattern(new Image("/entities/boss1HP.png"));
+	public static final ImagePattern BOSS3_HOVER = new ImagePattern(new Image("/entities/boss3HPHover.png"));
+	public static final ImagePattern BOSS2_HOVER = new ImagePattern(new Image("/entities/boss2HPHover.png"));
+	public static final ImagePattern BOSS1_HOVER = new ImagePattern(new Image("/entities/boss1HPHover.png"));
 	PlayerTurn playerT;
 	EnemyTurn enemyT;
 	
@@ -58,15 +58,15 @@ public class BattleThread {
 		int health;
 		String declaredAs = "Boss ";
 		if(!againstBoss){
-			if (enemy.getStats().getHealth() >= 18 && enemy.getStats().getHealth() < 25) {cell.setFill(enemy3);}
-			else if (enemy.getStats().getHealth() < 18 && enemy.getStats().getHealth() >= 11) {cell.setFill(enemy2);}
-			else if (enemy.getStats().getHealth() < 11 && enemy.getStats().getHealth() > 0) {cell.setFill(enemy1);}
+			if (enemy.getStats().getHealth() >= 18 && enemy.getStats().getHealth() < 25) {cell.setFill(ENEMY3);}
+			else if (enemy.getStats().getHealth() < 18 && enemy.getStats().getHealth() >= 11) {cell.setFill(ENEMY2);}
+			else if (enemy.getStats().getHealth() < 11 && enemy.getStats().getHealth() > 0) {cell.setFill(ENEMY1);}
 			health = enemy.getStats().getHealth();
 			declaredAs = "Enemy ";
 		}else{
-			if (b.getStats().getHealth() >= 33 && b.getStats().getHealth() < 45) {cell.setFill(boss3);}
-			else if (b.getStats().getHealth() < 22 && b.getStats().getHealth() >= 11) {cell.setFill(boss2);}
-			else if (b.getStats().getHealth() < 11 && b.getStats().getHealth() > 0) {cell.setFill(boss1);}
+			if (b.getStats().getHealth() >= 33 && b.getStats().getHealth() < 45) {cell.setFill(BOSS3);}
+			else if (b.getStats().getHealth() < 22 && b.getStats().getHealth() >= 11) {cell.setFill(BOSS2);}
+			else if (b.getStats().getHealth() < 11 && b.getStats().getHealth() > 0) {cell.setFill(BOSS1);}
 			health = b.getStats().getHealth();
 		}
 		
