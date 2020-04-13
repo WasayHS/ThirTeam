@@ -1,23 +1,31 @@
 package battle;
 
+import java.util.ArrayList;
 import java.util.Random;
 
 import application.Main;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
+import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
+import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
+import javafx.scene.layout.FlowPane;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.VBox;
 import javafx.scene.shape.Rectangle;
 import javafx.stage.Stage;
 import loot.Inventory;
+import loot.LootImg;
 import map.MapSetup;
 import map.Position;
 import unit.Boss;
 import unit.Enemy;
+import unit.Player;
 import unit.Unit;
 
 public class PlayerTurn extends Thread{
@@ -74,11 +82,13 @@ public class PlayerTurn extends Thread{
 				   		else
 				   			MapSetup.BOSS_POS.remove(b.getPosition());
 			   			boolean prob = new Random().nextInt(3)==0; // Enemy item drop probability
+			   			System.out.println(prob+" chance of item");
 			   			if(b == null){
 				   			if (prob) {
-				   				message.setText("The opposer dropped an item.");
+				   				message.setText("The Enemy dropped an item.");
 						   		Main.continueBtn(message);
 				   				Inventory pot = MapSetup.enemyDrop(grid, enemy, p);
+				   				
 				   				playerAtk.close();
 				   			}
 				   			else {
@@ -87,7 +97,7 @@ public class PlayerTurn extends Thread{
 				   			}
 			   			}else{
 			   				if (prob) {
-				   				message.setText("The opposer dropped an item.");
+				   				message.setText("The Boss dropped an item.");
 						   		Main.continueBtn(message);
 						   		Inventory pot = MapSetup.enemyDrop(grid, b, p);
 				   				playerAtk.close();
@@ -130,8 +140,58 @@ public class PlayerTurn extends Thread{
 		   	@Override
 		   	public void handle(ActionEvent event)
 		   	{
+		   		ComboBox<String> listBox;
+		   		VBox box = new VBox();
+		   		System.out.println("Combo Box");
+		   		Stage viewInventory = new Stage();
+		   		Label l = new Label("Choose pot");
+		   		ArrayList <String> potList = new ArrayList<String>();
+		   		for (int i = 0; i<31; i++){
+		   			if(Inventory.inventory.containsKey(i)){
+		   				System.out.println(i+"In ComboBox");
+		   				potList.add(Inventory.getPotType(i));
+		   			}
+		   		}
+		   		System.out.println(potList.size()+" pot in the inventory");
+		   		if(potList.isEmpty()){
+		   			
+		   			l.setText("There is nothing in your Inventory");
+		   			Button leave = new Button("leave");
+		   			leave.setOnAction(e-> viewInventory.close());
+		   			box.getChildren().add(leave);
+		   			
+		   		}else{
+		   			listBox = new ComboBox<String>(FXCollections.observableArrayList(potList) );
+		   			listBox.setOnAction(e->{
+		   				Button useItem = new Button ("Use Item");
+		   				useItem.setOnAction(a->{
+		   					Inventory.use(listBox.getValue(),(Player)player);
+		   					potList.remove(listBox.getValue());
+		   					
+		   					
+		   					LootImg keyImg = Inventory.getImageFromType(listBox.getValue());
+		   					int key = Inventory.getKey(keyImg.getPot());
+		   					System.out.println(key);
+		   					
+		   					
+		   					Inventory.inventory.remove(key);
+		   					
+		   					viewInventory.close();
+		   				});
+		   				box.getChildren().add(useItem);
+		   				
+		   			});		   			
+		   			box.setAlignment(Pos.CENTER);
+		   			
+		   			box.getChildren().add(listBox);
+		   		}
 		   		
-		   		message.setText("You used a potion.");
+		   		
+		   		box.setAlignment(Pos.TOP_CENTER);
+		   		box.getChildren().add(l);
+				Scene inventoryScene = new Scene(box, 300, 100);
+				viewInventory.setScene(inventoryScene);
+				viewInventory.show();
 		   	}});
 		  
 		  if (attackBtn != null) {

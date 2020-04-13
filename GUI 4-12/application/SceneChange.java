@@ -64,13 +64,12 @@ public class SceneChange {
 	*/
 	public static void newLevel(Stage window) {
 		Scene nextScene;
-		/*if(level == 3){
+		if(level == 3){
 			nextScene = bossLevel(window, mapSize, level);
 		}else{
 			nextScene = startGame(window, mapSize);
 		}
-		*/
-		nextScene = bossLevel(window, mapSize, level);
+		
 		level++;
 		window.setScene(nextScene);
 		window.show();
@@ -173,28 +172,28 @@ public class SceneChange {
 				// Screen/size is the size per cell
 				for (Position p: enemies) {
 					if (i == p.getX() && j == p.getY()) {
-						cell.setFill(MapSetup.enemyImg);
+						cell.setFill(MapSetup.ENEMY_IMG);
 					}
 				}
 				
 				for (Position p: terrain) { // ------------- Not sure how to make a maze like pattern, feel free to do so.
-					if (i == p.getX() && j == p.getY() && !cell.getFill().equals(MapSetup.enemyImg)) {
-						cell.setFill(MapSetup.terrainImg);
+					if (i == p.getX() && j == p.getY() && !cell.getFill().equals(MapSetup.ENEMY_IMG)) {
+						cell.setFill(MapSetup.TERRAIN_IMG);
 					}
 				}
 				
-				if (!cell.getFill().equals(MapSetup.enemyImg) && !cell.getFill().equals(MapSetup.terrainImg)) { //Spaces with no enemies
+				if (!cell.getFill().equals(MapSetup.ENEMY_IMG) && !cell.getFill().equals(MapSetup.TERRAIN_IMG)) { //Spaces with no enemies
 					if (i == 0 && j == (int)size/2) { // Portal to next level
-						cell.setFill(MapSetup.portalImg);
+						cell.setFill(MapSetup.PORTAL_IMG);
 					}
 					else if (i == 0 || j == 0 || i == size-1 || j == size-1) { // Set edge of grid as wall
-						cell.setFill(MapSetup.wallImg);
+						cell.setFill(MapSetup.WALL_IMG);
 					}
 					else if (i == size-2 && j == (int)size/2) { // Initial player spawn
-						cell.setFill(MapSetup.playerImg);
+						cell.setFill(MapSetup.PLAYER_IMG);
 					} 
 					else {
-						cell.setFill(MapSetup.emptyImg);
+						cell.setFill(MapSetup.EMPTY_IMG);
 					}
 				}
 				
@@ -248,21 +247,21 @@ public class SceneChange {
 			for (int i = 0; i<size; i++){
 				Rectangle cell = new Rectangle(i,j,500/size, 500/size);
 				if(i==0 || i==size-1){
-					cell.setFill(MapSetup.wallImg);
+					cell.setFill(MapSetup.WALL_IMG);
 				}else if ((j==0|| j == size-1)&&j!=size/2){
-					cell.setFill(MapSetup.terrainImg);
+					cell.setFill(MapSetup.TERRAIN_IMG);
 				
 				}else{
-					cell.setFill(MapSetup.emptyImg);
+					cell.setFill(MapSetup.EMPTY_IMG);
 				}
 				if(i==0&&j==(size-1)/2){
-					cell.setFill(MapSetup.portalImg);
+					cell.setFill(MapSetup.PORTAL_IMG);
 				}
 				if(i==xPlayer && j==yPlayer){
-					cell.setFill(MapSetup.playerImg);
+					cell.setFill(MapSetup.PLAYER_IMG);
 				}
 				if(i==xBoss && j==yBoss){
-					cell.setFill(MapSetup.bossImg);
+					cell.setFill(MapSetup.BOSS_IMG);
 				}
 				gameEventHandling(cell, grid, window, player, i, j, b);
 			}

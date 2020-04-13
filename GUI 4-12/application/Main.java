@@ -42,7 +42,7 @@ public class Main extends Application implements EventHandler<ActionEvent> {
 		window.show();
 	}
 	
-	public static void pickUpItemWindow(GridPane grid, Inventory pot, Position p, Rectangle cell, Player player) {
+	public static void pickUpItemWindow(GridPane grid, int inventoryKey, Position p, Rectangle cell, Player player) {
 		Stage pickup = new Stage();
 		window = pickup;
 		VBox root = new VBox();
@@ -56,10 +56,10 @@ public class Main extends Application implements EventHandler<ActionEvent> {
 		   {@Override
 		   	public void handle(ActionEvent event)
 		   	{
-		   		message.setText("The item will be added to your inventory.");
-			   	pot.inventory.put(pot.getImage(), pot.getLootStats());
+		   		message.setText("		The item will be added to your inventory.\nGo click on the \"Use Potion button\" in your next fight to use it");
+			   	System.out.println("Pickupwindow");
 			   	continueBtn(message);
-			   	cell.setFill(MapSetup.emptyImg);
+			   	cell.setFill(MapSetup.EMPTY_IMG);
 			   	pickup.close();
 		   	}});
 
@@ -68,8 +68,9 @@ public class Main extends Application implements EventHandler<ActionEvent> {
 		   	public void handle(ActionEvent event)
 		   	{
 			   message.setText("The item will disappear.");
+			   Inventory.inventory.remove(inventoryKey);
 			   continueBtn(message);
-			   cell.setFill(MapSetup.emptyImg);
+			   cell.setFill(MapSetup.EMPTY_IMG);
 			   pickup.close();
 		   	}});
         
@@ -98,7 +99,7 @@ public class Main extends Application implements EventHandler<ActionEvent> {
 		root.setAlignment(Pos.CENTER);  
 		root.getChildren().add(message);
 		root.getChildren().add(continueBtn);
-		Scene scene = new Scene(root, 300, 100);
+		Scene scene = new Scene(root, 330, 100);
   	  
 		contWindow.setScene(scene);
 		contWindow.showAndWait();

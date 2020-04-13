@@ -44,6 +44,7 @@ public class BattleThread {
 		if (playerTurn) {
 			this.playerT = new PlayerTurn(grid, player, melee, ranged, p, node, enemy, b);
 			playerT.start();
+			
 		}
 		
 		else if (!playerTurn) {

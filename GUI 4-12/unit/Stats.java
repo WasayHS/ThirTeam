@@ -7,6 +7,7 @@ public class Stats {
 	private int str;
 	private int mag;
 	private int defaultHP;
+	private int def;
 	
 	public Stats(int hp, int str, int mag, int def){
 		this.health = hp;
@@ -60,6 +61,15 @@ public class Stats {
 
 	public void setMag(int mag) {
 		this.mag = mag;
+	}
+
+	public void setDef(int def) {
+		this.def = def;
+		
+	}
+	
+	public int getDef(){
+		return def;
 	}
 
 

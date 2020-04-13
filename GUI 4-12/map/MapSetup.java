@@ -49,6 +49,7 @@ public class MapSetup {
 	public static Map<Position, Boss> BOSS_POS = new HashMap<Position, Boss>();
 	
 	public static Map<Position, Enemy> ENEMY_POS = new HashMap<Position, Enemy>();
+	public static ArrayList <Integer> keys = new  ArrayList <Integer>();
 	public static int num;
 	
 	public static List<Position> createEnemyPositions(int count, int size, boolean bool){ //Returns list of enemy coords
@@ -136,9 +137,7 @@ public class MapSetup {
 //		- - - - - Updates map per valid move
 	public static void updateGrid(GridPane grid, Position newPosition, Player player, Stage window, Boss b) {
 		Rectangle cell = getNode(grid, newPosition);
-		Inventory pot = new Inventory(num);
 		
-		boolean enemyDrop = cell.getFill().equals(pot.getImage().getPot());
 		boolean melee = checkMelee(grid, newPosition, player);
 		boolean ranged = checkRanged(grid, newPosition, player);
 		
@@ -179,10 +178,42 @@ public class MapSetup {
 			
 
 		}
+		
 		if (cell.getFill().equals(DEF_HOVER) || cell.getFill().equals(STR_HOVER) || cell.getFill().equals(MAG_HOVER)) {
-			Main.pickUpItemWindow(grid, pot, newPosition, cell, player);
+			int key=0;
+			if(cell.getFill().equals(DEF_HOVER)){
+				key = Inventory.getKey(DEF_HOVER);
+			}else if (cell.getFill().equals(STR_HOVER)){
+				key = Inventory.getKey(STR_HOVER);
+				
+			}else{
+				key = Inventory.getKey(MAG_HOVER);
+			}
+			Main.pickUpItemWindow(grid, key, newPosition, cell, player);
 		}
 	}
+
+//	- - - - - - - - Enemy drops/ looting items
+	public static Inventory enemyDrop(GridPane grid, Unit unit, Position newPosition) {
+		Rectangle oldC = getNode(grid, unit.getPosition());
+		boolean use = true;
+		do{
+			num = new Random().nextInt(30);
+			for (int i = 0; i<keys.size(); i++){
+				if(keys.get(i)==num){
+					use = false;
+				}
+			}
+		}while(use = false);
+		System.out.println("IN enemyDrop()"+num);
+
+		Inventory pot;
+		pot = new Inventory(num);
+		String potType = pot.getPotType(num);
+		oldC.setFill(pot.getImageFromType(potType).getPot());
+		return pot;
+	}
+	
 	
 	public static void moveUnit(GridPane grid, Unit unit, Position newPosition) {
 		Rectangle newC = getNode(grid, newPosition);
@@ -200,14 +231,7 @@ public class MapSetup {
 		unit.getPosition().setY(newPosition.getY());
 	}
 	
-//	- - - - - - - - Enemy drops/ looting items
-	public static Inventory enemyDrop(GridPane grid, Unit unit, Position newPosition) {
-		Rectangle oldC = getNode(grid, unit.getPosition());
-		num = new Random().nextInt(30);
-		Inventory pot = new Inventory(num);
-		oldC.setFill(pot.getImage().getPot());
-		return pot;
-	}
+
 //	- - - - - - - - Checking enemies around player
 	public static boolean checkRanged(GridPane grid, Position p, Player player) { // Returns true if there is enemy diagonal
 		if (Math.abs(player.getPosition().getX()-p.getX()) > 1 || Math.abs(player.getPosition().getY()-p.getY()) > 1 || (Math.abs(player.getPosition().getX()-p.getX()) != 1) && !(Math.abs(player.getPosition().getY()-p.getY()) != 1)) {
