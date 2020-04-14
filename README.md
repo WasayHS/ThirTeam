@@ -1,22 +1,59 @@
-Thirteam - Tut 3, Group 13
+## Table of Contents
+* [General Info](#general-info)
+* [Game Information](#game-inforamation)
+* [Technologies](#technologies)
+* [Setup](#setup)
+* [Authors](#authors)
 
-The game is a Top Down RPG where you can play as evil or good and this will change a lot of the dialogue that takes place in 
-the cutscenes and different endings, The user is able to move, battle enemies, recieve potions.
+## General Info
+* Group 13: ThirTeam
+* Lecture 1, Tutorial 3
+* Project Category: Adventure Game
 
-___________________________________________GUI Version________________________________________________________________________
+## Game Information
+Title of the game: A Beast's Weapon
 
+This game is a turn-based RPG consisting of multiple levels and a boss level which the player has
+to defeat all the enemies in order to win the game. The main character has to reach the top of the mountain to achieve their goal
+which varies depending if the player chooses to be good or evil.
 
-1) Download the source code by going to "clone or download" and click "Download ZIP"
-2) Extract Files
-3) Click on GUI folder and copy the files to the src folder in a new Java Project
-4) On Eclipse, click on application, and then open "Main.java"
-5) Launch Main
+Game battle consists of the player being able to attack enemies, defend against their 
+attacks, or use potions that they will obtain throughout the game.
 
-__________________________________________Text App Version____________________________________________________________________
+## Technologies
+* Java JDK: 8 or higher
+* JavaFX
 
+## Setup
+Download the source code by going to "clone or download" and click "Download ZIP" from the master branch
 
-1) Download the source code by going to "clone or download" and click "Download ZIP"
-2) Extract Files
-3) Click on TextAppOO folder and copy the files to the src folder in a new Java Project
-4) On Eclipse, click on game, and then open "TextApp.java"
-5) Launch Main
+To run the TextApp version of the game:
+
+```
+1) Extract ZIP file to desired location
+2) On Eclipse, click on "File" on the taskbar and choose "Open Projects from File System"
+3) Choose the extracted folder from previous location through as the import source and click finish
+4) Alternatively, create a new JAVA project and copy the extracted files into the src folder
+5) Expand the src folder, expand the "TextApp" folder, and expand the "TextApp" package
+6) Launch the "main" class
+```
+
+Make sure JavaFX modules are imported to run the GUI
+To run the GUI version of the game:
+```
+1) Extract ZIP file to desired location
+2) On Eclipse, click on "File" on the taskbar and choose "Open Projects from File System"
+3) Choose the extracted folder from previous location through as the import source and click finish
+4) Alternatively, create a new JAVA project and copy the extracted files into the src folder
+5) Expand the src folder, expand the "GUI" folder, and expand the "application" package
+6) Launch the "main" class
+```
+
+## Authors
+Alphabetical order by last name:
+* Jose Felicio
+* Irish 'Kyle' Mempin
+* Dawson Nodwell
+* Wasay Siddiqi
+* Bonnie Wu
+
