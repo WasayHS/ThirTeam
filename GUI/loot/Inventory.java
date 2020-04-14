@@ -1,20 +1,9 @@
 package loot;
 
-import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
-import java.util.Random;
-
-import javafx.scene.Scene;
 import javafx.scene.image.Image;
-import javafx.scene.layout.GridPane;
 import javafx.scene.paint.ImagePattern;
-import javafx.scene.paint.Paint;
-import javafx.scene.shape.Rectangle;
-import javafx.stage.Stage;
-import map.MapSetup;
-import map.Position;
 import unit.Player;
 import unit.Stats;
 
@@ -24,19 +13,18 @@ public class Inventory {
 	public static final ImagePattern DEF_POT = new ImagePattern(new Image("/entities/defPot.png"));
 	public static Map< Integer,LootImg> inventory = new HashMap< Integer,LootImg>();
 	
-	private LootStats lootStats;
 	private static LootImg image;
 	
 	public Inventory (int num) {
 		if (num <= 10 && num >= 0) { //Strength potion
-			this.image = new LootImg(STR_POT);
+			Inventory.image = new LootImg(STR_POT);
 			
 		}
 		else if (num >= 10 && num <= 20){
-			this.image = new LootImg(MAG_POT);
+			Inventory.image = new LootImg(MAG_POT);
 		}
 		else {
-			this.image = new LootImg(DEF_POT);
+			Inventory.image = new LootImg(DEF_POT);
 		}
 		inventory.put(num, image );
 

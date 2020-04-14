@@ -8,7 +8,7 @@ import loot.Inventory;
 
 public class GameState {
 
-	/* victory(Stage)
+	/** victory(Stage)
 	 * Called after the player has finished the game
 	 * Exits the game after the exit button is pushed
 	 *
@@ -23,7 +23,7 @@ public class GameState {
 		victory.setScene(scene);
 		victory.show();
 }
-	/* gameOver(Stage)
+	/** gameOver(Stage)
 	 * Called when the player dies during a battle, player can choose
 	 * to play again or exit
 	 *
