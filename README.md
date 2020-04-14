@@ -52,7 +52,7 @@ To run the GUI version of the game:
 ## Authors
 Alphabetical order by last name:
 * Jose Felicio
-* Irish 'Kyle' Mempin
+* Irish Michaela Mempin
 * Dawson Nodwell
 * Wasay Siddiqi
 * Bonnie Wu
