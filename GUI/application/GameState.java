@@ -14,14 +14,7 @@ public class GameState {
 		StackPane GFinishedLayout = new StackPane();
 		Scene scene = new Scene (GFinishedLayout, 800, 450);
 		finished.setTitle("GameCompleted");
-		/*
-		try{
-			Image gameCompleted  = new Image("completedGame.png");
-			GFinishedLayout.getChildren().add(new ImageView(gameCompleted));
-		}catch (IllegalArgumentException i){
-			System.err.println("Error: \"completedGame.png\" not found");
-		}
-		*/
+		
 		Button end = new Button();
 		end.setText("End Game");
 		end.setOnAction(e -> System.exit(0));
@@ -35,14 +28,7 @@ public class GameState {
 		Inventory.inventory.clear();
 		Pane GOLayout = new Pane();
 		
-		/*
-		try{
-			Image gameOver = new Image("gameover.png");
-			GOLayout.getChildren().add(new ImageView(gameOver));
-		}catch (IllegalArgumentException i){
-			System.err.println("Error: \"gameover.png\" not found");
-		}
-		*/
+		
 		Button end = new Button();
 		end.setText("End Game");
 		end.setOnAction(e -> System.exit(1));

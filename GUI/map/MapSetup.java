@@ -1,8 +1,6 @@
 package map;
 
-import java.awt.Point;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -16,7 +14,6 @@ import battle.EnemyMove;
 import loot.Inventory;
 import javafx.scene.Node;
 import javafx.scene.control.Label;
-import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.layout.GridPane;
 import javafx.scene.paint.ImagePattern;
@@ -165,15 +162,17 @@ public class MapSetup {
 		
 		if (melee || ranged) {
 			Enemy enemy = MapSetup.getEnemy(newPosition.getX(), newPosition.getY());
+			Stage healthDisplay = new Stage();
 			if(b == null){ 
 				while(player.getStats().getHealth() > 0 &&enemy.getStats().getHealth() > 0) {
-					BattleThread battle = new BattleThread(grid, player, melee, ranged, newPosition, cell, window);
+					BattleThread battle = new BattleThread(grid, player, melee, ranged, newPosition, cell, window, healthDisplay);
 				}
 			}else{
 				while(player.getStats().getHealth() > 0 &&b.getStats().getHealth() > 0) {
-					BattleThread battle = new BattleThread(grid, player, melee, ranged, newPosition, cell, window);
+					BattleThread battle = new BattleThread(grid, player, melee, ranged, newPosition, cell, window, healthDisplay);
 				}
 			}
+			healthDisplay.close();
 			
 			
 

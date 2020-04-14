@@ -1,8 +1,6 @@
 package unit;
 
-import javafx.scene.layout.GridPane;
-import javafx.scene.shape.Rectangle;
-import map.MapSetup;
+
 import map.Position;
 
 public class Boss extends Enemy{

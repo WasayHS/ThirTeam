@@ -11,8 +11,6 @@ import java.util.List;
 import java.util.Random;
 import java.util.Scanner;
 
-import battle.AttackType;
-import battle.AttackTypes;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.geometry.Pos;
@@ -26,17 +24,13 @@ import javafx.scene.layout.GridPane;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
-import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
-import loot.Inventory;
 import map.MapSetup;
 import map.Position;
 import unit.Boss;
-import unit.Enemy;
 import unit.Player;
-import unit.Unit;
 
 public class SceneChange {
 	
@@ -63,22 +57,8 @@ public class SceneChange {
 		level = 0;
 	}
 	
-	/*newLevel generates a new level based on startGame and shows it to the window
-	level should be updated every time after a newLevel
-	size should be switched out after and size of the level should be determined by level number
-	e.g		if level = 0
-	 		get cutscene
-	 		else if level = 1
-	 			if morality = true
-	 				cutscene for good
-	 			else
-	 				cutscene for bad
-	 		else if level = 2
-	 			nextScene = startGame(roundOneSize)
-	*/
 	public static void newLevel(Stage window){
 		Scene nextScene = null;
-		System.out.println(level);
 		if(level == 0 || level == 2){
 			window.close();
 			Stage stage = new Stage();
@@ -357,7 +337,6 @@ public class SceneChange {
 	//this is how the cutScenes will be accessed depending on the level they are on
 	//there will be a button that the player can press after to end the cutscene
 	public static Scene getCutScene(Stage window) throws FileNotFoundException{
-		System.out.println("ofhsughisrdghor");
 		Scene cutScene = null;
 		//create a button that goes to battle
 		Button btn = new Button();

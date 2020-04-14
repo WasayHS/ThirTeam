@@ -1,7 +1,10 @@
 package battle;
 
+import javafx.scene.Scene;
+import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.layout.GridPane;
+import javafx.scene.layout.VBox;
 import javafx.scene.paint.ImagePattern;
 import javafx.scene.shape.Rectangle;
 import javafx.stage.Stage;
@@ -30,7 +33,10 @@ public class BattleThread {
 	
 	public static boolean playerTurn = true;
 	
-	public BattleThread (GridPane grid, Unit player, boolean melee, boolean ranged, Position p, Rectangle node, Stage window) {
+	public BattleThread (GridPane grid, Unit player, boolean melee, boolean ranged, Position p, Rectangle node, Stage window, Stage healthDisplay) {
+		
+		VBox textBox = new VBox();
+		
 		Enemy enemy = MapSetup.getEnemy(p.getX(), p.getY());
 		Boss b = MapSetup.getBoss(p.getX(), p.getY());
 		boolean againstBoss = true;
@@ -69,9 +75,13 @@ public class BattleThread {
 			else if (b.getStats().getHealth() < 11 && b.getStats().getHealth() > 0) {cell.setFill(BOSS1);}
 			health = b.getStats().getHealth();
 		}
-		
-		System.out.println("Player health: " + player.getStats().getHealth());
-		System.out.println(declaredAs+"health: " + health);
+		Label playerHealth = new Label("Player health: " + player.getStats().getHealth());
+		Label antagLabel = new Label(declaredAs+"health: " + health);
+		textBox.getChildren().add(antagLabel);
+		textBox.getChildren().add(playerHealth);
+		Scene scene = new Scene(textBox, 350,100);
+		healthDisplay.setScene(scene);
+		healthDisplay.show();
 	}
 		
 }

@@ -1,6 +1,5 @@
 package unit;
 
-import java.util.Random;
 public class Stats {
 	
 	private int health; // default stats, what is given at the start

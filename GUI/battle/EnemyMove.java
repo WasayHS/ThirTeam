@@ -70,7 +70,6 @@ public class EnemyMove {
 		Position bossPos = b.getPosition();
 		int distanceX = bossPos.getX()-playerPos.getX();
 		int distanceY = bossPos.getY()-playerPos.getY();
-		System.out.println(distanceX+" "+distanceY);
 		Random r = new Random();
 		boolean toChangeX = r.nextBoolean();
 		int moveBossX=0, moveBossY=0;
