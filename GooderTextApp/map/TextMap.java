@@ -87,7 +87,7 @@ public class TextMap {
     }
 
     public static void dropProbability(Position position) {
-        boolean dropChace = new Random().nextInt(3)==0;
+        boolean dropChace = new Random().nextInt(1)==0;
         TextInventory inventory = new TextInventory(position);
 
         if (dropChace) {

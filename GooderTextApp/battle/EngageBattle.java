@@ -8,11 +8,25 @@ import printFormat.OptionsText;
 import unit.Enemy;
 import unit.Unit;
 
+/* class EngageBattle
+ * class for battle engagement
+ */
+
 public class EngageBattle {
     private static BorderedStrings title = new LevelTitle();
     private static BorderedStrings choices = new OptionsText();
     public static int healsLeft = 3;
     public static boolean playerTurn = true;
+
+    /* battleEngaged(Unit, Position, boolean, boolean)
+     * engages battle
+     *
+     * @param player: Type Unit which defines player
+     * @param p: Type Position which gives exact position of object
+     * @param melee: Type boolean to check if melee is used
+     * @param ranged: Type boolean to check if ranged is used
+     * @return void
+     */
 
     public static void battleEngaged(Unit player, Position p, boolean melee, boolean ranged) {
         if (melee) {
@@ -23,6 +37,15 @@ public class EngageBattle {
             startBattle(player, p, "Ranged");
         }
     }
+
+    /* startBattle(Unit, Position, String)
+     * starts battle using threads
+     *
+     * @param player: Type Unit which defines player
+     * @param p: Type Position which gives exact position of object
+     * @param attack: Type String which defines what attack type is used
+     * @return void
+     */
 
     private static void startBattle(Unit player, Position p, String attack) {
         Enemy enemy = HostileEntityState.getEnemy(p.getX(), p.getY());
