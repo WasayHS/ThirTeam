@@ -11,17 +11,17 @@ public enum AttackTypes {
 
     // initialize the damage and health
     private int damage;
-    private int health;
+    private int heal;
 
     /* AttackTypes(int, int)
      * Constructor for AttackTypes
      *
-     * @param initialDamage: Type int and is the initial damage
-     * @param initialHealth: Type int and is the initial health
+     * @param damage: Type int - damage to be dealt to the target
+     * @param healValue: Type int - amount of health the user can regenerate
      */
-    AttackTypes(int initialDamage, int initialHealth) {
-        this.damage = initialDamage;
-        this.health = initialHealth;
+    AttackTypes(int damage, int healValue) {
+        this.damage = damage;
+        this.heal = healValue;
     }
 
     /* getDamage()
@@ -36,7 +36,7 @@ public enum AttackTypes {
      * Getter for health
      * @return health
      */
-    public int getHealth() {
-        return this.health;
+    public int getHeal() {
+        return this.heal;
     }
 }

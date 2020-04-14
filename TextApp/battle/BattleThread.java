@@ -12,24 +12,22 @@ import unit.Unit;
 import java.util.Random;
 
 /* class BattleThread extends Thread
- * threading class for attacking and extends Thread class
+ * Class for when a unit executes an attack; Extends Thread class
  */
-
 public class BattleThread extends Thread {
     private static BorderedStrings title = new LevelTitle();
     private static BorderedStrings choices = new OptionsText();
 
     /* run(Unit, Unit, Position, DamageCalculator, String)
-     * Initiates the battle thread
+     * Initiates the thread
      *
-     * @param attacker: Type Unit which will be used to find instance of player
-     * @param target: Type Unit which will be used to pass into executeAttackType()
-     * @param p: Type position which will be used to pass into executeAttackType()
-     * @param type: Type DamageCalculator which is the type of attack that is used and passed into executeAttackType()
-     * @param attack: Type string which specifies what attack is used
+     * @param attacker: Type Unit - instance of the attacker
+     * @param target: Type Unit - instance of the target; passed into executeAttackType()
+     * @param p: Type Position - Position of the enemy; passed into executeAttackType()
+     * @param type: Type DamageCalculator - the type of attack that is used; passed into executeAttackType()
+     * @param attack: Type string - specifies which attack to execute
      * @return void
      */
-
     public void run(Unit attacker, Unit target, Position p, DamageCalculator type, String attack) {
         String attackType;
 
@@ -44,13 +42,12 @@ public class BattleThread extends Thread {
     }
 
     /* checkTargetHP(Unit, Position)
-     * Check the HP of the enemy
+     * Checks the HP of the target
      *
-     * @param target: Type Unit which indicates the target
-     * @param p: Type Position is the position of the object
+     * @param target: Type Unit - instance of the target
+     * @param p: Type Position - position of the enemy
      * @return void
      */
-
     private static void checkTargetHP(Unit target, Position p) {
         if (target instanceof Player && target.getStats().getHealth() <= 0) {
             return;
@@ -61,16 +58,15 @@ public class BattleThread extends Thread {
     }
 
     /* executeAttackType(Unit, Unit, DamageCalculator, String, Position)
-     * executes the attack and the type
+     * Sets the changes to the unit's health according to the type of attack executed
      *
-     * @param attacker: Type Unit which will be used to find instance of player
-     * @param target: Type Unit which will get stats of the target
-     * @param type: Type DamageCalculator which gets the stats for the attack
-     * @param attack: Type string which specifies what attack is used
-     * @param p: Type position is the position of the object
+     * @param attacker: Type Unit - instance of the attacker
+     * @param target: Type Unit - instance of the target
+     * @param type: Type DamageCalculator - calculates and sets the target's hp
+     * @param attack: Type String - specifies the type of attack used
+     * @param p: Type Position - position of the enemy
      * @return void
      */
-
     private static void executeAttackType(Unit attacker, Unit target, DamageCalculator type, String attackType, Position p) {
         int oldHp = target.getStats().getHealth();
         int newHp;
@@ -82,13 +78,12 @@ public class BattleThread extends Thread {
     }
 
     /* displayHealth(Unit, Unit)
-     * Displays the health of the player and enemy
+     * Displays the updated health of the player and enemy after an attack was executed
      *
-     * @param player: Type Unit  which we can get the stats for player
-     * @param enemy: Type Unit  which we can get the stats for enemy
+     * @param player: Type Unit - instance of the player to get the updated stats from
+     * @param enemy: Type Unit - instance of the enemy to get the updated stats from
      * @return void
      */
-
     public static void displayHealth(Unit player, Unit enemy) {
         String playerHealth = String.format("   Player Health: %s", player.getStats().getHealth());
         String enemyHealth = String.format("   Enemy Health: %s", enemy.getStats().getHealth());
@@ -96,16 +91,15 @@ public class BattleThread extends Thread {
     }
 
     /* displayDamageDealt(Unit, Unit, int, int, String)
-     * display battle messages and damage
+     * Displays battle messages and damage dealt/healed by the attacker
      *
-     * @param attacker: Type Unit which is used to get attack stats
-     * @param target: Type Unit which is used to get passed into loadEnemyTurn for loading effect
-     * @param oldHp: Type int which is used for prints
-     * @param newHp: Type int which is used for prints
-     * @param attackType: Type String which is used for determining the attack
+     * @param attacker: Type Unit - instance of the attacker
+     * @param target: Type Unit - instance of the target
+     * @param oldHp: Type int - target's HP before an attack
+     * @param newHp: Type int - target's HP after an attack
+     * @param attackType: Type String - the attack used by the attacker
      * @return void
      */
-
     private static void displayDamageDealt(Unit attacker, Unit target, int oldHp, int newHp, String attackType) {
         if (attackType.equals("HEAL")) {
             System.out.printf("You healed to %s health. \nHeals remaining: %s", attacker.getStats().getHealth(), EngageBattle.healsLeft);

@@ -10,10 +10,15 @@ public class TextInventory {
 	public static final String STR_POT = "Strength Potion";
 	public static String MAG_POT = "Magic Potion";
 	public static String DEF_POT = "Defense Potion";
-	public static Map<LootName, LootStats> inventory = new HashMap<LootName, LootStats>();
+	public static Map<LootName, LootStats> inventory = new LinkedHashMap<LootName, LootStats>();
 	private static LootStats lootStats;
 	private static LootName potName;
-	
+
+	/* TextInventory(Position)
+	 * Constructor for TextInventory
+	 *
+	 * @param position: Type Position - position of where the loot was dropped
+	 */
 	public TextInventory(Position position) {
 		int lootType = new Random().nextInt(30);
 
@@ -29,6 +34,12 @@ public class TextInventory {
 		}
 	}
 
+	/* enemyDrop(Position)
+	 * Adds the coordinates of where the items should spawn
+	 *
+	 * @param position: Type Position - the position of the item
+	 * @return itemCoords: returns a list of item positions
+	 */
 	public static List<Position> enemyDrop(Position position) {
 		List<Position> itemCoords = new ArrayList<>();
 		itemCoords.add(position);
@@ -36,16 +47,23 @@ public class TextInventory {
 		return itemCoords;
 	}
 
+	/* pickUpItem(Position)
+	 * this picks up the items and adds to inventory
+	 *
+	 * @param pos: Type Position to define the position
+	 * @return void
+	 */
 	public static void pickUpItem(Position pos) {
 		inventory.put(potName, lootStats);
 		TextMap.itemCoords.remove(pos);
 		GameFiles.addToInventory(potName.toString(), lootStats.toString());
 	}
 
-	public LootStats getLootStats() {
-		return lootStats;
-	}
-
+	/* getLootName()
+	 * getter for loot name
+	 *
+	 * @return potName: returns Type LootName
+	 */
 	public LootName getLootName() {
 		return potName;
 	}

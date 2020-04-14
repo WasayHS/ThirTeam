@@ -7,10 +7,6 @@ import printFormat.OptionsText;
 import unit.Enemy;
 import unit.Unit;
 
-/* class EngageBattle
- * class for battle engagement
- */
-
 public class EngageBattle {
     private static BorderedStrings title = new LevelTitle();
     private static BorderedStrings choices = new OptionsText();
@@ -18,15 +14,15 @@ public class EngageBattle {
     public static boolean playerTurn = true;
 
     /* battleEngaged(Unit, Position, boolean, boolean)
-     * engages battle
+     * Engages the player in a melee or ranged battle
      *
-     * @param player: Type Unit which defines player
-     * @param p: Type Position which gives exact position of object
-     * @param melee: Type boolean to check if melee is used
-     * @param ranged: Type boolean to check if ranged is used
+     * @param player: Type Unit - defines player
+     * @param enemy: Type Enemy - instance of the enemy to fight
+     * @param p: Type Position - position of the enemy
+     * @param melee: Type boolean - checks if the type of battle is melee
+     * @param ranged: Type boolean - checks if the type of battle is ranged
      * @return void
      */
-
     public static void battleEngaged(Unit player, Enemy enemy, Position p, boolean melee, boolean ranged) {
         if (melee) {
             title.printBox(" ","  Melee Battle", "    Engaged!", " ");
@@ -38,14 +34,13 @@ public class EngageBattle {
     }
 
     /* startBattle(Unit, Position, String)
-     * starts battle using threads
+     * Loops the battle while both the enemy and player are still alive
      *
-     * @param player: Type Unit which defines player
-     * @param p: Type Position which gives exact position of object
-     * @param attack: Type String which defines what attack type is used
+     * @param player: Type Unit - instance of the player
+     * @param p: Type Position - position of the enemy
+     * @param attack: Type String - the type of attack to be used
      * @return void
      */
-
     private static void startBattle(Unit player, Enemy enemy, Position p, String attack) {
 
         while (player.getStats().getHealth() > 0 && enemy.getStats().getHealth() > 0) {
@@ -62,6 +57,15 @@ public class EngageBattle {
         }
     }
 
+    /* runThread(Unit, Unit, Position, String)
+     * Runs the battle thread
+     *
+     * @param attacker: Type Unit - instance of the attacker
+     * @param target: Type Unit - instance of the target
+     * @param p: Type Position - position of the enemy
+     * @param attack: Type String - defines what attack type is used
+     * @return void
+     */
     private static void runThread(Unit attacker, Unit target, Position p, String attack) {
         loadEnemyTurn(attacker);
 
@@ -71,6 +75,12 @@ public class EngageBattle {
         battleThread.run(attacker, target, p, type, attack);
     }
 
+    /* loadEnemyTurn(Unit)
+     * Loading effect for enemy turn
+     *
+     * @param attacker: Type unit - instance of the attacker
+     * @return void
+     */
     public static void loadEnemyTurn(Unit attacker) {
         if((attacker instanceof Enemy) && (attacker.getStats().getHealth() > 0)) {
 
@@ -90,6 +100,12 @@ public class EngageBattle {
         }
     }
 
+    /* playerHealCount(Unit)
+     * Tracks how many times a player has healed in a battle
+     *
+     * @param player: Type Unit - instance of the player
+     * @return void
+     */
     public static boolean playerHealCount(Unit player) {
 
         if (healsLeft == 0) {

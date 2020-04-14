@@ -12,23 +12,21 @@ public class DamageCalculator {
     private Unit attacker;
 
     /* DamageCalculator(Unit)
-     * constructor for DamageCalculator
+     * Constructor for DamageCalculator
      *
-     * @param attacker: Type Unit which is used in this class
+     * @param attacker: Type Unit - instance of the attacker
      */
-
     public DamageCalculator(Unit attacker) {
         this.attacker = attacker;
     }
 
     /* attack(Unit, AttackTypes)
-     * this method changed the stats of the player and enemy depending on their stats
+     * Changes the stats of the Unit according to the type of attack executed by the attacker
      *
-     * @param target: Type Unit which gets target stats
-     * @param type: Type AttackTypes which specifies the type of attack
+     * @param target: Type Unit - instance of the target
+     * @param type: Type AttackTypes - defines the type of attack to be executed
      * @return void
      */
-
     public void attack(Unit target, AttackTypes type) {
 
         switch(type) {
@@ -49,7 +47,7 @@ public class DamageCalculator {
             case HEAL:
                 //player heals themselves
                 //extra heal is from the mag stat of the player
-                int heal = type.getHealth();
+                int heal = type.getHeal();
                 heal = (heal + attacker.getStats().getMag());
                 attacker.getStats().setHealth(heal);
                 break;

@@ -16,6 +16,12 @@ public class TextApp {
     public static int mapSize = 7;
     public static int level = 1;
 
+    /* startGame()
+     * Starts the game/creates a new level and runs the
+     * game while the player is alive
+     *
+     * @return void
+     */
     private static void startGame() {
         TextMap textMap = new TextMap(mapSize);
         title.printBox(" ", String.format("Level %s", level), " ");
@@ -30,7 +36,7 @@ public class TextApp {
             } else if (choice == 2) {
                 System.out.println(GameFiles.readLines("Inventory"));
             } else if (choice == 3) {
-                GameFiles.makeFileCopy("SaveInventory", "Inventory");
+                GameFiles.makeFileCopy("SavedInventory", "Inventory");
                 choices.printBox("Your inventory has been saved.");
             } else {
                 optionToExit();
@@ -39,6 +45,12 @@ public class TextApp {
         gameOver(textMap);
     }
 
+    /* nextLevel(List<Position>)
+     * Checks if the player can proceed to the next level
+     *
+     * @param enemyCoords: Type List<Position> - the list position where enemies remain
+     * @return void;
+     */
     public static void nextLevel(List<Position> enemyCoords) {
         if (enemyCoords.size() <= 0) {
             choices.printBox("Proceed to the next level?", "1. Yes", "2. No");
@@ -53,6 +65,12 @@ public class TextApp {
         }
     }
 
+    /* levelCount()
+     * Keeps track of the levels completed by the player
+     * Exits the game when the player has reached level 3
+     *
+     * @return void;
+     */
     private static void levelCount() {
         if (level == 3) {
             title.printBox(" ", "Congratulations! You finished the text version of 'A Beast's Weapon' !", "Thank you for playing!", " ");
@@ -60,6 +78,13 @@ public class TextApp {
         }
     }
 
+    /* gameOver(TextMap)
+     * Method that prompts the user to exit the game or
+     * return to the main menu when their character dies
+     *
+     * @param textMap: Type TextMap - the instance of the TextMap
+     * @return void
+     */
     private static void gameOver(TextMap textMap) {
         if (textMap.getPlayer().getStats().getHealth() < 0) {
             title.printBox("Game Over.", "You were slain by the enemy.");
@@ -67,6 +92,10 @@ public class TextApp {
         }
     }
 
+    /* optionToExit()
+     * Prompts the user to exit the game or return to the main menu
+     * @return void
+     */
     public static void optionToExit() {
         choices.printBox("1. Main menu", "2. Exit");
 
@@ -82,6 +111,12 @@ public class TextApp {
         }
     }
 
+    /* mainMenu(int)
+     * Main menu which provides choices for the user to start game, load game, or read the instructions
+     *
+     * @param choice: Type int - the user's valid input choice
+     * @return void
+     */
     private void mainMenu(int choice) {
         if (choice == 1) {
             GameFiles.newGameInventory();
@@ -97,6 +132,12 @@ public class TextApp {
         }
     }
 
+    /* main(String[])
+     * Starts the program
+     *
+     * @param args: arguments passed
+     * @return void
+     */
     public static void main (String[] args) throws IOException {
         title.printBox(" ", "    A Beast's", "     Weapon", " ", "1. New Game", "2. Load Game", "3. Instructions", "4. Exit Game"," ");
         text.mainMenu(UserInput.validUserChoice(4));

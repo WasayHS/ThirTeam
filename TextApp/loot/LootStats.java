@@ -6,12 +6,20 @@ public class LootStats {
 	private int mag;
 	private int def;
 
+	/* LootStats(int, int, int)
+	 * Constructor for LootStats
+	 *
+	 * @param str: Type int which is the strength number
+	 * @param mag: Type int which is the magic number
+	 * @param def: Type int which is the defense number
+	 */
 	public LootStats(int str, int mag, int def) {
 		setStr(str);
 		setMag(mag);
 		setDef(def);
 	}
 
+	// = = = = = = = = = = = = = = Setters and Getters for LootStats
 	public int getStr() {
 		return str;
 	}
@@ -36,6 +44,11 @@ public class LootStats {
 		this.def = def;
 	}
 
+	/* toString()
+	 * Returns the name of the potion as a string
+	 *
+	 * @return String.format: (Str:, Mag:, Def:)
+	 */
 	public String toString() {
 		return String.format("(Str: %s, Mag: %s, Def: %s)", str, mag, def);
 	}

@@ -14,6 +14,12 @@ public class UserInput {
 
     private static BorderedStrings choices = new OptionsText();
 
+    /* validUserChoice(int)
+     * Method that checks if the user's input is valid
+     *
+     * @param numOfChoices: Type int - is the number of choices provided
+     * @return choice: Type int
+     */
     public static int validUserChoice(int numOfChoices) {
         boolean valid = false;
         int choice = 0;
@@ -33,6 +39,12 @@ public class UserInput {
         return choice;
     }
 
+    /* locationInput()
+     * Method that prompts the user for coordinates in the right (x,y) format
+     *
+     * @params: Type TextMap - the current instance of the TextMap
+     * @return void
+     */
     public static void locationInput(TextMap textMap) {
         boolean validLen;
 
@@ -52,6 +64,13 @@ public class UserInput {
         } while (!validLen);
     }
 
+    /* parseCoordinates(String[], Player)
+     * Parses the the player's input coordinates
+     *
+     * @param coords: Type String ArrayList - is the input coordinates
+     * @param player: Type Player - the instance of the player
+     * @return void
+     */
     public static void parseCoordinates(String [] coords, Player player, TextMap textMap) {
         try {
             int xCoord = Integer.parseInt(coords[0]);
@@ -64,6 +83,13 @@ public class UserInput {
         }
     }
 
+    /* playerAttackInput(String, Unit)
+     * Called during a battle; prompts the user for an attack/action to execute
+     *
+     * @param attack: Type String - the type of attack the player can execute
+     * @param player: Type Player - instance of the player
+     * @return String: returns the type of attack/action to be executed as a String
+     */
     public static String playerAttackInput(String attack, Unit player) {
         String attackType = String.format("1. %s", attack);
         choices.printBox(attackType, "2. Heal", "3. Block");
