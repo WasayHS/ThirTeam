@@ -3,10 +3,14 @@ package application;
 import java.awt.Desktop;
 import java.io.File;
 import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.util.List;
 import java.util.Random;
+import java.util.Scanner;
+
 import battle.AttackType;
 import battle.AttackTypes;
 import javafx.event.ActionEvent;
@@ -24,6 +28,7 @@ import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
+import javafx.scene.text.Text;
 import javafx.stage.Stage;
 import loot.Inventory;
 import map.MapSetup;
@@ -36,7 +41,7 @@ import unit.Unit;
 public class SceneChange {
 	
 	static boolean morality;
-	static int level = 1;
+	static int level = 0;
 	public static int mapSize = 9; // From 7, map goes up by 2 each level
 	
 	public static void setMorality(boolean morality) {
@@ -44,9 +49,13 @@ public class SceneChange {
 	}
 
 	//method action created to set the morality and also start a new level
-	public static void action(Stage window, boolean amorality) {
+	public static void action(Stage window, boolean amorality) throws FileNotFoundException {
 		setMorality(amorality);
 		newLevel(window);
+	}
+	
+	public static void resetLevel() {
+		level = 0;
 	}
 	
 	/*newLevel generates a new level based on startGame and shows it to the window
@@ -62,17 +71,34 @@ public class SceneChange {
 	 		else if level = 2
 	 			nextScene = startGame(roundOneSize)
 	*/
-	public static void newLevel(Stage window) {
-		Scene nextScene;
-		if(level == 3){
+	public static void newLevel(Stage window) throws FileNotFoundException {
+		Scene nextScene = null;
+		System.out.println(level);
+		if(level == 0 || level == 2){
+			window.close();
+			Stage stage = new Stage();
+			stage.setScene(getCutScene(stage));
+			level++;
+			
+			stage.show();
+		}else
+		if(level == 3 || level == 6){
 			nextScene = bossLevel(window, mapSize, level);
+			level++;
+			window.setScene(nextScene);
+			window.show();
+		}else if (level ==9){
+			window.close();
+			Stage completed = new Stage();
+			GameState.victory(completed);
 		}else{
 			nextScene = startGame(window, mapSize);
+			level++;
+			window.setScene(nextScene);
+			window.show();
 		}
 		
-		level++;
-		window.setScene(nextScene);
-		window.show();
+		
 	}
 	
 	
@@ -132,13 +158,27 @@ public class SceneChange {
 		
 		Button evil = new Button();
 		evil.setText("Low (evil)");
-		evil.setOnAction(e->action(window,false));
+		evil.setOnAction(e->{
+			try {
+				action(window,false);
+			} catch (FileNotFoundException e1) {
+				// TODO Auto-generated catch block
+				e1.printStackTrace();
+			}
+		});
 		evil.setTranslateX(150);
 		evil.setTranslateY(225);
 		
 		Button good = new Button();
 		good.setText("High (good)");
-		good.setOnAction(g->action(window,true));
+		good.setOnAction(g->{
+			try {
+				action(window,true);
+			} catch (FileNotFoundException e1) {
+				// TODO Auto-generated catch block
+				e1.printStackTrace();
+			}
+		});
 		good.setTranslateX(300);
 		good.setTranslateY(225);
 		
@@ -303,6 +343,70 @@ public class SceneChange {
 		return cutScene;
 		
 	}
+
+	//this is how the cutScenes will be accessed depending on the level they are on
+	//there will be a button that the player can press after to end the cutscene
+	public static Scene getCutScene(Stage window) throws FileNotFoundException{
+		System.out.println("ofhsughisrdghor");
+		Scene cutScene = null;
+		//create a button that goes to battle
+		Button btn = new Button();
+		btn.setText("Continue");
+		btn.setOnAction(e-> {
+			try {
+				newLevel(window);
+			} catch (FileNotFoundException e1) {
+				// TODO Auto-generated catch block
+				e1.printStackTrace();
+			}
+		});
+		switch(level) {
+		//case 0 is the exposition of the story, base storyline 
+		case 0:
+			Text expo = new Text();
+			VBox neutral = new VBox();
+			neutral.setAlignment(Pos.CENTER);
+			expo.setText(readText("src/cutsceneRes/Exposition.txt"));
+			neutral.getChildren().addAll(expo,btn);
+			cutScene = new Scene(neutral, 500,500);
+			window.setScene(cutScene);
+			break;
+		case 2:
+			if (morality == true) {
+			Text goodOne = new Text();
+			VBox good1 = new VBox();
+			good1.setAlignment(Pos.CENTER);
+			goodOne.setText(readText("src/cutsceneRes/goodOne.txt"));
+			good1.getChildren().addAll(goodOne,btn);
+			cutScene = new Scene(good1, 500,500);
+			}
+			//exposition if you're bad
+			else {
+			Text badOne = new Text();
+			VBox bad1 = new VBox();
+			bad1.setAlignment(Pos.CENTER);
+			badOne.setText(readText("src/cutsceneRes/badOne.txt"));
+			bad1.getChildren().addAll(badOne,btn);
+			cutScene = new Scene(bad1, 500,500);
+			}
+			window.setScene(cutScene);
+			break;
+		}
+		return cutScene;
+		
+	}
 	
+	//reads the text files for the cutscenes
+	public static String readText(String fileLocation) throws FileNotFoundException{
+		Scanner reader = new Scanner(new FileReader(fileLocation));
+		String text = "";
+		while (reader.hasNextLine()) {
+			text = text.concat(reader.nextLine() + "\r\n");
+		}
+		reader.close();
+		return text;
+	}
+
+
 	
 }
