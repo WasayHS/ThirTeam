@@ -1,14 +1,15 @@
 package unit;
 
-import map.Position;
-
 public class Player extends Unit {
 
-	public Player (int x, int y) {
-		super (50, 2, 1, 0, x, y);
-	}
+    /* Player(int, int)
+     * Constructor: calls the superclass Unit
+     *
+     * @param x: Type int which is the x value
+     * @param y: Type int which is the y value
+     */
 
-	public Player(Position loc) {
-		super (50, 2, 1, 0, loc);
-	}
+    public Player (int x, int y) {
+        super (50, 25, 25, 0, x, y);
+    }
 }
