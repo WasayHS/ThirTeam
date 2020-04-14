@@ -205,8 +205,6 @@ public class MapSetup {
 				}
 			}
 		}while(use = false);
-		System.out.println("IN enemyDrop()"+num);
-
 		Inventory pot;
 		pot = new Inventory(num);
 		String potType = pot.getPotType(num);

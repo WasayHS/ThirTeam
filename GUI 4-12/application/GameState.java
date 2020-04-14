@@ -5,6 +5,7 @@ import javafx.scene.control.Button;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.StackPane;
 import javafx.stage.Stage;
+import loot.Inventory;
 
 public class GameState {
 	public static int mapSize = 9;
@@ -31,6 +32,7 @@ public class GameState {
 	
 	public static void gameOver(Stage endGame) throws Exception{
 		endGame.setTitle("Game over");
+		Inventory.inventory.clear();
 		Pane GOLayout = new Pane();
 		
 		/*
@@ -52,6 +54,7 @@ public class GameState {
 		play.setText("Play Again");
 		play.setOnAction(e ->{
 			Stage newStage = new Stage();
+			SceneChange.level =1;
 			endGame.close();
 			SceneChange.setMorality(newStage);
 		

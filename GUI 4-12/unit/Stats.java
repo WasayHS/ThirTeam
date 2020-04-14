@@ -15,7 +15,12 @@ public class Stats {
 		this.mag = mag;
 		setDefaultHP(hp);
 	}
-	
+	public Stats(Stats s){
+		this.health = s.getHealth();
+		this.def = s.getDef();
+		this.mag = s.getMag();
+		
+	}
 	public int getDefaultHP() {
 		return this.defaultHP;
 	}

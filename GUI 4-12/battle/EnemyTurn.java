@@ -26,23 +26,23 @@ public class EnemyTurn extends Thread{
 		Label message = new Label("The enemy attacked you!");
 
 		AttackType type;
-		
 		type = new AttackType(antagonist);
 		
 		if (melee) {
 			type.attackedThem(player, AttackTypes.MELEE);
+			
 		}
 		
 		else if (ranged) {
 			type.attackedThem(player, AttackTypes.RANGED);
+			
 		}
 		
 		if (player.getStats().getHealth() <= 0) {
-			message = new Label("You were slain by the enemy.");
+			message = new Label("You were slain by the antagonist.");
 			try {
 				GameState.gameOver(window);
 			} catch (Exception e) {
-				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
 		}

@@ -43,13 +43,13 @@ public class Inventory {
 	}
 	public static LootStats getLootStats(String type) {
 		if(type.equals("str")){
-			return new LootStats (0,0,5);
+			return new LootStats (3,0,0);
 		}
 		if(type.equals("mag")){
-			return new LootStats (0,5,0);
+			return new LootStats (0,3,0);
 		}
 		if(type.equals("def")){
-			return new LootStats (5,0,0);
+			return new LootStats (0,0,3);
 		}
 		return null;
 	}
@@ -101,29 +101,43 @@ public class Inventory {
 	
 	
 	public static void  use(String s, Player p){
+		System.out.println(s);
 		LootStats l = getLootStats(s);
 		LootImg img =getImageFromType(s);
-		int playerOldStat;
-		if(img.equals(STR_POT)){
-			playerOldStat = p.getStats().getStr();
-			System.out.println("old "+playerOldStat);
+		Stats playerOldStats;
+		Stats newStats;
+		if(img.getPot().equals(STR_POT)){/// works
+			playerOldStats = p.getStats();
+			int oldStr = playerOldStats.getStr();		
+			System.out.println("old "+oldStr+"+"+l.getStr());
+			
 			int strInc = l.getStr();
-			p.getStats().setStr(playerOldStat+strInc);
-			System.out.println(playerOldStat);
+			newStats = playerOldStats;
+			newStats.setStr(oldStr+strInc);
+			p.setStats(newStats);
+			System.out.println(p.getStats().getStr());
 		}
-		if(img.equals(DEF_POT)){
-			playerOldStat = p.getStats().getDef();
-			System.out.println("old "+playerOldStat);
+		if(img.getPot().equals(DEF_POT)){
+			playerOldStats = p.getStats();
+			int oldDef = playerOldStats.getDef();
+			System.out.println("old "+oldDef+"+"+l.getDef());
+			
 			int defInc = l.getDef();
-			p.getStats().setDef(playerOldStat + defInc);
-			System.out.println(playerOldStat);
+			newStats = playerOldStats;
+			newStats.setDef(oldDef+defInc);
+			p.setStats(newStats);
+			System.out.println(p.getStats().getDef());
 		}
-		if(img.equals(MAG_POT)){
+		if(img.getPot().equals(MAG_POT)){
+			playerOldStats = p.getStats();
 			int magInc = l.getMag();
-			playerOldStat = p.getStats().getMag();
-			System.out.println("old "+playerOldStat);
-			p.getStats().setMag(playerOldStat + magInc);
-			System.out.println(playerOldStat);
+			int oldMag = playerOldStats.getMag();
+			System.out.println("old "+oldMag+"+"+magInc);
+			
+			newStats = playerOldStats;
+			newStats.setMag(oldMag+magInc);
+			p.setStats(newStats);
+			System.out.println(p.getStats().getMag());
 		}
 	}
 	

@@ -36,7 +36,7 @@ import unit.Unit;
 public class SceneChange {
 	
 	static boolean morality;
-	private static int level = 1;
+	static int level = 1;
 	public static int mapSize = 9; // From 7, map goes up by 2 each level
 	
 	public static void setMorality(boolean morality) {

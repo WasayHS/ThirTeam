@@ -66,10 +66,12 @@ public class PlayerTurn extends Thread{
 			   		Main.continueBtn(message);
 			   		if(enemy != null){
 			   			type.attackedThem(enemy, AttackTypes.valueOf(sourceBtn.getText().toUpperCase()));
+			   			
 			   			isDead = enemy.getStats().getHealth() <= 0;
 			   		}
 			   		else if(b != null){
 			   			type.attackedThem(b, AttackTypes.valueOf(sourceBtn.getText().toUpperCase()));
+			   			
 			   			isDead = b.getStats().getHealth() <= 0;
 			   		}
 			   		Rectangle node = MapSetup.getNode(grid, p);
@@ -82,7 +84,6 @@ public class PlayerTurn extends Thread{
 				   		else
 				   			MapSetup.BOSS_POS.remove(b.getPosition());
 			   			boolean prob = new Random().nextInt(3)==0; // Enemy item drop probability
-			   			System.out.println(prob+" chance of item");
 			   			if(b == null){
 				   			if (prob) {
 				   				message.setText("The Enemy dropped an item.");
@@ -142,17 +143,14 @@ public class PlayerTurn extends Thread{
 		   	{
 		   		ComboBox<String> listBox;
 		   		VBox box = new VBox();
-		   		System.out.println("Combo Box");
 		   		Stage viewInventory = new Stage();
 		   		Label l = new Label("Choose pot");
 		   		ArrayList <String> potList = new ArrayList<String>();
 		   		for (int i = 0; i<31; i++){
 		   			if(Inventory.inventory.containsKey(i)){
-		   				System.out.println(i+"In ComboBox");
 		   				potList.add(Inventory.getPotType(i));
 		   			}
 		   		}
-		   		System.out.println(potList.size()+" pot in the inventory");
 		   		if(potList.isEmpty()){
 		   			
 		   			l.setText("There is nothing in your Inventory");
@@ -171,7 +169,6 @@ public class PlayerTurn extends Thread{
 		   					
 		   					LootImg keyImg = Inventory.getImageFromType(listBox.getValue());
 		   					int key = Inventory.getKey(keyImg.getPot());
-		   					System.out.println(key);
 		   					
 		   					
 		   					Inventory.inventory.remove(key);

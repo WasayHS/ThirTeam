@@ -57,7 +57,7 @@ public class Main extends Application implements EventHandler<ActionEvent> {
 		   	public void handle(ActionEvent event)
 		   	{
 		   		message.setText("		The item will be added to your inventory.\nGo click on the \"Use Potion button\" in your next fight to use it");
-			   	System.out.println("Pickupwindow");
+
 			   	continueBtn(message);
 			   	cell.setFill(MapSetup.EMPTY_IMG);
 			   	pickup.close();
