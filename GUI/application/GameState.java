@@ -9,7 +9,7 @@ import loot.Inventory;
 
 public class GameState {
 	public static int mapSize = 9;
-	public void victory(Stage finished) throws Exception{
+	public static void victory(Stage finished){
 		
 		StackPane GFinishedLayout = new StackPane();
 		Scene scene = new Scene (GFinishedLayout, 800, 450);

@@ -51,7 +51,12 @@ public class SceneChange {
 	//method action created to set the morality and also start a new level
 	public static void action(Stage window, boolean amorality) throws FileNotFoundException {
 		setMorality(amorality);
-		newLevel(window);
+		try {
+			newLevel(window);
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 	}
 	
 	public static void resetLevel() {
@@ -71,13 +76,18 @@ public class SceneChange {
 	 		else if level = 2
 	 			nextScene = startGame(roundOneSize)
 	*/
-	public static void newLevel(Stage window) throws FileNotFoundException {
+	public static void newLevel(Stage window){
 		Scene nextScene = null;
 		System.out.println(level);
 		if(level == 0 || level == 2){
 			window.close();
 			Stage stage = new Stage();
-			stage.setScene(getCutScene(stage));
+			try {
+				stage.setScene(getCutScene(stage));
+			} catch (FileNotFoundException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
 			level++;
 			
 			stage.show();
@@ -353,12 +363,7 @@ public class SceneChange {
 		Button btn = new Button();
 		btn.setText("Continue");
 		btn.setOnAction(e-> {
-			try {
-				newLevel(window);
-			} catch (FileNotFoundException e1) {
-				// TODO Auto-generated catch block
-				e1.printStackTrace();
-			}
+			newLevel(window);
 		});
 		switch(level) {
 		//case 0 is the exposition of the story, base storyline 
