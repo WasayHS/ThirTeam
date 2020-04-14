@@ -1,12 +1,12 @@
 package unit;
 
-import java.util.Random;
 public class Stats {
 	
 	private int health; // default stats, what is given at the start
 	private int str;
 	private int mag;
 	private int defaultHP;
+	private int def;
 	
 	public Stats(int hp, int str, int mag, int def){
 		this.health = hp;
@@ -14,7 +14,12 @@ public class Stats {
 		this.mag = mag;
 		setDefaultHP(hp);
 	}
-	
+	public Stats(Stats s){
+		this.health = s.getHealth();
+		this.def = s.getDef();
+		this.mag = s.getMag();
+		
+	}
 	public int getDefaultHP() {
 		return this.defaultHP;
 	}
@@ -22,6 +27,7 @@ public class Stats {
 	public void setDefaultHP(int hp) {
 		this.defaultHP = hp;
 	}
+
 	public int getHealth() {
 		if (this.health <= 0) {
 			return 0;
@@ -50,6 +56,7 @@ public class Stats {
 	}
 
 	public void setStr(int str) {
+		
 		this.str = str;
 	}
 
@@ -59,6 +66,15 @@ public class Stats {
 
 	public void setMag(int mag) {
 		this.mag = mag;
+	}
+
+	public void setDef(int def) {
+		this.def = def;
+		
+	}
+	
+	public int getDef(){
+		return def;
 	}
 
 

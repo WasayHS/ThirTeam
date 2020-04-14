@@ -1,107 +1,62 @@
 package application;
-import java.util.List;
-import java.util.Random;
-import battle.AttackType;
-import battle.AttackTypes;
+
 import javafx.application.Application;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.geometry.Pos;
+import javafx.scene.Scene;
+import javafx.scene.control.Button;
+import javafx.scene.control.Label;
+import javafx.scene.layout.GridPane;
+import javafx.scene.layout.VBox;
+import javafx.scene.shape.Rectangle;
 import javafx.stage.Stage;
 import loot.Inventory;
 import map.MapSetup;
 import map.Position;
-import unit.Enemy;
 import unit.Player;
-import unit.Unit;
-import javafx.scene.Scene;
-import javafx.scene.control.TextField;
-import javafx.scene.input.MouseEvent;
-import javafx.scene.layout.BorderPane;
-import javafx.scene.control.Button;
-import javafx.scene.control.Label;
-import javafx.scene.layout.GridPane;
-import javafx.scene.layout.RowConstraints;
-import javafx.scene.layout.VBox;
-import javafx.scene.shape.Rectangle;
 
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 
 public class Main extends Application implements EventHandler<ActionEvent> {
-	//@Override
-	
 	static Stage window;
 	
-	public void start(Stage primaryStage)throws Exception{
+	public void start(Stage primaryStage) {
 		window = primaryStage;
-		Scene start;
-		//goes to the titlescreen
-		//titlescreen has a button that will start the game
-		//sceneChanges will be handled in SceneChange
-		start = SceneChange.getTitleScene(primaryStage);
+		Scene start = SceneChange.getTitleScene(primaryStage);
 		window.setScene(start);
 		window.show();
 	}
 	
-	public static void pickUpItemWindow(GridPane grid, Inventory pot, Position p, Rectangle cell, Player player) {
-		Stage pickup = new Stage();
-		window = pickup;
+	public static void pickUpItemWindow(int inventoryKey, Rectangle cell) {
+		window = new Stage();
 		VBox root = new VBox();
-        Button yesBtn = new Button("Yes");
-        Button noBtn = new Button("No");
+        Button yesBtn = ButtonEvents.createButton(0,0, "Yes");
+        Button noBtn = ButtonEvents.createButton(0,0,"No");
+		List<Button> buttonList = new ArrayList<>(Arrays.asList(yesBtn,noBtn));
         Label message;
         
         message = new Label("Pick up item?");
         
-        yesBtn.setOnAction(new EventHandler<ActionEvent>()
-		   {@Override
-		   	public void handle(ActionEvent event)
-		   	{
-		   		message.setText("The item will be added to your inventory.");
-			   	pot.inventory.put(pot.getImage(), pot.getLootStats());
-			   	continueBtn(message);
-			   	cell.setFill(MapSetup.emptyImg);
-			   	pickup.close();
-		   	}});
+        yesBtn.setOnAction(event -> {
+			message.setText("The item will be added to your inventory.\nGo click on the \"Use Potion button\" in your next fight to use it");
+        	ButtonEvents.lootItemButton(event, inventoryKey, message, cell, window);
+		});
 
-        noBtn.setOnAction(new EventHandler<ActionEvent>()
-		   {@Override
-		   	public void handle(ActionEvent event)
-		   	{
-			   message.setText("The item will disappear.");
-			   continueBtn(message);
-			   cell.setFill(MapSetup.emptyImg);
-			   pickup.close();
-		   	}});
-        
-      root.setAlignment(Pos.CENTER);  
-      root.getChildren().add(message);
-      root.getChildren().add(yesBtn);
-      root.getChildren().add(noBtn);
-	  Scene scene = new Scene(root, 300, 100);
-	  
-	  pickup.setScene(scene);
-	  pickup.showAndWait();
-	}
-	
-	public static void continueBtn(Label message) {
-		Stage contWindow = new Stage();
-		window = contWindow;
-		VBox root = new VBox();
-		Button continueBtn = new Button("Continue");
-		continueBtn.setOnAction(new EventHandler<ActionEvent>()
-		   {@Override
-		   	public void handle(ActionEvent event)
-		   	{
-			   	contWindow.close();
-		   	}});
-		
-		root.setAlignment(Pos.CENTER);  
+        noBtn.setOnAction(event -> {
+			message.setText("The item will disappear.");
+			ButtonEvents.lootItemButton(event, inventoryKey, message, cell, window);
+		});
+
+		root.setAlignment(Pos.CENTER);
 		root.getChildren().add(message);
-		root.getChildren().add(continueBtn);
+		ButtonEvents.addButtonToBox(root,buttonList);
 		Scene scene = new Scene(root, 300, 100);
-  	  
-		contWindow.setScene(scene);
-		contWindow.showAndWait();
+
+		window.setScene(scene);
+		window.showAndWait();
 	}
 	
 	public static void main(String[] args) {
@@ -110,7 +65,6 @@ public class Main extends Application implements EventHandler<ActionEvent> {
 
 	@Override
 	public void handle(ActionEvent event) {
-		//  no relevance
 		return;
 	}
 }

@@ -1,4 +1,18 @@
-To move: Bring your mouse cursor one block above or beside the player (the player cannot move diagonally) 
-The player can attack if they're beside, infront, behind the enemy. The player can also attack diagonally 
-To attack, click on an enemy that is close to the player (behind, infront, beside, diag)
-Go to the next level by going to the door/portal on the top of the grid, this door can only be opened after killing all the enemies
+☰☰☰☰☰☰☰☰☰☰☰☰☰☰☰☰☰☰☰☰☰☰☰☰☰☰☰ How to play "A Beast's Weapon" ☰☰☰☰☰☰☰☰☰☰☰☰☰☰☰☰☰☰☰☰☰☰☰☰☰☰☰☰
+⑄                                                                                                                 ⑄
+⑄            1. To move: Bring your mouse cursor one block above or beside the player                             ⑄
+⑄               (the player cannot move diagonally)                                                               ⑄
+⑄                                                                                                                 ⑄
+⑄            2. The player can attack if they're beside, in front, behind the enemy.                              ⑄
+⑄                The player can also attack diagonally                                                            ⑄
+⑄                                                                                                                 ⑄
+⑄            3. To attack, click on an enemy that is close to the player (behind, in front, beside, diagonal)     ⑄
+⑄                                                                                                                 ⑄
+⑄            4. Go to the next level by going to the door/portal on the top of the grid,                          ⑄
+⑄                this door can only be opened after killing all the enemies                                       ⑄
+⑄                                                                                                                 ⑄
+⑄            5. You can have a maximum of 10 items in your inventory.                                             ⑄
+⑄                                                                                                                 ⑄
+⑄            6. Good luck and have fun!                                                                           ⑄
+⑄                                                                                                                 ⑄
+☰☰☰☰☰☰☰☰☰☰☰☰☰☰☰☰☰☰☰☰☰☰☰☰☰☰☰☰☰☰☰☰☰☰☰☰☰☰☰☰☰☰☰☰☰☰☰☰☰☰☰☰☰☰☰☰☰☰☰☰☰☰☰☰☰☰☰☰☰☰☰☰☰☰☰☰

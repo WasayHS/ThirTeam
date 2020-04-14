@@ -1,54 +1,44 @@
 package battle;
 
+import application.ButtonEvents;
 import application.GameState;
-import application.Main;
-import application.SceneChange;
-import javafx.scene.Scene;
-import javafx.scene.control.Button;
 import javafx.scene.control.Label;
-import javafx.scene.layout.GridPane;
-import javafx.scene.layout.VBox;
-import javafx.scene.shape.Rectangle;
 import javafx.stage.Stage;
-import map.MapSetup;
-import map.Position;
-import unit.Enemy;
-import unit.Player;
 import unit.Unit;
 
-public class EnemyTurn extends Thread{
+public class EnemyTurn extends Thread {
 
-	public EnemyTurn(GridPane grid, Unit player, boolean melee, boolean ranged, Position p, Rectangle node, Enemy enemy, Stage window) {
-		run(grid, player, melee, ranged, p, node, enemy,window);
+	public EnemyTurn(Unit player, boolean melee, boolean ranged, Unit antagonist, Stage window) {
+		run(player, melee, ranged, antagonist, window);
 	}
-	
-	public void run(GridPane grid, Unit player, boolean melee, boolean ranged, Position p, Rectangle node, Enemy enemy, Stage window) {
-		Label message = new Label("The enemy attacked you!");
 
-		AttackType type = new AttackType(enemy);
-		
+	public void run(Unit player, boolean melee, boolean ranged, Unit antagonist, Stage window) {
+		Label message = new Label("The enemy attacked you!");
+		AttackType type;
+		type = new AttackType(antagonist);
+
 		if (melee) {
 			type.attackedThem(player, AttackTypes.MELEE);
-		}
-		
-		else if (ranged) {
+		} else if (ranged) {
 			type.attackedThem(player, AttackTypes.RANGED);
 		}
-		
+
+		checkPlayerHP(player, window, message);
+	}
+
+
+	public void checkPlayerHP(Unit player, Stage window, Label message) {
 		if (player.getStats().getHealth() <= 0) {
-			message = new Label("You were slain by the enemy.");
+			message = new Label("You were slain by the antagonist.");
 			try {
 				GameState.gameOver(window);
+				ButtonEvents.continueBtn(message);
 			} catch (Exception e) {
-				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
 		}
-		else {
-			BattleThread.playerTurn = true;
-			Main.continueBtn(message);
-		}
-		
+		BattleThread.playerTurn = true;
+		ButtonEvents.continueBtn(message);
 	}
 }
  

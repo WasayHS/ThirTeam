@@ -19,14 +19,18 @@ public class AttackType {
 				int randDmg = random.nextInt(4);
 				int melDamage = type.getDamage();
 				melDamage = ((melDamage + attacker.getStats().getStr())*-1) -(-randDmg); //strength level is just added to their base damage
-				target.getStats().setHealth(melDamage);
+				System.out.println(melDamage);
+				System.out.println(melDamage+target.getStats().getDef());
+				target.getStats().setHealth(melDamage+target.getStats().getDef());
 				break;
 				
 			case RANGED:
 				//ranged attacks dependent on magic
 				int magDamage = type.getDamage();
 				magDamage = ((magDamage + attacker.getStats().getMag())*-1); //their magic level is just added to their base damage
-				target.getStats().setHealth(magDamage);
+				System.out.println(magDamage);
+				System.out.println(magDamage+target.getStats().getDef());
+				target.getStats().setHealth(magDamage+target.getStats().getDef());
 				break;
 				
 			case HEAL:
@@ -36,8 +40,10 @@ public class AttackType {
 				heal = (heal + attacker.getStats().getMag());
 				attacker.getStats().setHealth(heal);
 				break;
+			
+			
 				
-			}
+		}
 	}
 
 }
