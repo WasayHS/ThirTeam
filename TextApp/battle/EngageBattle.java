@@ -13,7 +13,7 @@ public class EngageBattle {
     public static int healsLeft = 3;
     public static boolean playerTurn = true;
 
-    /* battleEngaged(Unit, Position, boolean, boolean)
+    /** battleEngaged(Unit, Position, boolean, boolean)
      * Engages the player in a melee or ranged battle
      *
      * @param player: Type Unit - defines player
@@ -33,7 +33,7 @@ public class EngageBattle {
         }
     }
 
-    /* startBattle(Unit, Position, String)
+    /** startBattle(Unit, Position, String)
      * Loops the battle while both the enemy and player are still alive
      *
      * @param player: Type Unit - instance of the player
@@ -51,13 +51,13 @@ public class EngageBattle {
             } else if (!playerTurn && enemy.getStats().getHealth() > 0) {
                 runThread(enemy, player, p, attack.toUpperCase());
                 System.out.println(" ");
-                BattleThread.displayHealth(player, enemy);
+                TextAppBattleThread.displayHealth(player, enemy);
                 playerTurn = true;
             }
         }
     }
 
-    /* runThread(Unit, Unit, Position, String)
+    /** runThread(Unit, Unit, Position, String)
      * Runs the battle thread
      *
      * @param attacker: Type Unit - instance of the attacker
@@ -70,12 +70,12 @@ public class EngageBattle {
         loadEnemyTurn(attacker);
 
         DamageCalculator type = new DamageCalculator(attacker);
-        BattleThread battleThread = new BattleThread();
+        TextAppBattleThread battleThread = new TextAppBattleThread();
 
         battleThread.run(attacker, target, p, type, attack);
     }
 
-    /* loadEnemyTurn(Unit)
+    /** loadEnemyTurn(Unit)
      * Loading effect for enemy turn
      *
      * @param attacker: Type unit - instance of the attacker
@@ -85,14 +85,14 @@ public class EngageBattle {
         if((attacker instanceof Enemy) && (attacker.getStats().getHealth() > 0)) {
 
             try {
-                BattleThread.sleep(500);
+                TextAppBattleThread.sleep(500);
                 System.out.println("\n" + "Enemy's turn . . .");
 
                 for (int j = 0; j < 3; j++) {
-                    BattleThread.sleep(500);
+                    TextAppBattleThread.sleep(500);
                     System.out.print(".  ");
                 }
-                BattleThread.sleep(300);
+                TextAppBattleThread.sleep(300);
 
             } catch (InterruptedException e) {
                 e.printStackTrace();
@@ -100,7 +100,7 @@ public class EngageBattle {
         }
     }
 
-    /* playerHealCount(Unit)
+    /** playerHealCount(Unit)
      * Tracks how many times a player has healed in a battle
      *
      * @param player: Type Unit - instance of the player
