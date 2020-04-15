@@ -24,7 +24,7 @@ public class ButtonEvents {
 	 * Method handling when player is looting item
 	 * 
 	 * @param event ActionEvent when player presses the button
-	 * @param inventoryKey Int for the key of the item in the inventory
+	 * @param inventoryKey int for the key of the item in the inventory
 	 * @param message Label of the message displayed to player about loot
 	 * @param cell Rectangle where the loot is 
 	 * @param pickup A stage to loot items
@@ -64,8 +64,8 @@ public class ButtonEvents {
     /**
      * Method to create a button
      * 
-     * @param translateX Int for the translation for the button along x axis
-     * @param translateY Int for the translation for the button along y axis
+     * @param translateX int for the translation for the button along x axis
+     * @param translateY int for the translation for the button along y axis
      * @param buttonName String for the text on the button
      * @return A new button created with passed parameters
      */
@@ -92,8 +92,8 @@ public class ButtonEvents {
     /**
      * Method to create an exit button with the word "End"
      * 
-     * @param translateX Int for the translation for the button along x axis
-     * @param translateY Int for the translation for the button along y axis
+     * @param translateX int for the translation for the button along x axis
+     * @param translateY int for the translation for the button along y axis
      * @return A new exit button created with passed parameters
      */
     public static Button exitButton(int translateX, int translateY) {
@@ -107,8 +107,8 @@ public class ButtonEvents {
      * Method that creates a button to play again
      * 
      * @param stage Stage where the button displays on
-     * @param translateX Int for the translation for the button along x axis
-     * @param translateY Int for the translation for the button along y axis
+     * @param translateX int for the translation for the button along x axis
+     * @param translateY int for the translation for the button along y axis
      * @return A button to ask player if they want to play again
      */
     public static Button playButton(Stage stage, int translateX, int translateY) {

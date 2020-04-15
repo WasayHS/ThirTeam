@@ -35,7 +35,7 @@ public class Main extends Application implements EventHandler<ActionEvent> {
 	
 	/**
 	 * Method that opens the pickup item window
-	 * @param inventoryKey Int as the key of the item stored in inventory
+	 * @param inventoryKey int as the key of the item stored in inventory
 	 * @param cell Rectangle of where the item is displayed
 	 */
 	public static void pickUpItemWindow(int inventoryKey, Rectangle cell) {

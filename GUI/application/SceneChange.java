@@ -126,7 +126,7 @@ public class SceneChange {
 	/**
 	 * Method to get the Scene of the battle map to be displayed
 	 * @param window Stage of where the scene is displayed
-	 * @param size Int of the size of the level map
+	 * @param size int of the size of the level map
 	 * @return Scene of the battle map
 	 */
 	public static Scene startGame(Stage window, int size) {
@@ -154,14 +154,14 @@ public class SceneChange {
 	}
 
 	/**
-	 * Method handles game event when player moves on the map ????
+	 * Method handles game event when player moves on the map
 	 * @param cell Rectangle where the player is moving from
 	 * @param grid GridPane of the battle map
 	 * @param window Stage of where the scene is displayed
 	 * @param player Player of the main character
-	 * @param i Int of which row the cell is located at
-	 * @param j Int of which column the cell is located at
-	 * @param b Boss 
+	 * @param i int of which row the cell is located at
+	 * @param j int of which column the cell is located at
+	 * @param b Boss passed to get to updateGrid to determine iterations of enemyMove and BattleThread
 	 */
 	private static void gameEventHandling(Rectangle cell, GridPane grid, Stage window, Player player, int i, int j, Boss b){
 		cell.setOnMouseEntered(enter -> {
@@ -182,7 +182,7 @@ public class SceneChange {
 	/**
 	 * Method to create a scene for the boss level
 	 * @param window Stage of where the scene is displayed
-	 * @param size Int of the map so the boss is located in the middle
+	 * @param size int of the map so the boss is located in the middle
 	 * @return Scene of the boss level for the stage
 	 */
 	public static Scene bossLevel(Stage window, int size){

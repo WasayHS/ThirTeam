@@ -7,6 +7,11 @@ import javafx.scene.paint.ImagePattern;
 import unit.Player;
 import unit.Stats;
 
+/**
+ * Class for the player inventory for potions
+ * @author Bonnie's Computer
+ *
+ */
 public class Inventory {	
 	public static final ImagePattern STR_POT = new ImagePattern(new Image("/entities/strPot.png"));
 	public static final ImagePattern MAG_POT = new ImagePattern(new Image("/entities/magPot.png"));
@@ -15,6 +20,10 @@ public class Inventory {
 	
 	private static LootImg image;
 	
+	/**
+	 * Constructor for the class to create potions
+	 * @param num int to determine which potion is dropped
+	 */
 	public Inventory (int num) {
 		if (num <= 10 && num >= 0) { //Strength potion
 			Inventory.image = new LootImg(STR_POT);
@@ -29,6 +38,12 @@ public class Inventory {
 		inventory.put(num, image );
 
 	}
+	
+	/**
+	 * Method to get the stats of the type of potion
+	 * @param type String representing the type of potion
+	 * @return LootStats for the potion required
+	 */
 	public static LootStats getLootStats(String type) {
 		if(type.equals("str")){
 			return new LootStats (3,0,0);
@@ -42,8 +57,11 @@ public class Inventory {
 		return null;
 	}
 
-	
-
+	/**
+	 * Method to get the image of the type of potion
+	 * @param type String of the type of potion
+	 * @return LootImg of the image of the potion
+	 */
 	public static LootImg getImageFromType(String type) {
 		if(type.equals("str")){
 			return new LootImg (STR_POT);
@@ -57,6 +75,11 @@ public class Inventory {
 		return null;
 	}
 	
+	/**
+	 * Method to get the key of the potion in inventory from the image
+	 * @param img ImagePattern of the potion
+	 * @return int of the key
+	 */
 	public static int getKey(ImagePattern img){
 		for (int i = 0; i<31; i++){
 			if(Inventory.inventory.containsKey(i)){
@@ -69,7 +92,11 @@ public class Inventory {
 		
 	}
 
-
+	/**
+	 * Method to get the potion type from the key 
+	 * @param key int of the potion in the inventory
+	 * @return String of the type of potion
+	 */
 	public static String getPotType(int key){
 		ImagePattern img = inventory.get(key).getPot();
 				
@@ -86,8 +113,12 @@ public class Inventory {
 		
 	}
 	
-	
-	
+	/**
+	 * Method to use the potion depending on type of potion
+	 * potion increases players stats
+	 * @param s String of the type of potion
+	 * @param p Player with stats that will change
+	 */
 	public static void  use(String s, Player p){
 		System.out.println(s);
 		LootStats l = getLootStats(s);
