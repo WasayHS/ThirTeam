@@ -258,7 +258,7 @@ public class MapSetup {
 	public static void initiateBattle(Unit enemy, Player player, GridPane grid, boolean melee, boolean ranged, Position newPosition, Rectangle cell, Stage window) {
 		Stage hDisplay = new Stage();
 		while(player.getStats().getHealth() > 0 && enemy.getStats().getHealth() > 0) {
-			BattleThread battle = new BattleThread(grid, enemy, player, melee, ranged, newPosition, window, cell, hDisplay);
+			BattleThread battle = new BattleThread(grid, enemy, player, melee, ranged, newPosition, window, cell);
 		}
 		hDisplay.close();
 	}
