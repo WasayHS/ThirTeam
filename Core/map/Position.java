@@ -4,7 +4,7 @@ public class Position {
     private int x;
     private int y;
 
-    /* Position(int, int)
+    /** Position(int, int)
      * constructor for Position
      *
      * @param x: Type int - the x coordinate of an entity

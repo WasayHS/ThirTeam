@@ -13,7 +13,7 @@ public enum AttackTypes {
     private int damage;
     private int heal;
 
-    /* AttackTypes(int, int)
+    /** AttackTypes(int, int)
      * Constructor for AttackTypes
      *
      * @param damage: Type int - damage to be dealt to the target
@@ -24,7 +24,7 @@ public enum AttackTypes {
         this.heal = healValue;
     }
 
-    /* getDamage()
+    /** getDamage()
      * Getter for damage
      * @return damage
      */
@@ -32,7 +32,7 @@ public enum AttackTypes {
         return this.damage;
     }
 
-    /* getHealth()
+    /**getHealth()
      * Getter for health
      * @return health
      */

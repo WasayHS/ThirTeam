@@ -6,7 +6,7 @@ public class LootStats {
 	private int mag;
 	private int def;
 
-	/* LootStats(int, int, int)
+	/** LootStats(int, int, int)
 	 * Constructor for LootStats
 	 *
 	 * @param str: Type int which is the strength number
@@ -44,7 +44,7 @@ public class LootStats {
 		this.def = def;
 	}
 
-	/* toString()
+	/** toString()
 	 * Returns the name of the potion as a string
 	 *
 	 * @return String.format: (Str:, Mag:, Def:)

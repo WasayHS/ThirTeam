@@ -32,7 +32,7 @@ public class AttackType {
 			case HEAL:
 				//player heals themselves
 				//extra heal is from the mag stat of the player
-				int heal = type.getHealth();
+				int heal = type.getHeal();
 				heal = (heal + attacker.getStats().getMag());
 				attacker.getStats().setHealth(heal);
 				break;

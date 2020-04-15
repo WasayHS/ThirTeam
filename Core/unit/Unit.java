@@ -7,7 +7,7 @@ public class Unit {
     private Stats stats;
     private Position position;
 
-    /* Unit(int, int, int, int, int, int)
+    /** Unit(int, int, int, int, int, int)
      * constructor for unit
      *
      * Parameters passed by subclasses: Enemy and Player
@@ -18,13 +18,12 @@ public class Unit {
      * @param x: Type int - the unit's x value
      * @param y: Type int - the unit's y value
      */
-
     public Unit (int hp, int str, int mag, int def, int x, int y) {
         this.stats = new Stats(hp, str, mag, def);
         this.position = new Position(x, y);
     }
 
-    /* Unit(int, int, int, int, int, Position)
+    /** Unit(int, int, int, int, int, Position)
      * constructor for unit
      *
      * Parameters passed by subclasses: Enemy and Player

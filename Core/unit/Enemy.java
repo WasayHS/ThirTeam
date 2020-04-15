@@ -4,7 +4,7 @@ import map.Position;
 
 public class Enemy extends Unit {
 
-    /* Enemy(int, int, int, int, Position)
+    /** Enemy(int, int, int, int, Position)
      * Constructor: calls the superclass Unit
      *
      * @param hp: Type int - the enemy's hp

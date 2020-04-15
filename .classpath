@@ -2,6 +2,7 @@
 <classpath>
 	<classpathentry kind="src" path="GUI"/>
 	<classpathentry kind="src" path="TextApp"/>
+	<classpathentry kind="src" path="Core"/>
 	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER">
 		<attributes>
 			<attribute name="module" value="true"/>
