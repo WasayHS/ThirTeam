@@ -158,7 +158,6 @@ public class MapSetup {
 	 * @param player Player of the main character
 	 * @return boolean if the move is valid
 	 */
-//	- - - - - Checks for valid move; if move is valid, grid is updated
 	public static boolean checkMove(GridPane grid, Position p, Player player) {
 		Rectangle newPosition = getNode(grid, p);
 		if (Math.abs(player.getPosition().getX()-p.getX()) > 1 || Math.abs(player.getPosition().getY()-p.getY()) > 1 ||
