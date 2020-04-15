@@ -54,7 +54,7 @@ public class MapSetup {
 		List<Position> enemies = new ArrayList<>();
 		Position p;
 
-		for (int i = 0; i < 1; i++) {
+		for (int i = 0; i < count; i++) {
 			p = generatePosition(enemies, size);
 			enemies.add(p);
 			ENEMY_POS.put(p, new Enemy(1, 2, 0, 0, p));
