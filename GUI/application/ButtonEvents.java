@@ -99,11 +99,12 @@ public class ButtonEvents {
     }
 
     /**
+     * Method that creates a button to play again
      * 
-     * @param stage
-     * @param translateX
-     * @param translateY
-     * @return
+     * @param stage New stage where the button displays on
+     * @param translateX Translation for the button along x axis as an int
+     * @param translateY Translation for the button along y axis as an int
+     * @return a Button
      */
     public static Button playButton(Stage stage, int translateX, int translateY) {
         Button play = createButton(translateX, translateY, "Play Again");
