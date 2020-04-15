@@ -14,11 +14,6 @@ import unit.Boss;
 import unit.Enemy;
 import unit.Unit;
 
-/**
- * Class for the battle thread of the game
- * @author Bonnie's Computer
- *
- */
 public class BattleThread {
 	public static final ImagePattern ENEMY3 = new ImagePattern(new Image("/entities/enemy3HP.png"));
 	public static final ImagePattern ENEMY2 = new ImagePattern(new Image("/entities/enemy2HP.png"));
@@ -36,20 +31,9 @@ public class BattleThread {
 	PlayerTurn playerT;
 	EnemyTurn enemyT;
 	
-	/**
-	 * Constructor
-	 * @param grid GridPane of the entire map containing all the Rectangle nodes
-	 * @param enemy Enemy of the enemy in battle
-	 * @param player Player of the player in battle
-	 * @param melee boolean if attack is a melee attack
-	 * @param ranged boolean if attack is a ranged attack
-	 * @param p Position of the player
-	 * @param window Stage of the battle scene
-	 * @param cell Rectangle on the map where the enemy is
-	 */
-	public BattleThread(GridPane grid, Unit enemy, Unit player, boolean melee, boolean ranged, Position p, Stage window, Rectangle cell) {
+	public BattleThread(GridPane grid, Unit enemy, Unit player, boolean melee, boolean ranged, Position p, Stage window, Rectangle cell, Stage hDisplay) {
 		Unit opponent = enemyType(enemy, p);
-		Stage hDisplay = new Stage();
+		
 		if (opponent instanceof Enemy) {
 				setEnemyImage(opponent, player, ENEMY1, ENEMY2, ENEMY3, cell, hDisplay);
 			} else {
@@ -64,7 +48,6 @@ public class BattleThread {
 			enemyT.start();
 			
 		}
-		hDisplay.close();
 	}
 
 	/**
@@ -77,6 +60,7 @@ public class BattleThread {
 	 * @param cell Rectangle where the enemy image is changing 
 	 * @param healthStage Stage of the popup window to display health
 	 */
+
 	private void setEnemyImage(Unit enemyUnit, Unit player, ImagePattern image1, ImagePattern image2, ImagePattern image3, Rectangle cell, Stage healthStage) {
 		if (enemyUnit.getStats().getHealth() >= 18 && enemyUnit.getStats().getHealth() < 25) {cell.setFill(image3);}
 		else if (enemyUnit.getStats().getHealth() < 18 && enemyUnit.getStats().getHealth() >= 11) {cell.setFill(image2);}

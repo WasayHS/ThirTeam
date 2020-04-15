@@ -68,7 +68,7 @@ public class MapSetup {
 		for (int i = 0; i < count; i++) {
 			p = generatePosition(enemies, size);
 			enemies.add(p);
-			ENEMY_POS.put(p, new Enemy(1, 2, 0, 0, p));
+			ENEMY_POS.put(p, new Enemy(10, 2, 0, 0, p));
 		}
 		return enemies;
 	}
@@ -256,9 +256,11 @@ public class MapSetup {
 	 * @param window Stage for the battle 
 	 */
 	public static void initiateBattle(Unit enemy, Player player, GridPane grid, boolean melee, boolean ranged, Position newPosition, Rectangle cell, Stage window) {
+		Stage hDisplay = new Stage();
 		while(player.getStats().getHealth() > 0 && enemy.getStats().getHealth() > 0) {
-			BattleThread battle = new BattleThread(grid, enemy, player, melee, ranged, newPosition, window, cell);
+			BattleThread battle = new BattleThread(grid, enemy, player, melee, ranged, newPosition, window, cell, hDisplay);
 		}
+		hDisplay.close();
 	}
 
 	/**

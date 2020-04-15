@@ -1,12 +1,7 @@
 package battle;
 import java.util.Random;
-import unit.Unit;
 
-/**
- * Class for different attack types
- * @author Bonnie's Computer
- *
- */
+import unit.Unit;
 public class AttackType {
 	
 	private Unit attacker;
@@ -15,11 +10,7 @@ public class AttackType {
 		this.attacker = attacker;
 		}
 	
-	/**
-	 * Method to change the stats of Unit depending on the move type
-	 * @param target Unit of who is receiving the attack
-	 * @param type AttackTypes of the attack being dealt to the Unit
-	 */
+	//this method changed the stats of the player and enemy depending on their stats
 	public void attackedThem(Unit target, AttackTypes type) {
 		switch(type) {
 			case MELEE:
