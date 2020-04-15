@@ -3,7 +3,7 @@ import java.util.Random;
 
 import unit.Unit;
 
-/* class DamageCalculator
+/**class DamageCalculator
  * class for calculating damage
  */
 
@@ -11,7 +11,7 @@ public class DamageCalculator {
 
     private Unit attacker;
 
-    /* DamageCalculator(Unit)
+    /**
      * Constructor for DamageCalculator
      *
      * @param attacker: Type Unit - instance of the attacker
@@ -20,7 +20,7 @@ public class DamageCalculator {
         this.attacker = attacker;
     }
 
-    /* attack(Unit, AttackTypes)
+    /**
      * Changes the stats of the Unit according to the type of attack executed by the attacker
      *
      * @param target: Type Unit - instance of the target
