@@ -49,18 +49,22 @@ public class BattleThread {
 	 */
 	public BattleThread(GridPane grid, Unit enemy, Unit player, boolean melee, boolean ranged, Position p, Stage window, Rectangle cell) {
 		Unit opponent = enemyType(enemy, p);
+		Stage hDisplay = new Stage();
+		if (opponent instanceof Enemy) {
+				setEnemyImage(opponent, player, ENEMY1, ENEMY2, ENEMY3, cell, hDisplay);
+			} else {
+				setEnemyImage(opponent, player, BOSS1, BOSS2, BOSS3, cell, hDisplay);
+		}
+		
 		if (playerTurn) {
 			this.playerT = new PlayerTurn(grid, player, melee, ranged, p, opponent);
 			playerT.start();
 		} else {
 			this.enemyT = new EnemyTurn(player, melee, ranged, opponent, window);
 			enemyT.start();
-			if (opponent instanceof Enemy) {
-				setEnemyImage(opponent, player, ENEMY1, ENEMY2, ENEMY3, cell);
-			} else {
-				setEnemyImage(opponent, player, BOSS1, BOSS2, BOSS3, cell);
-			}
+			
 		}
+		hDisplay.close();
 	}
 
 	/**
@@ -72,13 +76,13 @@ public class BattleThread {
 	 * @param image3 ImagePattern of the enemy at low health
 	 * @param cell Rectangle where the enemy image is changing 
 	 */
-	private void setEnemyImage(Unit enemyUnit, Unit player, ImagePattern image1, ImagePattern image2, ImagePattern image3, Rectangle cell) {
+	private void setEnemyImage(Unit enemyUnit, Unit player, ImagePattern image1, ImagePattern image2, ImagePattern image3, Rectangle cell, Stage healthStage) {
 		if (enemyUnit.getStats().getHealth() >= 18 && enemyUnit.getStats().getHealth() < 25) {cell.setFill(image3);}
 		else if (enemyUnit.getStats().getHealth() < 18 && enemyUnit.getStats().getHealth() >= 11) {cell.setFill(image2);}
 		else if (enemyUnit.getStats().getHealth() < 11 && enemyUnit.getStats().getHealth() > 0) {cell.setFill(image1);}
-		Stage hDisplay = new Stage();
-		displayHealth(player, enemyUnit, hDisplay);
-		hDisplay.close();
+		
+		displayHealth(player, enemyUnit, healthStage);
+		
 	}
 
 	/**
