@@ -19,21 +19,39 @@ import unit.Player;
 import java.io.*;
 import java.util.List;
 
+/**
+ * Class that contains methods to change the scene on the Stage
+ * @author Bonnie's Computer
+ *
+ */
 public class SceneChange {
 	
 	static boolean morality;
 	static int level = 0;
 	public static int mapSize = 7;
 	
+	/**
+	 * Method to set morality
+	 * @param morality Boolean for the morality of the main character
+	 */
 	private static void setMorality(boolean morality) {
 		SceneChange.morality = morality;
 	}
 
+	/**
+	 * Method to set the morality and move player to next level
+	 * @param window Stage of where the scene is displayed
+	 * @param amorality Boolean of the morality of the player
+	 */
 	private static void action(Stage window, boolean amorality) {
 		setMorality(amorality);
 			newLevel(window);
 	}
 
+	/**
+	 * Method to create a new Scene for the next level
+	 * @param window Stage of where the scene is displayed
+	 */
 	public static void newLevel(Stage window) {
 		Scene nextScene;
 
@@ -64,6 +82,11 @@ public class SceneChange {
 		}
 	}
 	
+	/**
+	 * Method to retrieve the title screen of the game
+	 * @param window Stage of where the scene is displayed
+	 * @return Scene of the title screen 
+	 */
 	public static Scene getTitleScene(Stage window) {
 		Pane layout = new Pane();
 		window.setTitle("A Beast's Weapon");
@@ -80,6 +103,10 @@ public class SceneChange {
 		return begin;
 	}
 
+	/**
+	 * Method for the scene to prompt player for their morality choice
+	 * @param window Stage of where the scene is displayed
+	 */
 	public static void setMorality(Stage window) {
 		Pane layout = new Pane ();
 		Button evil = ButtonEvents.createButton(150,225,"Low (evil)");
@@ -96,6 +123,12 @@ public class SceneChange {
 		window.show();
 	}
 
+	/**
+	 * Method to get the Scene of the battle map to be displayed
+	 * @param window Stage of where the scene is displayed
+	 * @param size Int of the size of the level map
+	 * @return Scene of the battle map
+	 */
 	public static Scene startGame(Stage window, int size) {
 		GridPane grid = new GridPane();
 		Player player = new Player(size-2, size/2);
@@ -120,6 +153,16 @@ public class SceneChange {
 		return scene;
 	}
 
+	/**
+	 * Method handles game event when player moves on the map ????
+	 * @param cell Rectangle where the player is moving from
+	 * @param grid GridPane of the battle map
+	 * @param window Stage of where the scene is displayed
+	 * @param player Player of the main character
+	 * @param i Int of which row the cell is located at
+	 * @param j Int of which column the cell is located at
+	 * @param b Boss 
+	 */
 	private static void gameEventHandling(Rectangle cell, GridPane grid, Stage window, Player player, int i, int j, Boss b){
 		cell.setOnMouseEntered(enter -> {
 			Position p = new Position(GridPane.getRowIndex(cell), GridPane.getColumnIndex(cell));
@@ -136,6 +179,12 @@ public class SceneChange {
 		grid.getChildren().add(cell);
 	}
 	
+	/**
+	 * Method to create a scene for the boss level
+	 * @param window Stage of where the scene is displayed
+	 * @param size Int of the map so the boss is located in the middle
+	 * @return Scene of the boss level for the stage
+	 */
 	public static Scene bossLevel(Stage window, int size){
 		Player player = new Player(size/2,2);
 		Boss b = new Boss(45,5, 5, 3,2,(int)(size/2));
@@ -154,7 +203,13 @@ public class SceneChange {
 		Scene initBossLevel = new Scene(grid, 500,500);
 		return initBossLevel;
 	}
-
+	
+	/**
+	 * Method to get the cutscenes for the storyline
+	 * @param window Stage of where the scene is displayed
+	 * @return Scene of the cutscene depending how far player has progressed
+	 * @throws FileNotFoundException
+	 */
 	public static Scene getCutScene(Stage window) throws FileNotFoundException {
 		Scene cutScene = null;
 		Button btn = ButtonEvents.createButton(0,0,"Continue");

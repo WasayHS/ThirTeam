@@ -6,13 +6,18 @@ import javafx.scene.layout.StackPane;
 import javafx.stage.Stage;
 import loot.Inventory;
 
+/**
+ * A class that determines if the player has won or has lost
+ * @author Bonnie's Computer
+ *
+ */
 public class GameState {
 
-	/** victory(Stage)
+	/** 
 	 * Called after the player has finished the game
 	 * Exits the game after the exit button is pushed
 	 *
-	 * @param finished: Type Stage - stage to set for the victory scene
+	 * @param finished A stage to set for the victory scene
 	 */
 	public static void victory(Stage victory) {
 		StackPane GFinishedLayout = new StackPane();
@@ -23,11 +28,11 @@ public class GameState {
 		victory.setScene(scene);
 		victory.show();
 }
-	/** gameOver(Stage)
+	/** 
 	 * Called when the player dies during a battle, player can choose
 	 * to play again or exit
 	 *
-	 * @param endGame: Type Stage - stage to set for the end scene
+	 * @param endGame A stage to set for the end scene
 	 */
 	public static void gameOver(Stage endGame) {
 		endGame.setTitle("Game over");

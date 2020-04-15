@@ -13,16 +13,21 @@ import map.MapSetup;
 
 import java.util.List;
 
+/**
+ * A class that with methods specific to button handling
+ * @author Bonnie's Computer
+ *
+ */
 public class ButtonEvents {
 
 	/**
 	 * Method handling when player is looting item
 	 * 
-	 * @param event Action when player presses the button
-	 * @param inventoryKey Key in the inventory HashMap for the item looted
+	 * @param event ActionEvent when player presses the button
+	 * @param inventoryKey Int for the key of the item in the inventory
 	 * @param message Label of the message displayed to player about loot
-	 * @param cell The cell where the loot is on
-	 * @param pickup Stage for the popup box
+	 * @param cell Rectangle where the loot is 
+	 * @param pickup A stage to loot items
 	 */
     public static void lootItemButton(ActionEvent event, int inventoryKey, Label message, Rectangle cell, Stage pickup) {
         Button actionBtn = (Button)event.getSource();
@@ -59,9 +64,9 @@ public class ButtonEvents {
     /**
      * Method to create a button
      * 
-     * @param translateX Translation for the button along x axis as an int
-     * @param translateY Translation for the button along y axis as an int
-     * @param buttonName The text on the button
+     * @param translateX Int for the translation for the button along x axis
+     * @param translateY Int for the translation for the button along y axis
+     * @param buttonName String for the text on the button
      * @return A new button created with passed parameters
      */
     public static Button createButton(int translateX, int translateY, String buttonName) {
@@ -76,7 +81,7 @@ public class ButtonEvents {
     /**
      * Method to add a Button to a VBox
      * @param root VBox of where to add the button
-     * @param buttonList List of all the buttons that need to be added to the VBox
+     * @param buttonList List of Buttons of all the buttons that need to be added to the VBox
      */
     public static void addButtonToBox(VBox root, List<Button> buttonList) {
         for (Button button : buttonList) {
@@ -87,8 +92,8 @@ public class ButtonEvents {
     /**
      * Method to create an exit button with the word "End"
      * 
-     * @param translateX Translation for the button along x axis as an int
-     * @param translateY Translation for the button along y axis as an int
+     * @param translateX Int for the translation for the button along x axis
+     * @param translateY Int for the translation for the button along y axis
      * @return A new exit button created with passed parameters
      */
     public static Button exitButton(int translateX, int translateY) {
@@ -101,10 +106,10 @@ public class ButtonEvents {
     /**
      * Method that creates a button to play again
      * 
-     * @param stage New stage where the button displays on
-     * @param translateX Translation for the button along x axis as an int
-     * @param translateY Translation for the button along y axis as an int
-     * @return a Button
+     * @param stage Stage where the button displays on
+     * @param translateX Int for the translation for the button along x axis
+     * @param translateY Int for the translation for the button along y axis
+     * @return A button to ask player if they want to play again
      */
     public static Button playButton(Stage stage, int translateX, int translateY) {
         Button play = createButton(translateX, translateY, "Play Again");

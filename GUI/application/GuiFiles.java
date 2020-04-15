@@ -8,8 +8,16 @@ import java.awt.*;
 import java.io.*;
 import java.util.Scanner;
 
+/**
+ * Class to open external resources
+ * @author Bonnie's Computer
+ *
+ */
 public class GuiFiles {
 
+	/**
+	 * Method to open the instructions of the game
+	 */
     public static void openInstructions() {
         try {
             File instruction1 = new File("src/Instructions.txt");
@@ -20,6 +28,10 @@ public class GuiFiles {
         }
     }
 
+    /**
+     * Method to load the start image of the game
+     * @param layout Pane of the title screen
+     */
     public static void loadStartImage(Pane layout) {
         try{
             Image gamestart  = new Image(new FileInputStream("GUI/application/StartGame.png"));
@@ -29,6 +41,12 @@ public class GuiFiles {
         }
     }
 
+    /**
+     * Method to read text from a file
+     * @param fileLocation String of the file location
+     * @return A String of the text from the file
+     * @throws FileNotFoundException
+     */
     public static String readText(String fileLocation) throws FileNotFoundException {
         Scanner reader = new Scanner(new FileReader(fileLocation));
         String text = "";
