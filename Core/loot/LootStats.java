@@ -5,6 +5,7 @@ public class LootStats {
 	private int str;
 	private int mag;
 	private int def;
+	private Inventory inventory;
 
 	/** LootStats(int, int, int)
 	 * Constructor for LootStats
