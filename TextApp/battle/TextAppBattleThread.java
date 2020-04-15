@@ -14,7 +14,7 @@ import java.util.Random;
 /* class BattleThread extends Thread
  * Class for when a unit executes an attack; Extends Thread class
  */
-public class BattleThread extends Thread {
+public class TextAppBattleThread extends Thread {
     private static BorderedStrings title = new LevelTitle();
     private static BorderedStrings choices = new OptionsText();
 
