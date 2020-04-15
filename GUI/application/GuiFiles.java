@@ -22,7 +22,7 @@ public class GuiFiles {
 
     public static void loadStartImage(Pane layout) {
         try{
-            Image gamestart  = new Image(new FileInputStream("src/application/StartGame.png"));
+            Image gamestart  = new Image(new FileInputStream("GUI/application/StartGame.png"));
             layout.getChildren().add(new ImageView(gamestart));
         }catch (IllegalArgumentException | FileNotFoundException i) {
             System.err.println("Error: \"StartGame.png\" not found");

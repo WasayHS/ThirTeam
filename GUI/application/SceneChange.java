@@ -165,7 +165,7 @@ public class SceneChange {
 				Text expo = new Text();
 				VBox neutral = new VBox();
 				neutral.setAlignment(Pos.CENTER);
-				expo.setText(GuiFiles.readText("src/cutsceneRes/Exposition.txt"));
+				expo.setText(GuiFiles.readText("GUI/cutsceneRes/Exposition.txt"));
 				neutral.getChildren().addAll(expo,btn);
 				cutScene = new Scene(neutral, 500,500);
 				window.setScene(cutScene);
@@ -175,14 +175,14 @@ public class SceneChange {
 					Text goodOne = new Text();
 					VBox good1 = new VBox();
 					good1.setAlignment(Pos.CENTER);
-					goodOne.setText(GuiFiles.readText("src/cutsceneRes/goodOne.txt"));
+					goodOne.setText(GuiFiles.readText("GUI/cutsceneRes/goodOne.txt"));
 					good1.getChildren().addAll(goodOne,btn);
 					cutScene = new Scene(good1, 500,500);
 				} else {
 					Text badOne = new Text();
 					VBox bad1 = new VBox();
 					bad1.setAlignment(Pos.CENTER);
-					badOne.setText(GuiFiles.readText("src/cutsceneRes/badOne.txt"));
+					badOne.setText(GuiFiles.readText("GUI/cutsceneRes/badOne.txt"));
 					bad1.getChildren().addAll(badOne,btn);
 					cutScene = new Scene(bad1, 500,500);
 				}
