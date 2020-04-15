@@ -1,7 +1,10 @@
 package battle;
 
+import javafx.scene.Scene;
+import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.layout.GridPane;
+import javafx.scene.layout.VBox;
 import javafx.scene.paint.ImagePattern;
 import javafx.scene.shape.Rectangle;
 import javafx.stage.Stage;
@@ -48,8 +51,9 @@ public class BattleThread {
 		if (enemyUnit.getStats().getHealth() >= 18 && enemyUnit.getStats().getHealth() < 25) {cell.setFill(image3);}
 		else if (enemyUnit.getStats().getHealth() < 18 && enemyUnit.getStats().getHealth() >= 11) {cell.setFill(image2);}
 		else if (enemyUnit.getStats().getHealth() < 11 && enemyUnit.getStats().getHealth() > 0) {cell.setFill(image1);}
-
-		displayHealth(player, enemyUnit);
+		Stage hDisplay = new Stage();
+		displayHealth(player, enemyUnit, hDisplay);
+		hDisplay.close();
 	}
 
 	private Unit enemyType(Unit enemy, Position p) {
@@ -58,8 +62,14 @@ public class BattleThread {
 		}
 		return MapSetup.getEnemy(p.getX(),p.getY());
 	}
-	private void displayHealth(Unit player, Unit enemyUnit) {
-		System.out.println(String.format("Player health: %s", player.getStats().getHealth()));
-		System.out.println(String.format("%s health: %s", enemyUnit.getClass().toString().replace("class unit.", ""), enemyUnit.getStats().getHealth()));
+	private void displayHealth(Unit player, Unit enemyUnit, Stage hDisplay) {
+		VBox textBox = new VBox();
+		Label pHealth = new Label(String.format("Player health: %s", player.getStats().getHealth()));
+		Label antagHealth = new Label(String.format("%s health: %s", enemyUnit.getClass().toString().replace("class unit.", ""), enemyUnit.getStats().getHealth()));
+		textBox.getChildren().add(antagHealth);
+		textBox.getChildren().add(pHealth);
+		Scene scene = new Scene(textBox, 350,100);
+		hDisplay.setScene(scene);
+		hDisplay.show();
 	}
 }
