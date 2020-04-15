@@ -128,40 +128,31 @@ public class Inventory {
 			playerOldStats = p.getStats();
 			int oldStr = playerOldStats.getStr();
 			
-			System.out.println("old "+oldStr+"+"+l.getStr());
-			
 			int strInc = l.getStr();
 			newStats = playerOldStats;
 			newStats.setStr(oldStr+strInc);
 			p.setStats(newStats);
 			
-			System.out.println(p.getStats().getStr());
 		}
 		if(img.getPot().equals(DEF_POT)){
 			playerOldStats = p.getStats();
 			int oldDef = playerOldStats.getDef();
-			
-			System.out.println("old "+oldDef+"+"+l.getDef());
 			
 			int defInc = l.getDef();
 			newStats = playerOldStats;
 			newStats.setDef(oldDef+defInc);
 			p.setStats(newStats);
 			
-			System.out.println(p.getStats().getDef());
 		}
 		if(img.getPot().equals(MAG_POT)){
 			playerOldStats = p.getStats();
 			int magInc = l.getMag();
 			int oldMag = playerOldStats.getMag();
 			
-			System.out.println("old "+oldMag+"+"+magInc);
-			
 			newStats = playerOldStats;
 			newStats.setMag(oldMag+magInc);
 			p.setStats(newStats);
 			
-			System.out.println(p.getStats().getMag());
 		}
 	}
 	

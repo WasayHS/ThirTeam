@@ -1,13 +1,18 @@
 package printFormat;
 
+/**
+ * Class extends BorderedStrings 
+ * Creates different borders for level titles
+ * @author Bonnie's Computer
+ *
+ */
 public class LevelTitle extends BorderedStrings {
 
-    /* topBotBorder(int)
+    /**
      * An abstract method used by BorderedStrings
      * Creates the top and bottom border of new level titles
      *
      * @param len: Type int - the length of the border
-     * @return void
      */
 
     public void topBotBorder(int len){

@@ -18,7 +18,7 @@ public class TextAppBattleThread extends Thread {
     private static BorderedStrings title = new LevelTitle();
     private static BorderedStrings choices = new OptionsText();
 
-    /* run(Unit, Unit, Position, DamageCalculator, String)
+    /**
      * Initiates the thread
      *
      * @param attacker: Type Unit - instance of the attacker
@@ -41,7 +41,7 @@ public class TextAppBattleThread extends Thread {
         executeAttackType(attacker, target, type, attack, p);
     }
 
-    /* checkTargetHP(Unit, Position)
+    /**
      * Checks the HP of the target
      *
      * @param target: Type Unit - instance of the target
@@ -57,7 +57,7 @@ public class TextAppBattleThread extends Thread {
         }
     }
 
-    /* executeAttackType(Unit, Unit, DamageCalculator, String, Position)
+    /**
      * Sets the changes to the unit's health according to the type of attack executed
      *
      * @param attacker: Type Unit - instance of the attacker
@@ -65,7 +65,6 @@ public class TextAppBattleThread extends Thread {
      * @param type: Type DamageCalculator - calculates and sets the target's hp
      * @param attack: Type String - specifies the type of attack used
      * @param p: Type Position - position of the enemy
-     * @return void
      */
     private static void executeAttackType(Unit attacker, Unit target, DamageCalculator type, String attackType, Position p) {
         int oldHp = target.getStats().getHealth();
@@ -77,12 +76,11 @@ public class TextAppBattleThread extends Thread {
         checkTargetHP(target, p);
     }
 
-    /* displayHealth(Unit, Unit)
+    /**
      * Displays the updated health of the player and enemy after an attack was executed
      *
      * @param player: Type Unit - instance of the player to get the updated stats from
      * @param enemy: Type Unit - instance of the enemy to get the updated stats from
-     * @return void
      */
     public static void displayHealth(Unit player, Unit enemy) {
         String playerHealth = String.format("   Player Health: %s", player.getStats().getHealth());
@@ -90,7 +88,7 @@ public class TextAppBattleThread extends Thread {
         title.printBox("  = Updated Health =", " ", playerHealth, enemyHealth, " ");
     }
 
-    /* displayDamageDealt(Unit, Unit, int, int, String)
+    /**
      * Displays battle messages and damage dealt/healed by the attacker
      *
      * @param attacker: Type Unit - instance of the attacker
@@ -98,7 +96,6 @@ public class TextAppBattleThread extends Thread {
      * @param oldHp: Type int - target's HP before an attack
      * @param newHp: Type int - target's HP after an attack
      * @param attackType: Type String - the attack used by the attacker
-     * @return void
      */
     private static void displayDamageDealt(Unit attacker, Unit target, int oldHp, int newHp, String attackType) {
         if (attackType.equals("HEAL")) {

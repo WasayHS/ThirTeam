@@ -7,10 +7,15 @@ import printFormat.LevelTitle;
 import java.io.*;
 import java.util.Scanner;
 
+/**
+ * Class to open game files
+ * @author Bonnie's Computer
+ *
+ */
 public class GameFiles {
     private static BorderedStrings title = new LevelTitle();
 
-    /* openFiles(String)
+    /**
      * Opens files
      *
      * @param filename: Type String - the name of the file being opened
@@ -29,7 +34,7 @@ public class GameFiles {
         return line;
     }
 
-    /* writeScanner(String)
+    /**
      * Sets up the file's PrintWriter for writing/appending to files
      *
      * @param path: Type String - the path of the file to be written
@@ -49,7 +54,7 @@ public class GameFiles {
         return writer;
     }
 
-    /* readLines(String)
+    /**
      * Reads the file provided line by line
      *
      * @param path: Type String - the path of the file to be read
@@ -66,7 +71,7 @@ public class GameFiles {
         return readLine;
     }
 
-    /* addToInventory(String, String)
+    /**
      * Method for adding items to inventory file
      *
      * @param lootName: Type String - name of the loot
@@ -83,7 +88,7 @@ public class GameFiles {
         writer.close();
     }
 
-    /* newGameInventory()
+    /**
      * Empties the inventory for a new game
      */
     public static void newGameInventory() {
@@ -101,7 +106,7 @@ public class GameFiles {
         }
     }
 
-    /* makeFileCopy(String, String)
+    /**
      * Makes copies of files from another file
      *
      * @param copyFile: Type String - the file name of the copy
@@ -128,7 +133,7 @@ public class GameFiles {
         writer.close();
     }
 
-    /* loadSavedInventory()
+    /**
      * Method that loads a saved inventory
      */
     public static void loadInventory() {

@@ -6,6 +6,11 @@ import map.TextMap;
 
 import java.util.*;
 
+/**
+ * Class for the inventory of player in the game
+ * @author Bonnie's Computer
+ *
+ */
 public class TextInventory {
 	public static final String STR_POT = "Strength Potion";
 	public static String MAG_POT = "Magic Potion";
@@ -14,7 +19,7 @@ public class TextInventory {
 	private static LootStats lootStats;
 	private static LootName potName;
 
-	/* TextInventory(Position)
+	/**
 	 * Constructor for TextInventory
 	 *
 	 * @param position: Type Position - position of where the loot was dropped
@@ -34,7 +39,7 @@ public class TextInventory {
 		}
 	}
 
-	/* enemyDrop(Position)
+	/**
 	 * Adds the coordinates of where the items should spawn
 	 *
 	 * @param position: Type Position - the position of the item
@@ -47,11 +52,10 @@ public class TextInventory {
 		return itemCoords;
 	}
 
-	/* pickUpItem(Position)
+	/**
 	 * this picks up the items and adds to inventory
 	 *
 	 * @param pos: Type Position to define the position
-	 * @return void
 	 */
 	public static void pickUpItem(Position pos) {
 		inventory.put(potName, lootStats);
@@ -59,7 +63,7 @@ public class TextInventory {
 		GameFiles.addToInventory(potName.toString(), lootStats.toString());
 	}
 
-	/* getLootName()
+	/**
 	 * getter for loot name
 	 *
 	 * @return potName: returns Type LootName

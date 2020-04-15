@@ -8,7 +8,7 @@ public class HostileEntityState {
     private List<Position> entityCoords = new ArrayList<>();
     private Map<Position, Enemy> enemyMap = new HashMap<>();
 
-    /* HostileEntityState(int)
+    /**
      * Constructor
      *
      * @param mapSize: Type int - the size of the map
@@ -18,11 +18,10 @@ public class HostileEntityState {
         setEnemyMap(this.entityCoords);
     }
 
-    /* setEntityCoords(int)
+    /**
      * Generates positions for non friendly entities (enemy and terrain(spikes))
      *
      * @param mapSize: Type int - the size of the map
-     * @return void
      */
     private void setEntityCoords (int mapSize) {
         Random randX = new Random();
@@ -41,11 +40,10 @@ public class HostileEntityState {
         }
     }
 
-    /* setEnemyMap(List<Position>)
+    /**
      * Creates a map with Position as the key and instances of Enemy as the value
      *
      * @param list: Type List<Position> - a list of the enemy's positions
-     * @return void
      */
     private void setEnemyMap(List<Position> list) {
         for (Position p : list) {
@@ -53,12 +51,11 @@ public class HostileEntityState {
         }
     }
 
-    /* getEnemy(int, int)
+    /**
      * Method to get the value (Enemy) from the designated position
      *
      * @param x: Type int - the x value to obtain the enemy
      * @param y: Type int - the y value to obtain the enemy
-     * @return void
      */
     public Enemy getEnemy(int x, int y) {
         for (Map.Entry<Position, Enemy> entries : this.enemyMap.entrySet()) {
@@ -69,11 +66,18 @@ public class HostileEntityState {
         return null;
     }
 
-    // = = = = = = = = = = = = = Setters and Getters for HostileEntityState
+    /**
+     * Getter for entity coordinates 
+     * @return List<Position> list of the entity coordinates
+     */
     public List<Position> getEntityCoords() {
         return entityCoords;
     }
 
+    /**
+     * Getter for the enemy HashMap 
+     * @return Map<Position,Enemy> HashMap of the position and the corresponding enemy
+     */
     public Map<Position, Enemy> getEnemyMap() {
         return enemyMap;
     }
