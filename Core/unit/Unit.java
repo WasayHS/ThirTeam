@@ -23,7 +23,15 @@ public class Unit {
         this.position = new Position(x, y);
     }
 
-    /** Unit(int, int, int, int, int, Position)
+    public void setStats(Stats stats) {
+		this.stats = stats;
+	}
+
+	public void setPosition(Position position) {
+		this.position = position;
+	}
+
+	/** Unit(int, int, int, int, int, Position)
      * constructor for unit
      *
      * Parameters passed by subclasses: Enemy and Player
