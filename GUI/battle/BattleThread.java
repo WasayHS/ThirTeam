@@ -75,6 +75,7 @@ public class BattleThread {
 	 * @param image2 ImagePattern of the enemy at medium health
 	 * @param image3 ImagePattern of the enemy at low health
 	 * @param cell Rectangle where the enemy image is changing 
+	 * @param healthStage Stage of the popup window to display health
 	 */
 	private void setEnemyImage(Unit enemyUnit, Unit player, ImagePattern image1, ImagePattern image2, ImagePattern image3, Rectangle cell, Stage healthStage) {
 		if (enemyUnit.getStats().getHealth() >= 18 && enemyUnit.getStats().getHealth() < 25) {cell.setFill(image3);}
@@ -86,10 +87,10 @@ public class BattleThread {
 	}
 
 	/**
-	 * 
-	 * @param enemy
-	 * @param p
-	 * @return
+	 * Method to determine enemy type, boss or normal enemy
+	 * @param enemy Unit of the enemy
+	 * @param p Position of where the enemy is located
+	 * @return Unit of the type of enemy
 	 */
 	private Unit enemyType(Unit enemy, Position p) {
 		if (enemy instanceof Boss) {
@@ -98,6 +99,12 @@ public class BattleThread {
 		return MapSetup.getEnemy(p.getX(),p.getY());
 	}
 	
+	/**
+	 * Method to display health during battle in another window
+	 * @param player Unit of the player
+	 * @param enemyUnit Unit of the enemy unit
+	 * @param hDisplay Stage of the popup box for health
+	 */
 	private void displayHealth(Unit player, Unit enemyUnit, Stage hDisplay) {
 		VBox textBox = new VBox();
 		Label pHealth = new Label(String.format("Player health: %s", player.getStats().getHealth()));

@@ -24,12 +24,35 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.Random;
 
+/**
+ * Class for the player turn during battle
+ * @author Bonnie's Computer
+ *
+ */
 public class PlayerTurn extends Thread {
 
+	/**
+	 * 
+	 * @param grid
+	 * @param player
+	 * @param melee
+	 * @param ranged
+	 * @param p
+	 * @param opponent
+	 */
 	public PlayerTurn(GridPane grid, Unit player, boolean melee, boolean ranged, Position p, Unit opponent) {
 		run(grid, player, melee, ranged, p, opponent);
 	}
 
+	/**
+	 * 
+	 * @param grid
+	 * @param player
+	 * @param melee
+	 * @param ranged
+	 * @param p
+	 * @param opponent
+	 */
 	public void run(GridPane grid, Unit player, boolean melee, boolean ranged, Position p, Unit opponent) {
 		AttackType type = new AttackType(player);
 		Stage playerAtk = new Stage();
@@ -57,6 +80,10 @@ public class PlayerTurn extends Thread {
 		playerAtk.showAndWait();
 	}
 
+	/**
+	 * 
+	 * @param player
+	 */
 	private void potionComboBox(Unit player){
 		ComboBox<String> listBox;
 		VBox box = new VBox();
@@ -83,6 +110,12 @@ public class PlayerTurn extends Thread {
 		viewInventory.show();
 	}
 
+	/**
+	 * 
+	 * @param label
+	 * @param viewInventory
+	 * @param box
+	 */
 	private void emptyInventory(Label label, Stage viewInventory, VBox box){
 		label.setText("There is nothing in your Inventory");
 		Button leave = new Button("Leave");
@@ -90,6 +123,12 @@ public class PlayerTurn extends Thread {
 		box.getChildren().add(leave);
 	}
 
+	/**
+	 * 
+	 * @param listBox
+	 * @param player
+	 * @param viewInventory
+	 */
 	private void usePotionEvent(ComboBox<String> listBox, Unit player, Stage viewInventory) {
 		Inventory.use(listBox.getValue(), (Player) player);
 		potionList().remove(listBox.getValue());
@@ -101,6 +140,10 @@ public class PlayerTurn extends Thread {
 		viewInventory.close();
 	}
 
+	/**
+	 * 
+	 * @return
+	 */
 	private ArrayList<String> potionList() {
 		ArrayList<String> potList = new ArrayList<String>();
 		for (int i = 0; i < 31; i++) {
@@ -111,6 +154,12 @@ public class PlayerTurn extends Thread {
 		return potList;
 	}
 
+	/**
+	 * 
+	 * @param melee
+	 * @param ranged
+	 * @return
+	 */
 	private Button attackBtnType(boolean melee, boolean ranged) {
 		if (melee) {
 			return ButtonEvents.createButton(0, 0, "Melee");
@@ -120,6 +169,16 @@ public class PlayerTurn extends Thread {
 		return null;
 	}
 
+	/**
+	 * 
+	 * @param event
+	 * @param message
+	 * @param opponent
+	 * @param type
+	 * @param grid
+	 * @param playerAtk
+	 * @param p
+	 */
 	private void attackEvent(ActionEvent event, Label message, Unit opponent, AttackType type, GridPane grid, Stage playerAtk, Position p) {
 		Button sourceBtn = (Button) event.getSource();
 		message.setText(String.format("You attacked the %s!", opponent.getClass().toString().replace("class unit.", "")));
@@ -129,6 +188,11 @@ public class PlayerTurn extends Thread {
 		checkOpponentHP(opponent, message, grid, playerAtk, p);
 	}
 
+	/**
+	 * 
+	 * @param message
+	 * @param playerAtk
+	 */
 	private void blockProbability(Label message, Stage playerAtk) {
 		boolean prob = new Random().nextInt(2) == 0;
 		if (prob) {
@@ -142,6 +206,14 @@ public class PlayerTurn extends Thread {
 		}
 	}
 
+	/**
+	 * 
+	 * @param player
+	 * @param message
+	 * @param event
+	 * @param type
+	 * @param opponent
+	 */
 	private void playerHeal(Unit player, Label message, ActionEvent event, AttackType type, Unit opponent) {
 		int oldHP = player.getStats().getHealth();
 
@@ -157,6 +229,14 @@ public class PlayerTurn extends Thread {
 		ButtonEvents.continueBtn(message);
 	}
 
+	/**
+	 * 
+	 * @param opponent
+	 * @param message
+	 * @param grid
+	 * @param playerAtk
+	 * @param p
+	 */
 	private void checkOpponentHP(Unit opponent, Label message, GridPane grid, Stage playerAtk, Position p) {
 		if (opponent.getStats().getHealth() <= 0) {
 			message.setText(String.format("You have defeated the %s!", opponent.getClass().toString().replace("class unit.", "")));
@@ -173,6 +253,14 @@ public class PlayerTurn extends Thread {
 		}
 	}
 
+	/**
+	 * 
+	 * @param opponent
+	 * @param message
+	 * @param grid
+	 * @param playerAtk
+	 * @param p
+	 */
 	private void enemyDropProbability(Unit opponent, Label message, GridPane grid, Stage playerAtk, Position p) {
 		boolean prob = new Random().nextInt(3) == 0;
 
@@ -187,6 +275,11 @@ public class PlayerTurn extends Thread {
 		}
 	}
 
+	/**
+	 * 
+	 * @param message
+	 * @param playerAtk
+	 */
 	private void endPlayerTurn (Label message, Stage playerAtk) {
 		BattleThread.playerTurn = false;
 		message.setText("Enemy's turn to attack.");
