@@ -2,6 +2,11 @@ package unit;
 
 import map.Position;
 
+/**
+ * Class that extends unit to create enemies
+ * @author Bonnie's Computer
+ *
+ */
 public class Enemy extends Unit {
 
     /** Enemy(int, int, int, int, Position)

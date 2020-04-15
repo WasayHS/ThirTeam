@@ -2,12 +2,17 @@ package unit;
 
 import map.Position;
 
+/**
+ * Class of to make units in the game
+ * @author Bonnie's Computer
+ *
+ */
 public class Unit {
 
     private Stats stats;
     private Position position;
 
-    /** Unit(int, int, int, int, int, int)
+    /**
      * constructor for unit
      *
      * Parameters passed by subclasses: Enemy and Player
@@ -31,7 +36,7 @@ public class Unit {
 		this.position = position;
 	}
 
-	/** Unit(int, int, int, int, int, Position)
+	/**
      * constructor for unit
      *
      * Parameters passed by subclasses: Enemy and Player
@@ -47,19 +52,19 @@ public class Unit {
         this.position = p;
     }
 
-    /* getStats()
+    /**
      * getter for stats
      *
-     * @return stats: returns Type Stats from class Stats
+     * @return stats returns Type Stats from class Stats
      */
     public Stats getStats() {
         return stats;
     }
 
-    /* getPosition()
+    /**
      * getter for position
      *
-     * @return position: returns Type Position from class Position
+     * @return position returns Type Position from class Position
      */
     public Position getPosition() {
         return position;

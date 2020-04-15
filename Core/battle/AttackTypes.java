@@ -1,7 +1,9 @@
 package battle;
 
-/* enum AttackTypes
- * enumerated attack types
+/**
+ * Class for the type of attack types and their respective stats
+ * @author Bonnie's Computer
+ *
  */
 public enum AttackTypes {
     MELEE (5,0), //melee has a set damage of 5
@@ -9,32 +11,31 @@ public enum AttackTypes {
     HEAL(0,5), //heal has no damage
     DEFEND(0,0);
 
-    // initialize the damage and health
     private int damage;
     private int heal;
 
-    /** AttackTypes(int, int)
+    /** 
      * Constructor for AttackTypes
      *
-     * @param damage: Type int - damage to be dealt to the target
-     * @param healValue: Type int - amount of health the user can regenerate
+     * @param damage int for damage to be dealt to the target
+     * @param healValue int for amount of health the user can regenerate
      */
     AttackTypes(int damage, int healValue) {
         this.damage = damage;
         this.heal = healValue;
     }
 
-    /** getDamage()
+    /**
      * Getter for damage
-     * @return damage
+     * @return int of damage
      */
     public int getDamage() {
         return this.damage;
     }
 
-    /**getHealth()
+    /**
      * Getter for health
-     * @return health
+     * @return int of health
      */
     public int getHeal() {
         return this.heal;
