@@ -3,7 +3,7 @@ package loot;
 public class LootName {
 	private String pot;
 
-	/* LootName(String)
+	/**
 	 * Constructor for LootName
 	 *
 	 * @param pot: Type String - the potion name
@@ -12,16 +12,23 @@ public class LootName {
 		setPot(pot);
 	}
 
-	// = = = = = = = = = = = = = = = Setters and getters for LootName
+	/**
+	 * Getter for the potion item
+	 * @return String of the potion
+	 */
 	public String getPot() {
 		return pot;
 	}
 
+	/**
+	 * Setter for the potion item
+	 * @param pot String of the type of potion
+	 */
 	public void setPot(String pot) {
 		this.pot = pot;
 	}
 
-	/* toString()
+	/**
 	 * Returns the potion name as a String
 	 *
 	 * @return pot: Type String

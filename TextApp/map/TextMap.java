@@ -12,6 +12,11 @@ import unit.Player;
 
 import java.util.*;
 
+/**
+ * Class for the map battle map of the game
+ * @author Bonnie's Computer
+ *
+ */
 public class TextMap {
     private char [][] map;
     private int mapSize;
@@ -37,7 +42,7 @@ public class TextMap {
         setPlayer(mapSize-2, mapSize/2);
     }
 
-    /* printMap()
+    /**
      * Prints the map with the current positions
      * of the player and other entities
      */
@@ -52,7 +57,7 @@ public class TextMap {
         }
     }
 
-    /* loopPositionList(List<Position>, char, int, int)
+    /**
      * Loops through a list of Type Position
      *
      * @param list: Type List<Position> - A list of Position
@@ -69,13 +74,13 @@ public class TextMap {
         } return false;
     }
 
-    /* spawnEntityChar(int, int, Player)
+    /**
      * Returns the character appropriate to the given coordinates
      *
      * @param x: Type int - the x coordinate
      * @param y: Type int - the y coordinate
      * @param player: Type Player - Used to get the player's current position
-     * @return char
+     * @return char that represents an entitiy
      */
 
     public char spawnEntityChar(int x, int y, Player player) {
@@ -94,14 +99,13 @@ public class TextMap {
         }
     }
 
-    /* updateMap(int, int, Player)
+    /**
      * Updates the state of the map appropriate to the player's
      * current location and input coordinates
      *
      * @param x: Type int - user's x input
      * @param y: Type int - user's y input
      * @param player: Type Player - the current state of the player
-     * @return void
      */
     public void updateMap(int x, int y, Player player) {
         boolean melee = checkMelee(x, y, player);
@@ -129,7 +133,7 @@ public class TextMap {
         printMap();
     }
 
-    /* dropProbability(Position)
+    /**
      * Drop probability of items after slaying an enemy
      *
      * @param position: Type Position - defines the position of where the item should spawn
@@ -152,7 +156,7 @@ public class TextMap {
         }
     }
 
-    /* enemyCoordsEntered(int, int, Player, boolean, boolean)
+    /**
      * The method called when an enemy enters coordinates that contain an enemy
      * Engages the player to a battle
      *
@@ -161,7 +165,7 @@ public class TextMap {
      * @param player: Type Player - defines the player's current state
      * @param melee: Type boolean for the attack type
      * @param ranged: Type boolean for the attack type
-     * @return boolean
+     * @return boolean if the player engages in battle or not
      */
 
     public boolean enemyCoordsEntered(int x, int y, Player player, boolean melee, boolean ranged) {
@@ -177,14 +181,14 @@ public class TextMap {
         return false;
     }
 
-    /* checkRanged(int, int, Player)
+    /**
      * Checks if the input coordinates are diagonal to the player
      * and contains an enemy
      *
      * @param x: Type int - x coordinate entered
      * @param y: Type int - y coordinate entered
      * @param player: Type Player - defines the player's current state
-     * @return boolean
+     * @return boolean if the enemy is diagonal to player
      */
     public boolean checkRanged(int x, int y, Player player) {
         if ((Math.abs(player.getPosition().getX() - x) > 1) || (Math.abs(player.getPosition().getY() - y) > 1)
@@ -195,14 +199,14 @@ public class TextMap {
         return map[x][y] == 'X' && this.enemyPos.containsKey(Objects.requireNonNull(enemy.getEnemy(x, y)).getPosition());
     }
 
-    /* checkMelee(int, int, Player)
+    /**
      * Checks if the input coordinates are adjacent to the player
      * and contains an enemy
      *
      * @param x: Type int - x coordinate entered
      * @param y: Type int - y coordinate entered
      * @param player: Type Player - defines the player's current state
-     * @return boolean
+     * @return boolean if enemy is adjacent to player
      */
     public boolean checkMelee(int x, int y, Player player) {
         if (Math.abs(player.getPosition().getX()-x) > 1 || Math.abs(player.getPosition().getY()-y) > 1 ||
@@ -213,14 +217,14 @@ public class TextMap {
         return map[x][y] == 'X' && this.enemyPos.containsKey(Objects.requireNonNull(enemy.getEnemy(x, y)).getPosition());
     }
 
-    /* checkMove(int, int, Player)
+    /**
      * Checks if the input coordinates are adjacent to the player
      * and is not diagonal
      *
      * @param x: Type int - x coordinate entered
      * @param y: Type int - y coordinate entered
      * @param player: Type Player - defines the player's current state
-     * @return boolean
+     * @return boolean if the move is valid
      */
     public boolean checkMove(int x, int y, Player player) {
         if ((Math.abs(player.getPosition().getX()-x) > 1 || Math.abs(player.getPosition().getY()-y) > 1)
@@ -233,62 +237,121 @@ public class TextMap {
     }
 
     // = = = = = = = = = = = = Setters and Getters for TextMap
+    
+    /**
+     *Setter for the spikes on the map 
+     * @param mapSize int of the map size
+     */
     public void setSpikes(int mapSize) {
         this.spikes = new HostileEntityState(mapSize);
     }
 
+    /**
+     * Setter for the enemy
+     * @param mapSize int of the map size
+     */
     public void setEnemy(int mapSize) {
         this.enemy = new HostileEntityState(mapSize);
     }
 
+    /**
+     * Setter for the map size
+     * @param mapSize int of the map size
+     */
     public void setMapSize(int mapSize) {
         this.mapSize = mapSize;
     }
 
+    /**
+     * Setter for the map
+     * @param mapSize int of the map size
+     */
     private void setMap(int mapSize) {
         this.map = new char [mapSize][mapSize];
     }
 
+    /**
+     * Setter for spike coordinates
+     */
     private void setSpikesCoords() {
         this.spikesCoords = spikes.getEntityCoords();
     }
 
+    /**
+     * Setter for enemy coordinates
+     */
     private void setEnemyCoords() {
         this.enemyCoords = enemy.getEntityCoords();
     }
 
+    /**
+     * Setter for enemy position
+     */
     private void setEnemyPos () {
         this.enemyPos = enemy.getEnemyMap();
     }
 
+    /**
+     * Setter for player and location
+     * @param x int for the x coordinate of the player
+     * @param y int for the y coordinate of the player
+     */
     public void setPlayer(int x, int y) {
         this.player = new Player(x, y);
     }
 
+    /**
+     * Getter for the map
+     * @return char[][] of the map representation
+     */
     public char[][] getMap() {
         return this.map;
     }
 
+    /**
+     * Getter for the map size
+     * @return int of the map size
+     */
     public int getMapSize() {
         return this.mapSize;
     }
 
+    /**
+     * Getter for the all the spike coordinates
+     * @return List<Position> of all the spike coordinates
+     */
     public List<Position> getSpikesCoords() {
         return this.spikesCoords;
     }
 
+    /**
+     * Getter for the enemy coordinates 
+     * @return List<Position> of all the enemy coordinates
+     */
     public List<Position> getEnemyCoords() {
         return this.enemyCoords;
     }
 
+    /**
+     * Getter for item coordinates
+     * @return List<Position> of all the item coordinates
+     */
     public List<Position> getItemCoords() {
         return itemCoords;
     }
 
+    /**
+     * Getter for the player
+     * @return Player 
+     */
     public Player getPlayer() {
         return player;
     }
 
+    /**
+     * Getter for enemy state
+     * @return enemy
+     */
     public HostileEntityState getEnemyState() {
         return enemy;
     }

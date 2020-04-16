@@ -7,22 +7,25 @@ import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
-import javafx.scene.layout.GridPane;
 import javafx.scene.layout.VBox;
 import javafx.scene.shape.Rectangle;
 import javafx.stage.Stage;
-import loot.Inventory;
-import map.MapSetup;
-import map.Position;
-import unit.Player;
-
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
+/**
+ * The main class where the game is launched
+ * @author Bonnie's Computer
+ *
+ */
 public class Main extends Application implements EventHandler<ActionEvent> {
 	static Stage window;
 	
+	/**
+	 * Method to start the game
+	 * @param Stage of where the game is displayed
+	 */
 	public void start(Stage primaryStage) {
 		window = primaryStage;
 		Scene start = SceneChange.getTitleScene(primaryStage);
@@ -30,6 +33,11 @@ public class Main extends Application implements EventHandler<ActionEvent> {
 		window.show();
 	}
 	
+	/**
+	 * Method that opens the pickup item window
+	 * @param inventoryKey int as the key of the item stored in inventory
+	 * @param cell Rectangle of where the item is displayed
+	 */
 	public static void pickUpItemWindow(int inventoryKey, Rectangle cell) {
 		window = new Stage();
 		VBox root = new VBox();

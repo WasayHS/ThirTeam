@@ -14,7 +14,7 @@ public class UserInput {
 
     private static BorderedStrings choices = new OptionsText();
 
-    /* validUserChoice(int)
+    /**
      * Method that checks if the user's input is valid
      *
      * @param numOfChoices: Type int - is the number of choices provided
@@ -39,11 +39,10 @@ public class UserInput {
         return choice;
     }
 
-    /* locationInput()
+    /**
      * Method that prompts the user for coordinates in the right (x,y) format
      *
      * @params: Type TextMap - the current instance of the TextMap
-     * @return void
      */
     public static void locationInput(TextMap textMap) {
         boolean validLen;
@@ -64,12 +63,11 @@ public class UserInput {
         } while (!validLen);
     }
 
-    /* parseCoordinates(String[], Player)
+    /**
      * Parses the the player's input coordinates
      *
      * @param coords: Type String ArrayList - is the input coordinates
      * @param player: Type Player - the instance of the player
-     * @return void
      */
     public static void parseCoordinates(String [] coords, Player player, TextMap textMap) {
         try {
@@ -83,7 +81,7 @@ public class UserInput {
         }
     }
 
-    /* playerAttackInput(String, Unit)
+    /**
      * Called during a battle; prompts the user for an attack/action to execute
      *
      * @param attack: Type String - the type of attack the player can execute

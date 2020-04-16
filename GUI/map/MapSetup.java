@@ -25,6 +25,11 @@ import unit.Enemy;
 import unit.Player;
 import unit.Unit;
 
+/**
+ * Class to setup the map
+ * @author Bonnie's Computer
+ *
+ */
 public class MapSetup { 
 	public static final ImagePattern PLAYER_IMG = new ImagePattern(new Image("/entities/player.png"));
 	public static final ImagePattern ENEMY_IMG = new ImagePattern(new Image("/entities/enemyFull.png"));
@@ -50,18 +55,30 @@ public class MapSetup {
 	public static ArrayList <Integer> keys = new ArrayList<>();
 	public static int num;
 	
+	/**
+	 * Method to create a list of positions of the enemies locations
+	 * @param count int of how many enemies are spawned
+	 * @param size int of the size of the map
+	 * @return List<Position> of the positions of the enemies
+	 */
 	public static List<Position> createEnemyPositions(int count, int size) {
 		List<Position> enemies = new ArrayList<>();
 		Position p;
 
-		for (int i = 0; i < 1; i++) {
+		for (int i = 0; i < count; i++) {
 			p = generatePosition(enemies, size);
 			enemies.add(p);
-			ENEMY_POS.put(p, new Enemy(1, 2, 0, 0, p));
+			ENEMY_POS.put(p, new Enemy(10, 2, 0, 0, p));
 		}
 		return enemies;
 	}
 
+	/**
+	 * Method to create a list of positions of the terrain locations
+	 * @param count int of how many terrain locations were spawned
+	 * @param size int of the size of the map
+	 * @return List<Position> of the positions of the terrain locations
+	 */
 	public static List<Position> createTerrainPositions(int count, int size) {
 		List<Position> terrain = new ArrayList<>();
 		Position p;
@@ -73,6 +90,12 @@ public class MapSetup {
 		return terrain;
 	}
 
+	/**
+	 * Method to generate positions 
+	 * @param listP List<Position> list of the positions to generate
+	 * @param size int of the map size
+	 * @return Position that was generated from the parameters
+	 */
 	private static Position generatePosition(List<Position> listP, int size) {
 		Random randX = new Random();
 		Random randY = new Random();
@@ -86,12 +109,23 @@ public class MapSetup {
 		return p;
 	}
 
+	/**
+	 * Method to set the boss position
+	 * @param b Boss whose position is being set
+	 * @return List<Position> of the location of the boss
+	 */
 	public static List<Position> setBossPosition(Boss b){
 		List<Position> boss = new ArrayList<Position>();
 		boss.add(b.getPosition()); BOSS_POS.put(b.getPosition(), b);
 		return boss;
 	}
 
+	/**
+	 * Method to get enemy
+	 * @param x int for the row position to check
+	 * @param y int for the column position to check
+	 * @return Enemy if located at the passed parameters
+	 */
 	public static Enemy getEnemy(int x, int y) {
 		for (Entry <Position, Enemy> entries : ENEMY_POS.entrySet()) {
 			if (entries.getKey().getX() == x && entries.getKey().getY() == y) {
@@ -101,6 +135,12 @@ public class MapSetup {
 		return null;
 	}
 
+	/**
+	 * Method to get Boss
+	 * @param x int for the row position to check
+	 * @param y int for the column position to check
+	 * @return Boss if located at the passed parameters
+	 */
 	public static Boss getBoss(int x, int y){
 		for (Entry <Position, Boss> entries : BOSS_POS.entrySet()) {
 			if (entries.getKey().getX() == x && entries.getKey().getY() == y) {
@@ -110,7 +150,14 @@ public class MapSetup {
 		return null;
 	}
 
-//	- - - - - Checks for valid move; if move is valid, grid is updated
+	/**
+	 * Method to check for valid player move
+	 * grid will update if the move is valid
+	 * @param grid GridPane of the entire map containing all the Rectangle nodes
+	 * @param p Position of where the player is moving to
+	 * @param player Player of the main character
+	 * @return boolean if the move is valid
+	 */
 	public static boolean checkMove(GridPane grid, Position p, Player player) {
 		Rectangle newPosition = getNode(grid, p);
 		if (Math.abs(player.getPosition().getX()-p.getX()) > 1 || Math.abs(player.getPosition().getY()-p.getY()) > 1 ||
@@ -120,7 +167,13 @@ public class MapSetup {
 		return newPosition.getFill().equals(FLOOR_HOVER) || ( (numberOfEnemies(grid) == 0 || !isBossAlive(grid) )&& newPosition.getFill().equals(PORTAL_IMG)); //If location empty, moves, if no more enemies, portal to next level opens
 	}
 
-//  - - - - - Check for valid enemy move; if move is valid, grid is updated
+	/**
+	 * Method to check for valid enemy move
+	 * grid will update if the move is valid
+	 * @param grid GridPane of the entire map containing all the Rectangle nodes
+	 * @param newPos Position of where the enemy is moving to
+	 * @return boolean if the move is valid
+	 */
 	public static boolean checkEnemyMove(GridPane grid, Position newPos){
 		Rectangle newPosition = getNode(grid, newPos);
 		boolean Move = !(newPosition.getFill().equals(TERRAIN_IMG) || newPosition.getFill().equals(PLAYER_IMG) || newPosition.getFill().equals(WALL_IMG) 
@@ -129,6 +182,12 @@ public class MapSetup {
 		return Move;
 	}
 
+	/**
+	 * Method to get the Rectangle node based on position
+	 * @param grid GridPane of the entire map containing all the Rectangle nodes
+	 * @param p Position of the Rectangle node
+	 * @return Rectangle of node based on parameters passed
+	 */
 	public static Rectangle getNode(GridPane grid, Position p) {
 		for (Node node : grid.getChildren()) {
 			if (grid.getRowIndex(node) == p.getX() && grid.getColumnIndex(node) == p.getY()) {
@@ -138,7 +197,14 @@ public class MapSetup {
 		return null;
 	}
 	
-//		- - - - - Updates map per valid move
+	/**
+	 * Method to update the map per valid move of the player
+	 * @param grid GridPane of the entire map containing all the Rectangle nodes
+	 * @param newPosition Position of where the player is moving
+	 * @param player Player of the main character
+	 * @param window Stage of the battle screen
+	 * @param b Boss to be passed to initateBattle if it is a boss level
+	 */
 	public static void updateGrid (GridPane grid, Position newPosition, Player player, Stage window, Boss b) {
 		Rectangle cell = getNode(grid, newPosition);
 		boolean melee = checkMelee(grid, newPosition, player);
@@ -176,12 +242,30 @@ public class MapSetup {
 		}
 	}
 
+	/**
+	 * Method to initiate the battle sequence
+	 * Calls the BattleThread
+	 * @param enemy Unit of the enemy
+	 * @param player Player of the main character
+	 * @param grid GridPane of the entire map containing all of the Rectangle nodes
+	 * @param melee boolean if the player is engaging in melee
+	 * @param ranged boolean if the player is engaging in ranged
+	 * @param newPosition Position of the ???????
+	 * @param cell Rectangle of where the battle is engaged; where the enemy is 
+	 * @param window Stage for the battle 
+	 */
 	public static void initiateBattle(Unit enemy, Player player, GridPane grid, boolean melee, boolean ranged, Position newPosition, Rectangle cell, Stage window) {
+		Stage hDisplay = new Stage();
 		while(player.getStats().getHealth() > 0 && enemy.getStats().getHealth() > 0) {
-			BattleThread battle = new BattleThread(grid, enemy, player, melee, ranged, newPosition, window, cell);
+			BattleThread battle = new BattleThread(grid, enemy, player, melee, ranged, newPosition, window, cell, hDisplay);
 		}
+		hDisplay.close();
 	}
 
+	/**
+	 * Method to pickup the item/potion
+	 * @param cell Rectangle of where the potion is being picked up from
+	 */
 	public static void pickupItem(Rectangle cell) {
 		int key=0;
 		if (cell.getFill().equals(DEF_HOVER)) {
@@ -194,6 +278,12 @@ public class MapSetup {
 		Main.pickUpItemWindow(key, cell);
 	}
 
+	/**
+	 * Method to drop possibly drop potion after an enemy is dead
+	 * @param grid GridPane of the entire map containing all the Rectangle nodes
+	 * @param unit Unit that will be replaced by the item/potion
+	 * @return Inventory of the new potion that is dropped
+	 */
 	public static Inventory enemyDrop(GridPane grid, Unit unit) {
 		Rectangle oldC = getNode(grid, unit.getPosition());
 		boolean use = true;
@@ -214,6 +304,12 @@ public class MapSetup {
 		return pot;
 	}
 
+	/**
+	 * Method to move the Unit
+	 * @param grid GridPane of the entire map containing all the Rectangle nodes
+	 * @param unit Unit that is moving on the map
+	 * @param newPosition Position of the new position that the unit is moving to
+	 */
 	public static void moveUnit(GridPane grid, Unit unit, Position newPosition) {
 		Rectangle newC = getNode(grid, newPosition);
 		if (unit instanceof Player) {
@@ -229,7 +325,14 @@ public class MapSetup {
 		unit.getPosition().setY(newPosition.getY());
 	}
 
-//	- - - - - - - - Checking enemies around player
+	/**
+	 * Method to check if the player can perform a ranged attack
+	 * Player must be diagonal to position with the enemy
+	 * @param grid GridPane of the entire map containing all the Rectangle nodes
+	 * @param p Position of the cell where the enemy is located
+	 * @param player Player of the main character
+	 * @return boolean if player can perform a melee attack or not
+	 */
 	public static boolean checkRanged(GridPane grid, Position p, Player player) { // Returns true if there is enemy diagonal
 		if (Math.abs(player.getPosition().getX()-p.getX()) > 1 || Math.abs(player.getPosition().getY()-p.getY()) > 1 || (Math.abs(player.getPosition().getX()-p.getX()) != 1) && Math.abs(player.getPosition().getY() - p.getY()) == 1) {
 			return false;
@@ -239,6 +342,14 @@ public class MapSetup {
 		return newPosition != null && (newPosition.getFill().equals(ENEMY_HOVER)||newPosition.getFill().equals(BOSS_HOVER));
 	}
 	
+	/**
+	 * Method to check if the player can perform a melee attack
+	 * Player must be adjacent to position with the enemy
+	 * @param grid GridPane of the entire map containing all the Rectangle nodes
+	 * @param p Position of the cell where the enemy is located
+	 * @param player Player of the main character
+	 * @return boolean if player can perform a melee attack or not
+	 */
 	public static boolean checkMelee(GridPane grid, Position p, Player player) { // Returns true if there is enemy adjacent
 		if (Math.abs(player.getPosition().getX()-p.getX()) > 1 || Math.abs(player.getPosition().getY()-p.getY()) > 1 ||(Math.abs(player.getPosition().getX()-p.getX()) == 1) && (Math.abs(player.getPosition().getY()-p.getY()) == 1)){
 			return false;
@@ -247,6 +358,12 @@ public class MapSetup {
 		return newPosition != null && (newPosition.getFill().equals(ENEMY_HOVER)||newPosition.getFill().equals(BOSS_HOVER));
 	}
 	
+	/**
+	 * Method to check the number of enemies on the map
+	 * Iterates through each Rectangle on the GridPane
+	 * @param grid Gridpane of the entire map containing all the Rectangle nodes
+	 * @return int of how many enemies remain on the grid
+	 */
 	public static int numberOfEnemies(GridPane grid) { // Iterates through each cell
 		int enemies = 0;
 
@@ -260,6 +377,12 @@ public class MapSetup {
 		return enemies;
 	}
 
+	/**
+	 * Method to check if the boss is alive
+	 * Iterates through each Rectangle on the GridPane
+	 * @param grid Gridpane of the entire map containing all the Rectangle nodes
+	 * @return boolean if the boss is alive or not
+	 */
 	public static boolean isBossAlive(GridPane grid) { // Iterates through each cell
 		int b= 0;
 
@@ -273,6 +396,11 @@ public class MapSetup {
 		return b>=1;
 	}
 	
+	/**
+	 * Method to change the ImagePattern on the Rectangle where there is a hover
+	 * @param cell Rectangle of the cell represented on the map
+	 * @return ImagePattern to replace the previous ImagePattern on the cell
+	 */
 	public static ImagePattern enterHover(Rectangle cell) {
 		if (cell.getFill().equals(EMPTY_IMG)) {return FLOOR_HOVER;}
 		if (cell.getFill().equals(PLAYER_IMG)) {return PLAYER_HOVER;}
@@ -293,6 +421,11 @@ public class MapSetup {
 		return WALL_IMG;
 	}
 	
+	/**
+	 * Method to change the ImagePattern on the Rectangle when there is no hover
+	 * @param cell Rectangle of the cell represented on the map
+	 * @return ImagePattern to replace the previous ImagePattern on the cell
+	 */
 	public static ImagePattern exitHover(Rectangle cell) {
 		if (cell.getFill().equals(FLOOR_HOVER)) {return EMPTY_IMG;}
 		if (cell.getFill().equals(PLAYER_HOVER)) {return PLAYER_IMG;}

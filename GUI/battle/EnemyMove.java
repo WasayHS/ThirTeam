@@ -2,15 +2,25 @@ package battle;
 
 
 import java.util.Random;
-
 import javafx.scene.layout.GridPane;
 import map.MapSetup;
 import map.Position;
 import unit.Boss;
 import unit.Enemy;
 import unit.Unit;
+
+/**
+ * Class for enemy movement in battle
+ * @author Bonnie's Computer
+ *
+ */
 public class EnemyMove {
 
+	/**
+	 * Method to check if enemy should follow player if they're close enough
+	 * @param playerPos Position of the player
+	 * @param grid GridPane of the entire map that consists of Rectangle nodes and positions
+	 */
 	public static void move(Position playerPos, GridPane grid ){
 		int chY = -1, chX = -1;
 		int endY = 1, endX = 1;
@@ -50,6 +60,13 @@ public class EnemyMove {
 		}
 	}
 
+	/**
+	 * Method for enemy to move on the map
+	 * @param moveX int x coordinate of where they should move to
+	 * @param moveY int y coordinate of where they should move to
+	 * @param grid GridPane of the entire map that consists of Rectangle nodes and positions
+	 * @param unit Unit that is moving 
+	 */
 	public static void initiateMove(int moveX, int moveY, GridPane grid, Unit unit){
 
 		Position newPos = new Position(moveX,moveY);
@@ -67,11 +84,17 @@ public class EnemyMove {
 		}
 	}
 	
+	/**
+	 * Method to compare the boss location to the player location
+	 * checks if the boss should move
+	 * @param grid GridPane of the entire map that consists of Rectangle nodes and positions
+	 * @param b Boss that might move
+	 * @param playerPos Position of the player
+	 */
 	public static void compareBossLocation (GridPane grid, Boss b, Position playerPos){
 		Position bossPos = b.getPosition();
 		int distanceX = bossPos.getX()-playerPos.getX();
 		int distanceY = bossPos.getY()-playerPos.getY();
-		System.out.println(distanceX+" "+distanceY);
 		Random r = new Random();
 		boolean toChangeX = r.nextBoolean();
 		int moveBossX=0, moveBossY=0;
