@@ -13,7 +13,11 @@ import map.Position;
 import unit.Boss;
 import unit.Enemy;
 import unit.Unit;
-
+	/**
+	 * BattleThread class handles the fight between the enemy/boss and player
+	 * 
+	 *
+	 */
 public class BattleThread {
 	public static final ImagePattern ENEMY3 = new ImagePattern(new Image("/entities/enemy3HP.png"));
 	public static final ImagePattern ENEMY2 = new ImagePattern(new Image("/entities/enemy2HP.png"));
@@ -30,7 +34,18 @@ public class BattleThread {
 	public static boolean playerTurn = true;
 	PlayerTurn playerT;
 	EnemyTurn enemyT;
-	
+	/**
+	 * A constructor for BattleThread that will change the image of the enemy if the enemy goes below a certain amount of health and determines who's turn it is
+	 * @param grid 
+	 * @param enemy Unit of the enemy
+	 * @param player Unit of the player
+	 * @param melee Boolean for determining if the attack is melee 
+	 * @param ranged Boolean for determining if the attack is melee 
+	 * @param p Position for player used for the playerTurn class
+	 * @param window Stage of the map
+	 * @param cell Rectangle node where the enemy image is changing
+	 * @param hDisplay Stage of the popup window to display health
+	 */
 	public BattleThread(GridPane grid, Unit enemy, Unit player, boolean melee, boolean ranged, Position p, Stage window, Rectangle cell, Stage hDisplay) {
 		Unit opponent = enemyType(enemy, p);
 		

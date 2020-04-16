@@ -21,18 +21,18 @@ public class Inventory {
 	private static LootImg image;
 	
 	/**
-	 * Constructor for the class to create potions
+	 * Constructor for the class to create potions and put them into the Map
 	 * @param num int to determine which potion is dropped
 	 */
 	public Inventory (int num) {
-		if (num <= 10 && num >= 0) { //Strength potion
+		if (num <= 10 && num >= 0) { //Strength potion is given
 			Inventory.image = new LootImg(STR_POT);
 			
 		}
-		else if (num >= 10 && num <= 20){
+		else if (num >= 10 && num <= 20){ // Magic Potion is given
 			Inventory.image = new LootImg(MAG_POT);
 		}
-		else {
+		else { // Defense Potion given
 			Inventory.image = new LootImg(DEF_POT);
 		}
 		inventory.put(num, image );
@@ -52,7 +52,7 @@ public class Inventory {
 			return new LootStats (0,3,0);
 		}
 		if(type.equals("def")){
-			return new LootStats (0,0,3);
+			return new LootStats (0,0,2);
 		}
 		return null;
 	}
@@ -119,12 +119,12 @@ public class Inventory {
 	 * @param s String of the type of potion
 	 * @param p Player with stats that will change
 	 */
-	public static void  use(String s, Player p){
+	public static void use(String s, Player p){
 		LootStats l = getLootStats(s);
 		LootImg img =getImageFromType(s);
 		Stats playerOldStats;
 		Stats newStats;
-		if(img.getPot().equals(STR_POT)){/// works
+		if(img.getPot().equals(STR_POT)){
 			playerOldStats = p.getStats();
 			int oldStr = playerOldStats.getStr();
 			

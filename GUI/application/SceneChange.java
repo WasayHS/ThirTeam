@@ -70,7 +70,7 @@ public class SceneChange {
 			level++;
 			window.setScene(nextScene);
 			window.show();
-		} else if (level ==9) {
+		} else if (level ==7) {
 			window.close();
 			Stage completed = new Stage();
 			GameState.victory(completed);
@@ -154,7 +154,7 @@ public class SceneChange {
 	}
 
 	/**
-	 * Method handles game event when player moves on the map
+	 * Method handles game event when user clicks a node on the map
 	 * @param cell Rectangle where the player is moving from
 	 * @param grid GridPane of the battle map
 	 * @param window Stage of where the scene is displayed

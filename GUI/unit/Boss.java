@@ -3,7 +3,7 @@ package unit;
 public class Boss extends Unit {
 	
 	/**
-	 * Constructor for bosses
+	 * Constructor for bosses (extends Unit class)
 	 * @param hp Int for health
 	 * @param str Int for strength
 	 * @param mag Int for mag

@@ -1,14 +1,17 @@
 package battle;
+
 import java.util.Random;
-
 import unit.Unit;
-public class AttackType {
-	
-	private Unit attacker;
 
+public class AttackType {
+	private Unit attacker;
+	/**
+	 * A Constructor for the class that determines who is the attacker
+	 * @param attacker Unit of the attacker (instance variable)
+	 */
 	public AttackType(Unit attacker){
 		this.attacker = attacker;
-		}
+	}
 	
 	//this method changed the stats of the player and enemy depending on their stats
 	public void attackedThem(Unit target, AttackTypes type) {
