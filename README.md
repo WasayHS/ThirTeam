@@ -27,25 +27,37 @@ attacks, or use potions that they will obtain throughout the game.
 ## Setup
 Download the source code by going to "clone or download" and click "Download ZIP" from the master branch
 
-To run the TextApp version of the game:
+To run the TextApp version of the game with TextApp Complete:
 
 ```
 1) Extract ZIP file to desired location
 2) On Eclipse, click on "File" on the taskbar and choose "Open Projects from File System"
-3) Choose the extracted folder from previous location through as the import source and click finish
-4) Alternatively, create a new JAVA project and copy the extracted files into the src folder
+3) Choose the extracted folder: TextApp Complete from previous location through as the import source and click finish
+4) Alternatively, create a new JAVA project and copy the extracted files: TextApp Complete into the src folder
 5) Expand the src folder, expand the "TextApp" folder, and expand the "TextApp" package
 6) Launch the "main" class
 ```
 
-Make sure JavaFX modules are imported to run the GUI
-To run the GUI version of the game:
+To run the GUI version of the game with GUI Complete:
 ```
 1) Extract ZIP file to desired location
 2) On Eclipse, click on "File" on the taskbar and choose "Open Projects from File System"
-3) Choose the extracted folder from previous location through as the import source and click finish
-4) Alternatively, create a new JAVA project and copy the extracted files into the src folder
+3) Choose the extracted folder:GUI Complete from previous location through as the import source and click finish
+4) Alternatively, create a new JAVA project and copy the extracted files: GUI Complete into the src folder
 5) Expand the src folder, expand the "GUI" folder, and expand the "application" package
+6) Launch the "main" class
+```
+
+Make sure JavaFX modules are imported to run the GUI
+
+To run the GUI or TextApp version of the game with Core, GUICore, and TextAppCore folders:
+```
+1) Extract ZIP file to desired location
+2) On Eclipse, click on "File" on the taskbar and choose "Open Projects from File System"
+3) Choose the extracted folders: Core, GUICore, and TextAppCore from previous location through as the import source and click finish
+4) Alternatively, create a new JAVA project and copy the extracted files.Core, GUICore, and TextAppCore, into the src folder
+5.1) FOR THE GUI: Expand the src folder, expand the "GUI" folder, and expand the "application" package
+5.2) FOR THE TEXTAPP: Expand the src folder, expand the "TextApp" folder, and expand the "TextApp" package
 6) Launch the "main" class
 ```
 
