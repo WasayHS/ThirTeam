@@ -31,6 +31,13 @@ import unit.Unit;
  *
  */
 public class MapSetup { 
+	/*
+	* Character References
+	* Player: https://oco.itch.io/medieval-fantasy-character-pack-4
+	* Enemy: https://jesse-m.itch.io/skeleton-pack
+	* Boss: https://oco.itch.io/medieval-fantasy-character-pack-2
+	* Other: https://0x72.itch.io/dungeontileset-ii
+	*/
 	public static final ImagePattern PLAYER_IMG = new ImagePattern(new Image("/entities/player.png"));
 	public static final ImagePattern ENEMY_IMG = new ImagePattern(new Image("/entities/enemyFull.png"));
 	public static final ImagePattern WALL_IMG = new ImagePattern(new Image("/entities/wall.png"));
