@@ -1,0 +1,17 @@
+============================================= How to play "A Beast's Weapon" =============================================
+||                                                                                                                      ||
+||            1. Using the console, you can enter the row and column you wish to move to in the                         ||
+||               format of: x y,with values from 1 to the size of the board.                                            ||
+||                                                                                                                      ||
+||            2. To attack using melee, you must be adjacent to an enemy and enter the coordinates                      ||
+||                of the enemy's position.                                                                              ||
+||                                                                                                                      ||
+||            3. To use the ranged attack, you must be diagonal to an enemy and enter the enemy's coordinates.          ||
+||                                                                                                                      ||
+||            4. You have a maximum of 3 heals in one battle, which resets after you have defeated the enemy.           ||
+||                                                                                                                      ||
+||            5. You can have a maximum of 10 items in your inventory.                                                  ||
+||                                                                                                                      ||
+||            6. Good luck and have fun!                                                                                ||
+||                                                                                                                      ||
+==========================================================================================================================
